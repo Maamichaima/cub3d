@@ -10,7 +10,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-
+# include <string.h>
+# include "libft/libft.h"
 #define SCALE 30
 #define WIDTH 
 #define LENGTH
@@ -24,7 +25,19 @@ typedef struct s_data
 	size_t width;
 } t_data;
 
+typedef struct s_texture
+{
+	char *attr;
+	char *data;
+} t_texture;
+
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
+void	get_texture(int fd);
+t_texture	get_path(char *line);
+int *count_length_width(char *av);
+int check_map(t_data x);
+int  valid_characters(char map, int *count);
+void    check_characters(t_data x);
 
 #endif

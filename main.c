@@ -124,14 +124,19 @@ int main(int ac, char **av)
 {
 	t_data x;
 	int i = 0;
-
-	inisialise(&x, av[1]);
-	x.mlx_win = mlx_new_window(x.mlx_ptr, x.width * SCALE, x.height * SCALE, "Cub3D");
-	c(x);
-	while (x.map[i])
-	{
-		printf("%s \n", x.map[i]);
-		i++;
-	}
-	mlx_loop(x.mlx_ptr);
+	 int fd = open(av[1], O_RDONLY);
+	char *line;
+	int rt;
+	 inisialise(&x, av[1]);
+	 rt = check_map(x);
+	 check_characters(x);
+	 //printf("%d  %d\n",x.width,x.height);
+	// x.mlx_win = mlx_new_window(x.mlx_ptr, x.width * SCALE, x.height * SCALE, "Cub3D");
+	// c(x);
+	// while (x.map[i])
+	// {
+	// 	printf("%s", x.map[i]);
+	// 	i++;
+	// }
+	// mlx_loop(x.mlx_ptr);
 }
