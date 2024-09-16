@@ -1,7 +1,7 @@
 NAME = cub3D
 NAME_B = cub3D_bonus
 
-SRC = main.c
+SRC = main.c info_map.c key_hook.c draw.c
 
 SRC_B = 
 
