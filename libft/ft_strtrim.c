@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:05:09 by cmaami            #+#    #+#             */
-/*   Updated: 2023/11/18 20:05:47 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/18 23:14:07 by rraida-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		i++;
 	debut = &s1[i];
 	if (*debut == '\0')
-		return (ft_strdup(""));
+		return (ft_strdup_libft(""));
 	i = ft_strlen(s1) - 1;
 	while (s1[i] && kayen(s1[i], set))
 		i--;

@@ -12,20 +12,26 @@ int *count_length_width(char *av)
 	width = 0;
 	fd = open(av, O_RDONLY);
 	length = 0;
-	if(fd == -1)
-		printf("map not existe\n");
+	// if(fd == -1)
+	// 	printf("map not existe\n");
 	while(1)
 	{
 		ligne = get_next_line(fd);
-		if (!ligne)
+		if (!ligne || !check_start_map(ligne))
 			break ;
+	}
+	while(ligne)
+	{	
+		//printf("%s ", ligne);
 		if(ft_strlen(ligne) >= length)
 			length = ft_strlen(ligne);
 		width++;
 		free(ligne);
+		ligne = get_next_line(fd);
 	}
 	t[0] = length;
 	t[1] = width;
+	//printf("%d  %d \n", t[0], t[1]);
 	close(fd);
 	return t;
 }
@@ -90,7 +96,10 @@ char **read_map(char *av)
 
 	fd = open(av, O_RDONLY);
 	if(fd == -1)
+	{	
 		printf("map not existe\n");
+		return(NULL);
+	}
 	else
 	{
 		size = count_length_width(av);
@@ -109,28 +118,61 @@ char **read_map(char *av)
 	return map;
 }
 
+char **alloc_map(int size)
+{
+	char **map = NULL;
+
+	map = malloc(sizeof(char*) * (size + 1));
+	if(!map)
+		return NULL;
+	return map;
+}
+
 void inisialise(t_data *x, char *n)
 {
 	int *t;
 
 	t = count_length_width(n);
 	x->mlx_ptr = mlx_init();
-	x->map = read_map(n);
 	x->width = t[0];
 	x->height = t[1];
+	x->map = alloc_map(x->height);
 }
 
 int main(int ac, char **av)
 {
 	t_data x;
+	int fd;
 	int i = 0;
-	 int fd = open(av[1], O_RDONLY);
-	char *line;
-	int rt;
-	 inisialise(&x, av[1]);
-	 rt = check_map(x);
-	 check_characters(x);
-	 //printf("%d  %d\n",x.width,x.height);
+
+	fd = open(av[1], O_RDONLY);
+	get_texture(fd);
+	inisialise(&x,av[1]);
+	fd = open(av[1], O_RDONLY);
+	get_map(fd ,&x);
+	// while (x.map[i])
+	// {
+	// 	printf("%s", x.map[i]);
+	// 	i++;
+	//  }
+
+	char **c = fillBlanks(x);
+	if(check_zero_in_map(c, x))
+		printf("map valide\n");
+	else
+		printf("map not valide\n");
+}
+// int main(int ac, char **av)
+// {
+// 	t_data x;
+// 	int i = 0;
+// 	 int fd = open(av[1], O_RDONLY);
+// 	char *line;
+// 	int rt;
+// 	 inisialise(&x, av[1]);
+	//  rt = check_map(x);
+	//  check_characters(x);
+	//  printf("%d  %d\n",x.width,x.height);
 	// x.mlx_win = mlx_new_window(x.mlx_ptr, x.width * SCALE, x.height * SCALE, "Cub3D");
 	// c(x);
 	// while (x.map[i])
@@ -138,5 +180,15 @@ int main(int ac, char **av)
 	// 	printf("%s", x.map[i]);
 	// 	i++;
 	// }
-	// mlx_loop(x.mlx_ptr);
-}
+	// get_texture(fd);
+	// get_map(fd ,&x);
+	// correct_map(&x);
+	//check_zero_in_map(fillBlanks(x), x);
+	// printf("\n\nnew map \n");
+	// while (x.map[i])
+	// {
+	// 	printf("%s", x.map[i]);
+	// 	i++;
+	//  }
+	 //mlx_loop(x.mlx_ptr);
+//}

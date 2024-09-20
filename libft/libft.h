@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 15:55:10 by cmaami            #+#    #+#             */
-/*   Updated: 2023/11/16 11:53:06 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/18 23:13:32 by rraida-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 void				*ft_calloc(size_t count, size_t size);
-char				*ft_strdup(const char *s1);
+char				*ft_strdup_libft(const char *s1);
 typedef struct s_list
 {
 	void			*content;

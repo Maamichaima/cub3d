@@ -1,127 +1,82 @@
-#include "Cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/20 00:26:19 by cmaami            #+#    #+#             */
+/*   Updated: 2024/09/20 19:08:50 by rraida-          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+# include "Cub3d.h"
 
- t_texture get_path(char *line)
- {
-    t_texture info;
-    char *tmp = malloc(sizeof(char) * ft_strlen(line) + 1);
-    int i = 0 ;
-    int j = 0 ;
-
-        while(line  && line[i] != 32)
-            tmp[j++] = line[i++];
-        tmp[j] = '\0';
-        info.attr = strdup(tmp); //ft_strdup
-        tmp = tmp + j;
-        j = 0;
-        i++;
-        while(line && line[i] != '\0' && line[i] != '\n')
-            tmp[j++] = line[i++];
-        tmp[j] = '\0';
-        info.data = strdup(tmp); // ft_strdup
-        return(info);
- }
-void get_texture(int fd)
+char **fillBlanks(t_data x)
 {
-    char *line;
-    t_texture info;
-    line = get_next_line(fd);
-    while(line)
-    {
-        if(line[0] == 'N' || line[0] == 'S' || line[0] == 'W' || line[0] == 'E' || line[0] == 'F' || line[0] == 'C')
-            info =  get_path(line) ;
-        else
-        {
-            line = get_next_line(fd);
-            continue;
-        }
-       line = get_next_line(fd);
-    }
+	int i = 0;
+	int j = 0;
+	int found = 0;
+	char **copie_map;
+
+	copie_map = malloc(sizeof(char *) *( x.height + 1));
+	
+	//printf("%s\n", x.map[x.height - ]);
+	while(i < x.height)
+	{
+		//printf("%s \n", x.map[i]);
+		copie_map[i] = ft_calloc(x.width + 1, 1);
+		ft_strlcpy(copie_map[i], x.map[i], ft_strlen(x.map[i]) + 1);
+		i++;
+	}
+	copie_map[i] = NULL;
+	return copie_map;
 }
- int check_map(t_data x)
- {
-    char **p;
-    int i = 1;
-    int j = 0;
-    int valid = 1;
-    p = x.map;
-    while(p[0][j] != '\n')
-    {
-        if(p[0][j] != '1' && p[0][j] != 32 )
-        {
-            printf("  1st con     ");
-            valid = 0;
-            break;
-        }
-        j++;
-    }
-    j = 0;
-  
-    while(p[i] && i <( x.height - 1))
-    {
-        j = 0;
-        while(p[i][j] == 32)
-            j++;
-        if(p[i][j] != '1')
-        {
-            printf("  2nd con   %d  " ,i);
-            valid = 0;
-            break;
-        }
-        while(p[i][j] != '\n' && p[i][j] != '\0')
-            j++;
-        if(p[i][j - 1] != '1')
-        {   
-            printf("  3rd con    %d ",i);
-            valid = 0;
-            break;
-        }
-        i++;
-    }
-    j = 0;
-    while(p[x.height - 1][j] != '\0' && p[i][j] != '\n')
-    {
-        if(p[x.height - 1][j] != '1' && p[x.height - 1][j] != 32 )
-        {
-            printf("  4th con     ");
-            valid = 0;
-            break;
-        }
-        j++;
-    }
-    return valid;
- }
-int  valid_characters(char map, int *count)
-{  
-    if((map == 'N' || map == 'S' || map == 'W' || map == 'E') && *count  == 0)
-        *count += 1;
-    else
-        return(0);
-    return(1);
-}
-void    check_characters(t_data x)
+
+int	smya(char c)
 {
-    char **map;
-    int i, j,count = 0;
-    map = x.map;
-
-    i =0;
-
-    while(map[i])
-    {
-        j =0;
-        while(map[i][j] != '\n' && map[i][j] != '\0')
-        {
-            if(map[i][j] == '0' || map[i][j] == '1' || map[i][j] == 32 || valid_characters(map[i][j],&count) == 1)
-                j++;
-            else
-             {   printf("NOT VALID %d\n",count);
-                break;
-            }
-            
-        }
-        i++;
-    }
-    if(count == 0)
-         printf("NOT VALID %d\n",count);
+	if(c != '1' && c != '0')
+		return 1;
+	return 0;
 }
+
+int check_next_to_zero(char **tab, int i, int j, t_data x)
+{
+	if(i <= 0 || i >= x.height || j <= 0 || j >= x.width)
+		return 1;
+	if(smya(tab[i - 1][j]) || smya(tab[i][j - 1]) || smya(tab[i + 1][j]) ||smya(tab[i][j + 1]))
+		return 1;
+	return 0;
+}
+
+int check_zero_in_map(char **tab, t_data x)
+{
+	int i = 0;
+	int j = 0;
+
+	while(tab[i])
+	{
+		j = 0;
+		while(tab[i][j])
+		{
+			if(tab[i][j] == '0' && check_next_to_zero(tab, i, j, x))
+				return 0;
+			j++;
+		}
+		i++;
+	}
+	return 1;
+}
+
+
+// int main(int ac, char **av)
+// {
+// 	t_data x;
+
+// 	inisialise(&x, av[1]);
+// 	char **c = fillBlanks(x);
+// 	if(check_zero_in_map(c, x))
+// 		printf("map valide\n");
+// 	else
+// 		printf("map not valide\n");
+// }
