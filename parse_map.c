@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 00:26:19 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/20 19:08:50 by rraida-          ###   ########.fr       */
+/*   Updated: 2024/09/20 19:34:41 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int check_zero_in_map(char **tab, t_data x)
 	}
 	return 1;
 }
-
 
 // int main(int ac, char **av)
 // {

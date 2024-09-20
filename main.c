@@ -22,7 +22,6 @@ int *count_length_width(char *av)
 	}
 	while(ligne)
 	{	
-		//printf("%s ", ligne);
 		if(ft_strlen(ligne) >= length)
 			length = ft_strlen(ligne);
 		width++;
@@ -128,39 +127,28 @@ char **alloc_map(int size)
 	return map;
 }
 
-void inisialise(t_data *x, char *n)
+void inisialise(t_data *x, char *av)
 {
 	int *t;
 
-	t = count_length_width(n);
+	t = count_length_width(av);
 	x->mlx_ptr = mlx_init();
 	x->width = t[0];
 	x->height = t[1];
 	x->map = alloc_map(x->height);
+	x->file_map = av;
+	
 }
 
+// int check_all()
+// {
+
+// }
 int main(int ac, char **av)
 {
 	t_data x;
-	int fd;
-	int i = 0;
-
-	fd = open(av[1], O_RDONLY);
-	get_texture(fd);
-	inisialise(&x,av[1]);
-	fd = open(av[1], O_RDONLY);
-	get_map(fd ,&x);
-	// while (x.map[i])
-	// {
-	// 	printf("%s", x.map[i]);
-	// 	i++;
-	//  }
-
-	char **c = fillBlanks(x);
-	if(check_zero_in_map(c, x))
-		printf("map valide\n");
-	else
-		printf("map not valide\n");
+	inisialise(&x, av[1]);
+	check_all(&x);
 }
 // int main(int ac, char **av)
 // {

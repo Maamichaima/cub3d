@@ -28,7 +28,7 @@ char *skip_white_spaces(char *str)
     return(str + i);
 }
 t_texture *get_path(char *line)
- {
+{
     t_texture *info = malloc(sizeof(t_texture));
     char *tmp = malloc(sizeof(char) * ft_strlen(line) + 1);
     char *buffer = malloc(sizeof(char) * ft_strlen(line) + 1);
@@ -88,30 +88,38 @@ int possible_color(char *attr)
         return(1);
     return(0);
 }
-int     valid_files(char *file)
+int     valid_files(char *file, char *att)
 {
+	if(!possible_textures(att))
+		return 0;
     int fd;
     fd = open(file, O_RDONLY);
-    //printf("  open return -----%s------  %d \n", file, fd);
     if(fd == -1)
         return(0);
     return(1);
-
 }
-void    check_textures(t_texture *txt)
+int    check_textures(t_texture *txt)
 {
+	int var = 0;
     while(txt)
     {
-        //printf("%d   %d\n",possible_textures(txt->attr) ,valid_files(txt->data));
-        if(possible_textures(txt->attr)  && valid_files(ft_strtrim(txt->data, " \t\n")))
-            printf("%s  valid %s\n",txt->attr,txt->data);
-        else if(possible_color(txt->attr) && check_color(txt->data))
-           printf("%s  valid %s\n",txt->attr,txt->data);
-        else
-            printf("%s not valid %s\n",txt->attr,txt->data);
+		// printf("%s  %s  \n", txt->attr, txt->data);
+		// printf("%d   %d\n", valid_files(ft_strtrim(txt->data, " \t\n"), txt->attr) ,check_color(txt->data, txt->attr));
+        if(!valid_files(ft_strtrim(txt->data, " \t\n"), txt->attr) && !check_color(txt->data, txt->attr))
+		{
+			puts("hhh");
+			return 0;
+		}
+
+        // else
+        //     return 0;
+		// if(!(possible_color(txt->attr) && check_color(txt->data)) || 
+		// !(possible_textures(txt->attr)  && valid_files(ft_strtrim(txt->data, " \t\n"))))
+		// 	return 0;
         txt =txt->next;
     }
-
+	// printf("%d\n",var);
+	return 1;
 }
 
 int check_start_map(char *ligne)
@@ -124,7 +132,7 @@ int check_start_map(char *ligne)
     return 1;
 }
 
-void get_texture(int fd)
+t_texture *get_texture(int fd)
 {
     char *line;
     int i = 0;
@@ -137,12 +145,12 @@ void get_texture(int fd)
         // printf("%s ",line);
         i = 0;
         line = skip_white_spaces(line);
-        if(line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E' || line[i] == 'F' || line[i] == 'C')
+        if(line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E' || line[i] == 'F' || line[i] == 'C' || line[i] != '\0')
         {   
             info =  get_path(line);
             ft_lstadd_back_txt(&texture,info);
         }
-       line = get_next_line(fd);
+       	line = get_next_line(fd);
     }
     close(fd);
     // t_texture  *tmp = texture;
@@ -151,6 +159,6 @@ void get_texture(int fd)
     //    printf("%s   %s\n",tmp->attr,tmp->data);
     //     tmp = tmp->next;
     // }
-     check_textures(texture);
+	return texture;
 }
 

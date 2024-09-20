@@ -23,6 +23,7 @@ typedef struct s_data
 	void *mlx_win;
 	size_t height;
 	size_t width;
+	char *file_map;
 } t_data;
 
 typedef struct s_texture
@@ -34,7 +35,7 @@ typedef struct s_texture
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
-void	get_texture(int fd);
+t_texture *get_texture(int fd);
 t_texture	*get_path(char *line);
 int *count_length_width(char *av);
 int check_map(t_data x);
@@ -48,11 +49,15 @@ void	ft_lstadd_back_txt(t_texture **lst, t_texture *new);
 int	ft_strcmp(char *s1, char *s2);
 int count_comma(char *ligne);
 int check_is_int(char *str);
-int check_color(char *ligne);
+int check_color(char *ligne, char *attr);
 char **fillBlanks(t_data x);
 int	smya(char c);
 int check_next_to_zero(char **tab, int i, int j, t_data x);
 int check_zero_in_map(char **tab, t_data x);
 char **alloc_map(int size);
 int check_start_map(char *ligne);
+int    check_textures(t_texture *txt);
+void inisialise(t_data *x, char *n);
+int check_all(t_data *x);
+int possible_color(char *attr);
 #endif

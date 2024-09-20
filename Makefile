@@ -1,7 +1,7 @@
 NAME = cub3D
 NAME_B = cub3D_bonus
 
-SRC = main.c parse_map.c textures.c check_color.c parse_textures.c
+SRC = main.c parse_map.c textures.c check_color.c parse_textures.c check_all.c
 
 SRC_B = 
 

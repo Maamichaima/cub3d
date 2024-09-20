@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 21:00:58 by maamichaima       #+#    #+#             */
-/*   Updated: 2024/09/18 23:02:19 by rraida-          ###   ########.fr       */
+/*   Updated: 2024/09/20 21:43:15 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,15 @@ int check_is_int(char *str)//+ - spaces
 	return (1);
 }
 
-int check_color(char *ligne)// count (,) and check if the count of tab[i] is num
+int check_color(char *ligne, char *att)// count (,) and check if the count of tab[i] is num
 {
 	char **tab;
 	int i;
 	int retu;
+	if(!possible_color(att))
+		return 0;
+		
 	int count = 0;
-
 	i = 0;
 	if(count_comma(ligne) != 2)
 		return 0;

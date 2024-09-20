@@ -119,7 +119,7 @@ char    **correct_map(t_data *x)
     int j;
     int k;
     char **tb;
-    char **tmp; 
+    char **tmp;
     i = 0;
     k = 0;
    
@@ -136,7 +136,6 @@ char    **correct_map(t_data *x)
         }
         i++;
     }
-    
     x->map[k] = NULL;
    // printf("%s\n",x->map[k]);
     return(x->map);
