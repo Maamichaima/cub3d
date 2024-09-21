@@ -1,60 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_textures.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/21 15:25:03 by cmaami            #+#    #+#             */
+/*   Updated: 2024/09/21 15:25:06 by cmaami           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "Cub3d.h"
-
-//  int check_map(t_data x)
-//  {
-//     char **p;
-//     int i = 1;
-//     int j = 0;
-//     int valid = 1;
-//     p = x.map;
-//     while(p[0][j] != '\n')
-//     {
-//         if(p[0][j] != '1' && p[0][j] != 32)
-//         {
-//             printf("  1st con     ");
-//             valid = 0;
-//             break;
-//         }
-//         j++;
-//     }
-//     j = 0;
-  
-//     while(p[i] && i <( x.height - 1))
-//     {
-//         j = 0;
-//         while(p[i][j] == 32)
-//             j++;
-//         if(p[i][j] != '1')
-//         {
-//             printf("  2nd con   %d  " ,i);
-//             valid = 0;
-//             break;
-//         }
-//         while(p[i][j] != '\n' && p[i][j] != '\0')
-//             j++;
-//         if(p[i][j - 1] != '1')
-//         {   
-//             printf("  3rd con    %d ",i);
-//             valid = 0;
-//             break;
-//         }
-//         i++;
-//     }
-//     j = 0;
-//     while(p[x.height - 1][j] != '\0' && p[i][j] != '\n')
-//     {
-//         if(p[x.height - 1][j] != '1' && p[x.height - 1][j] != 32 )
-//         {
-//             printf("  4th con     ");
-//             valid = 0;
-//             break;
-//         }
-//         j++;
-//     }
-//     return valid;
-// }
-
 
 int  valid_characters(char map, int *count)
 {  
@@ -110,7 +66,7 @@ char    **get_map(int fd, t_data *x)
         j++;
     }
     x->map[j] = NULL;
-    return(correct_map(x));
+    return(x->map);
 }
 
 char    **correct_map(t_data *x)

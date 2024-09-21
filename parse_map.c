@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 00:26:19 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/20 19:34:41 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/21 18:14:10 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ char **fillBlanks(t_data x)
 
 int	smya(char c)
 {
-	if(c != '1' && c != '0')
+	if(c != '1' && c != '0' && !is_player(c))
+	{
+		// printf("hhhh\n");
 		return 1;
+	}
 	return 0;
 }
 
@@ -59,7 +62,7 @@ int check_zero_in_map(char **tab, t_data x)
 		j = 0;
 		while(tab[i][j])
 		{
-			if(tab[i][j] == '0' && check_next_to_zero(tab, i, j, x))
+			if((tab[i][j] == '0' || is_player(tab[i][j]))&& check_next_to_zero(tab, i, j, x))
 				return 0;
 			j++;
 		}
@@ -68,14 +71,12 @@ int check_zero_in_map(char **tab, t_data x)
 	return 1;
 }
 
-// int main(int ac, char **av)
-// {
-// 	t_data x;
+int check_start_map(char *ligne)
+{
+    int i = 0;
 
-// 	inisialise(&x, av[1]);
-// 	char **c = fillBlanks(x);
-// 	if(check_zero_in_map(c, x))
-// 		printf("map valide\n");
-// 	else
-// 		printf("map not valide\n");
-// }
+    ligne = skip_white_spaces(ligne);
+    if(ligne[i] && ligne[i] == '1')
+        return 0;
+    return 1;
+}

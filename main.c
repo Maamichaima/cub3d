@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
+/*   Updated: 2024/09/21 22:10:46 by cmaami           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Cub3d.h"
 
 int *count_length_width(char *av)
@@ -43,93 +55,56 @@ int *count_length_width(char *av)
 // 	*(unsigned int *)dst = color;
 // }
 
-void color_one_square(int start_x, int start_y, void *mlx_ptr, void *win_ptr)
-{
-    int i = 0;
-	int j = 0;
-    int color = 255;
 
-    while (i < 50)
-    {
-		j = 0;
-        while (j < 50)
-        {
-            mlx_pixel_put(mlx_ptr, win_ptr, start_x + i, start_y + j, color);
-			j++;
-        }
-		i++;
-    }
-}
-
-void c(t_data x)
+void delete_player_in_map(t_data *x)
 {
 	int i = 0;
 	int j = 0;
-	int a;
-	int b;
+	int *t = count_length_width("map.cub");
 
-	while(i < (x.height * SCALE))
+	while(i < t[1])
 	{
 		j = 0;
-		while(j < (x.width * SCALE))
+		while(j < t[0])
 		{
-			a = i / SCALE;
-			b = j / SCALE;
-			if(a >= 0 && a < x.height && b >= 0 && b < x.width && x.map[a][b] == '1')
-            	mlx_pixel_put(x.mlx_ptr, x.mlx_win, j, i, 0xe0d5d9);
-			else if(a >= 0 && a < x.height && b >= 0 && b < x.width && x.map[a][b] == '0')
-            	mlx_pixel_put(x.mlx_ptr, x.mlx_win, j, i, 0x215dbf);
+			if(is_player(x->map[i][j]))
+			{
+				x->map[i][j] = '0';
+				break;
+			}
 			j++;
 		}
 		i++;
 	}
 }
 
-char **read_map(char *av)
+void find_player(t_data *x)
 {
-	int fd;
-	char *ligne;
-	char **map = NULL;
-	int *size;
 	int i = 0;
+	int j = 0;
 
-	fd = open(av, O_RDONLY);
-	if(fd == -1)
-	{	
-		printf("map not existe\n");
-		return(NULL);
-	}
-	else
+	while(x->map[i])
 	{
-		size = count_length_width(av);
-		// printf("%d   %d\n", size[0], size[1]);
-		map = malloc(sizeof(char*) * (size[1] + 1));
-		if(!map)
-			return NULL;
-		while(i < size[1])
+		j = 0;
+		while(x->map[i][j])
 		{
-			ligne = get_next_line(fd);
-			map[i] = ligne;
-			i++;
+			// printf("x --> %d  y --> %d \n", i ,j);
+			if (is_player(x->map[i][j]))
+			{
+				x->player.y = (i * SCALE) + SCALE / 2;
+				x->player.x = (j * SCALE) + SCALE / 2;
+				x->map[i][j] = '0';
+				return ;
+			}
+			j++;
 		}
-		map[i] = NULL;
+		i++;
 	}
-	return map;
 }
-
-char **alloc_map(int size)
-{
-	char **map = NULL;
-
-	map = malloc(sizeof(char*) * (size + 1));
-	if(!map)
-		return NULL;
-	return map;
-}
-
 void inisialise(t_data *x, char *av)
 {
 	int *t;
+	int fd;
 
 	t = count_length_width(av);
 	x->mlx_ptr = mlx_init();
@@ -137,18 +112,79 @@ void inisialise(t_data *x, char *av)
 	x->height = t[1];
 	x->map = alloc_map(x->height);
 	x->file_map = av;
-	
+	fd = open(x->file_map, O_RDONLY);
+	x->map = get_map(fd ,x);
+	x->width = t[0];
+	x->height = t[1];
+	x->rayon = SCALE / 2;
+	x->player.angle = 0;// E W N S
+	x->player.dx = cos(x->player.angle);
+	x->player.dy = sin(x->player.angle);
+	int i = 0;
+
+	while(i < 6)
+	{
+		x->keys[i] = 0;
+		i++;
+	}
 }
 
-// int check_all()
-// {
+int	keyOnPres(int key, t_data *x)
+{
+	if(key == XK_w)
+		x->keys[W] = 1;
+	if(key == XK_s)
+		x->keys[S] = 1;
+	if(key == XK_d)
+		x->keys[D] = 1;
+	if(key == XK_a)
+		x->keys[A] = 1;
+	if(key == XK_Right)
+		x->keys[R] = 1;
+	if(key == XK_Left)
+		x->keys[L] = 1;
+	return 0;
+}
+int	keyOnRelease(int key, t_data *x)
+{
+	if(key == XK_w)
+		x->keys[W] = 0;
+	if(key == XK_s)
+		x->keys[S] = 0;
+	if(key == XK_d)
+		x->keys[D] = 0;
+	if(key == XK_a)
+		x->keys[A] = 0;
+	if(key == XK_Right)
+		x->keys[R] = 0;
+	if(key == XK_Left)
+		x->keys[L] = 0;
+	return 0;
+}
 
-// }
 int main(int ac, char **av)
 {
 	t_data x;
 	inisialise(&x, av[1]);
-	check_all(&x);
+	if(check_all(&x))
+	{
+		find_player(&x);
+		x.mlx_win = mlx_new_window(x.mlx_ptr, x.width * SCALE, x.height * SCALE, "Cub3D");
+		x.image.ptr_img = mlx_new_image(x.mlx_ptr, x.width * SCALE, x.height * SCALE);
+		x.image.addr = mlx_get_data_addr(x.image.ptr_img, &x.image.bits_per_pixel,
+					&x.image.line_length, &x.image.endian);
+		// mlx_key_hook(x.mlx_win, key_hook, &x);
+		mlx_hook(x.mlx_win, KeyPress, 1L<<0, keyOnPres, &x);
+		mlx_hook(x.mlx_win, KeyRelease, 1L<<1, keyOnRelease, &x);
+		mlx_loop_hook (x.mlx_ptr, draw, &x);
+		mlx_loop(x.mlx_ptr);
+	}
+	// int i = 0;
+	// while(x.map[i])
+	// {
+	// 	printf("%s", x.map[i]);
+	// 	i++;
+	// }
 }
 // int main(int ac, char **av)
 // {

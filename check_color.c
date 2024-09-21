@@ -6,25 +6,18 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 21:00:58 by maamichaima       #+#    #+#             */
-/*   Updated: 2024/09/20 21:43:15 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/21 15:23:35 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3d.h"
 
-// int check_key(char *ligne)// return index of key + 1 
-// {
-// 	int i;
-	
-// 	i = 0;
-// 	while(ligne[i] && ligne[i] == ' ')
-// 		i++;
-// 	if(ligne[i] && (ligne[i] == 'F' || ligne[i] == 'C') && ligne[i + 1] && ft_isspace(ligne[i + 1]))// ou tab
-// 	{
-// 		return (i + 1);
-// 	}
-// 	return 0;
-// }
+int possible_color(char *attr)
+{
+    if(ft_strcmp(attr,"C") == 0 || ft_strcmp(attr,"F") == 0 )
+        return(1);
+    return(0);
+}
 
 int count_comma(char *ligne)
 {
@@ -94,13 +87,12 @@ int check_color(char *ligne, char *att)// count (,) and check if the count of ta
 	return retu;
 }
 
-// int check_e(char *ligne)
-// {
-// 	int r;
+char *skip_white_spaces(char *str)
+{
+    int i;
 
-// 	r = check_key(ligne);
-// 	if(r == 0)
-// 		return (0);
-// 	else
-// 		return (check_color(ligne + r));
-// }
+    i = 0 ;
+    while(str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+        i++;
+    return(str + i);
+}
