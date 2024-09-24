@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/21 22:21:23 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/24 19:08:59 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include "libft/libft.h"
 #define SCALE 30
 #define WIDTH 
-#define LENGTH
+#define LENGTH 
 #define PI 3.14
 #define LIGNE_OF_PLAYER 50
 
@@ -37,9 +37,9 @@
 #define A 3
 #define R 4
 #define L 5
-#define P_SPEED 0.1
-#define A_SPEED 0.001
-
+#define P_SPEED 0.5
+#define A_SPEED 0.01
+#define FOV_ANGLE 1.0471
 typedef struct s_player
 {
 	double x;
@@ -57,6 +57,13 @@ typedef struct s_image
 	int				line_length;
 	int				endian;
 } t_image;
+
+typedef struct s_ray
+{
+	double ray_angle;
+	double num_rays;
+} t_ray;
+
 typedef struct s_data
 {
 	void *mlx_ptr;
@@ -68,9 +75,9 @@ typedef struct s_data
 	int 	rayon;
 	t_player player;
 	t_image	 image;
+	t_ray ray;
 	int keys[6];
 } t_data;
-
 
 
 typedef struct s_texture

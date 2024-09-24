@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/21 22:10:46 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/24 19:07:07 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,6 @@ int *count_length_width(char *av)
 	return t;
 }
 
-// void	my_mlx_pixel_put(t_fractol *data, int x, int y, int color)
-// {
-// 	char	*dst;
-
-// 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-// 	*(unsigned int *)dst = color;
-// }
-
 
 void delete_player_in_map(t_data *x)
 {
@@ -88,7 +80,6 @@ void find_player(t_data *x)
 		j = 0;
 		while(x->map[i][j])
 		{
-			// printf("x --> %d  y --> %d \n", i ,j);
 			if (is_player(x->map[i][j]))
 			{
 				x->player.y = (i * SCALE) + SCALE / 2;
@@ -116,12 +107,13 @@ void inisialise(t_data *x, char *av)
 	x->map = get_map(fd ,x);
 	x->width = t[0];
 	x->height = t[1];
-	x->rayon = SCALE / 2;
+	x->rayon = SCALE / 1;
 	x->player.angle = 0;// E W N S
+	// x->ray.ray_angle = x->player.angle - (FOV_ANGLE / 2);
+	x->ray.num_rays = (x->width * SCALE) / 1;
 	x->player.dx = cos(x->player.angle);
 	x->player.dy = sin(x->player.angle);
 	int i = 0;
-
 	while(i < 6)
 	{
 		x->keys[i] = 0;
@@ -173,7 +165,6 @@ int main(int ac, char **av)
 		x.image.ptr_img = mlx_new_image(x.mlx_ptr, x.width * SCALE, x.height * SCALE);
 		x.image.addr = mlx_get_data_addr(x.image.ptr_img, &x.image.bits_per_pixel,
 					&x.image.line_length, &x.image.endian);
-		// mlx_key_hook(x.mlx_win, key_hook, &x);
 		mlx_hook(x.mlx_win, KeyPress, 1L<<0, keyOnPres, &x);
 		mlx_hook(x.mlx_win, KeyRelease, 1L<<1, keyOnRelease, &x);
 		mlx_loop_hook (x.mlx_ptr, draw, &x);

@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:45:54 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/21 22:09:03 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/24 22:00:47 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,30 @@ void put_mini_cyrcle(t_data x, int j, int i)
 
 void draw_line_angle(t_data *data, int x0, int y0)
 {
-	int x, y;
+	int x , y;
 	int i;
 
 	i = 0;
 	while (i < LIGNE_OF_PLAYER)
 	{
-		x = x0 + i * cos(data->player.angle);
-		y = y0 + i * sin(data->player.angle);
-		if(x >= 0 && y >= 0)
-			my_mlx_pixel_put(data, x, y, 0xff0000);
+		x = x0 + i * cos(data->ray.ray_angle);
+		y = y0 + i * sin(data->ray.ray_angle);
+		if(x >= 0 && x < data->width * SCALE && y < data->height * SCALE && y >= 0)
+			my_mlx_pixel_put(data, x, y, 0xFFF344);
+		i++;
+	}
+}
+
+void draw_ray_angel(t_data *x)
+{
+	int i;
+	
+	x->ray.ray_angle = x->player.angle - (FOV_ANGLE / 2);
+	i = 0;
+	while(i < x->ray.num_rays)
+	{
+		x->ray.ray_angle += FOV_ANGLE / x->ray.num_rays;
+		draw_line_angle(x, x->player.x, x->player.y);
 		i++;
 	}
 }
@@ -87,6 +101,7 @@ int draw(t_data *x)
 		{
 			a = i / SCALE;
 			b = j / SCALE;
+			
 			if(a >= 0 && a < x->height && b >= 0 && b < x->width && x->map[(int)a][(int)b] == '1')
             	my_mlx_pixel_put(x, j, i, 0xe0d5d9);
 			else if(a >= 0 && a < x->height && b >= 0 && b < x->width && x->map[(int)a][(int)b] == '0')
@@ -97,7 +112,9 @@ int draw(t_data *x)
 	}
 	// my_mlx_pixel_put(&x, x->player.x, x->player.y, 0xf54242); // draw just player
 	color_one_square(x->player.x - SCALE / 2, x->player.y - SCALE / 2, x);
-	draw_line_angle(x, x->player.x, x->player.y);
+	draw_ray_angel(x);
+	// x->ray.ray_angle = x->player.angle;// - (FOV_ANGLE / 2);
+	// draw_line_angle(x, x->player.x, x->player.y);
 	mlx_put_image_to_window(x->mlx_ptr, x->mlx_win, x->image.ptr_img, 0, 0);
 	return 0;
-} 
+}
