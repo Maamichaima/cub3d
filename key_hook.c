@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:01:22 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/15 17:01:26 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/21 22:19:04 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3d.h"
 
-int key_hook(int key, t_data *x)
+int key_hook(t_data *x)
 {
 	double x_x;
 	double y_y;
@@ -20,10 +20,10 @@ int key_hook(int key, t_data *x)
 	int h;
 
 	mlx_clear_window(x->mlx_ptr, x->mlx_win);
-	if(key == XK_w)
+	if(x->keys[W])
 	{
-		x_x = x->player.x + (x->player.dx * 5);
-		y_y = x->player.y + (x->player.dy * 5);
+		x_x = x->player.x + (x->player.dx * P_SPEED);
+		y_y = x->player.y + (x->player.dy * P_SPEED);
 		h = x_x / SCALE;
 		f = y_y / SCALE;
 		if(x->map[f][h] == '0')
@@ -32,10 +32,10 @@ int key_hook(int key, t_data *x)
 			x->player.y = y_y;
 		}
 	}
-	if(key == XK_s)
+	if(x->keys[S])
 	{
-		x_x = x->player.x - x->player.dx * 10;
-		y_y = x->player.y - x->player.dy * 10;
+		x_x = x->player.x - x->player.dx * P_SPEED;
+		y_y = x->player.y - x->player.dy * P_SPEED;
 		h = x_x / SCALE;
 		f = y_y / SCALE;
 		if(x->map[f][h] == '0')
@@ -44,10 +44,10 @@ int key_hook(int key, t_data *x)
 			x->player.y = y_y;
 		}
 	}
-	if(key == XK_d)
+	if(x->keys[D])
 	{
-		y_y = x->player.y + x->player.dx * 10;
-		x_x = x->player.x - x->player.dy * 10;
+		y_y = x->player.y + x->player.dx * P_SPEED;
+		x_x = x->player.x - x->player.dy * P_SPEED;
 		h = x_x / SCALE;
 		f = y_y / SCALE;
 		if(x->map[f][h] == '0')
@@ -56,10 +56,10 @@ int key_hook(int key, t_data *x)
 			x->player.y = y_y;
 		}
 	}
-	if(key == XK_a)
+	if(x->keys[A])
 	{
-		y_y = x->player.y - x->player.dx * 10;
-		x_x = x->player.x + x->player.dy * 10;
+		y_y = x->player.y - x->player.dx * P_SPEED;
+		x_x = x->player.x + x->player.dy * P_SPEED;
 		h = x_x / SCALE;
 		f = y_y / SCALE;
 		if(x->map[f][h] == '0')
@@ -68,18 +68,18 @@ int key_hook(int key, t_data *x)
 			x->player.y = y_y;
 		}
 	}
-	if(key == XK_Right)
+	if(x->keys[R])
 	{
-		x->player.angle += PI / 10;
+		x->player.angle += A_SPEED;
 		x->player.dx = cos(x->player.angle);
 		x->player.dy = sin(x->player.angle);
 	}
-	if(key == XK_Left)
+	if(x->keys[L])
 	{
-		x->player.angle -= PI / 10;
+		x->player.angle -= A_SPEED;
 		x->player.dx = cos(x->player.angle);
 		x->player.dy = sin(x->player.angle);
 	}
-	draw(*x);
+	// draw(*x);
 	return 0;
 }
