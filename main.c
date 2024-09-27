@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/21 22:10:46 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/27 16:19:36 by rraida-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void inisialise(t_data *x, char *av)
 	x->player.angle = 0;// E W N S
 	x->player.dx = cos(x->player.angle);
 	x->player.dy = sin(x->player.angle);
+	
 	int i = 0;
 
 	while(i < 6)

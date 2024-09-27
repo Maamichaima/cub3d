@@ -6,7 +6,7 @@
 /*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:45:54 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/26 16:21:50 by rraida-          ###   ########.fr       */
+/*   Updated: 2024/09/27 16:21:37 by rraida-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int draw(t_data *x)
 	double b;
 
 	key_hook(x);
+	check_ray_position(&x->ray);
 	while(i < (x->height * SCALE))
 	{
 		j = 0;
@@ -99,7 +100,7 @@ int draw(t_data *x)
 	}
 	// my_mlx_pixel_put(&x, x->player.x, x->player.y, 0xf54242); // draw just player
 	color_one_square(x->player.x - SCALE / 2, x->player.y - SCALE / 2, x);
-	// draw_line_angle(x, x->player.x, x->player.y);
+	draw_line_angle(x, x->player.x, x->player.y);
 	cast_ray(x, x->player.x, x->player.y);
 	//draw_ray(x, x->player.x, x->player.y);
 	mlx_put_image_to_window(x->mlx_ptr, x->mlx_win, x->image.ptr_img, 0, 0);
