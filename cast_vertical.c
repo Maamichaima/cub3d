@@ -50,14 +50,10 @@ void     first_V_inter( int  id_column ,t_data *data)
     //     x_inter  -= SCALE;
     x_step = SCALE;
     y_step =(int) (SCALE * tan(data->ray.ray_angle));
-    if(data->ray.direction == UP_LEFT || data->ray.direction == UP_RIGHT)
+    if(data->ray.direction == UP_RIGHT || data->ray.direction == DOWN_RIGHT)
     {
-        if(data->ray.direction == UP_LEFT)
-        {
-            x_step *= -1;
-        }
-        if(data->ray.direction == UP_RIGHT)
-            y_step *= -1;
+		x_step *= -1;
+		y_step *= -1;
     }
     // if(data->ray.direction == UP_LEFT || data->ray.direction == DOWN_LEFT )
     //     x_step  *= -1;

@@ -152,7 +152,7 @@ void    cast_ray(t_data *x, int x0, int y0)
 
     // ray_angle = x->ray.ray_angle + FOV / num_rays;
     // x->ray.ray_angle = protect_angle(&ray_angle);
-    // first_H_inter(id_column,x);
+    first_H_inter(id_column,x);
     first_V_inter(id_column,x);
     // while(i < 1)
     // {
