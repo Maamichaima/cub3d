@@ -6,7 +6,7 @@
 /*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/27 16:20:58 by rraida-          ###   ########.fr       */
+/*   Updated: 2024/09/28 16:03:30 by rraida-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,10 @@ typedef struct s_image
 typedef struct s_ray
 {
 	double ray_angle;
-	int	wall_inter_X;
-	int	wall_inter_Y;
+	double	wall_inter_X;
+	double	wall_inter_Y;
 	char direction;
-	int horz_distance;
-	int vert_distance;
+	int	distance;
 } t_ray;
 
 typedef struct s_data
@@ -89,7 +88,7 @@ typedef struct s_data
 	int 	rayon;
 	t_player player;
 	t_image	 image;
-	t_ray	ray;
+	t_ray	*ray;
 	int keys[6];
 } t_data;
 
@@ -137,7 +136,8 @@ void    cast_ray(t_data *x, int x0, int y0);
 int  draw_ray(t_data *data, int x0, int y0,int x_wall, int y_wall);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int    check_vert_hitwall(t_data *data, double x_inter, double y_inter, double x_step, double y_step);
-void     first_V_inter( int  id_column ,t_data *data);
+int     first_V_inter( int  id_column ,t_data *data);
 int is_wall(t_data x,int i ,int j);
 void    check_ray_position(t_ray *ray);
+int     Distance_2Points(int x,int y,int x_wall,int y_wall);
 #endif

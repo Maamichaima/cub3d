@@ -6,7 +6,7 @@
 /*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/27 16:19:36 by rraida-          ###   ########.fr       */
+/*   Updated: 2024/09/28 15:44:38 by rraida-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ void inisialise(t_data *x, char *av)
 	x->player.angle = 0;// E W N S
 	x->player.dx = cos(x->player.angle);
 	x->player.dy = sin(x->player.angle);
-	
+	x->ray = malloc(sizeof(x->ray) * (x->width * SCALE));
+	//x->ray->ray_angle = 0;
 	int i = 0;
 
 	while(i < 6)
