@@ -79,7 +79,6 @@ int     Ray_LEFT(t_ray ray)
     return(0);
 }
 
-
 int  draw_ray(t_data *data, int x0, int y0 ,int x_wall, int y_wall)
 {
     int x, y;
@@ -126,8 +125,6 @@ int    check_horz_hitwall(t_data *data, double x_inter, double y_inter, double x
     {
         if(is_wall(*data,next_inter_x,next_inter_y))
         {   
-        // puts("hh");
-
             is_wall_flag = 1;
             x_wall = next_inter_x ;
             y_wall = next_inter_y ;
@@ -135,20 +132,14 @@ int    check_horz_hitwall(t_data *data, double x_inter, double y_inter, double x
             break;
         }
         else
-        {   
-            // printf("x=%d  y=%d\n", next_inter_x, next_inter_y );
-            //  my_mlx_pixel_put(data,(int)next_inter_x ,(int)next_inter_y, 0xFFFF33);
+        {
             next_inter_x += x_step;
             next_inter_y += y_step;
-            // if(data->ray->direction == UP_LEFT || data->ray->direction == UP_RIGHT)
-            //     next_inter_y--;
         }
     }
-	
     data->ray->wall_inter_X = x_wall;
     data->ray->wall_inter_Y = y_wall;
     data->ray->distance = Distance_2Points(data->player.x,data->player.y,x_wall,y_wall);
-    //printf("HORIZONTAL x=%f y=%f  distance=%d \n",x_wall,y_wall, data->ray->distance);
     return(data->ray->distance);
 }
 int     first_H_inter( int  id_column ,t_data *data)
@@ -163,32 +154,20 @@ int     first_H_inter( int  id_column ,t_data *data)
 	if(Ray_DOWN(*data->ray))
        y_inter  += (SCALE);
     x_inter =  data->player.x + (y_inter - data->player.y)  / tan(data->ray->ray_angle);
-    
     y_step = SCALE;
     if(Ray_UP(*data->ray))
         y_step *= -1;
     x_step =(int) SCALE / tan(data->ray->ray_angle);
-    // if(Ray_UP(*data->ray))
-    // {
-    //     y_step *= -1;
-    //     x_step *= -1;
-    // }
     if(Ray_RIGHT(*data->ray)&& x_step < 0)
-        {//printf("x_step=%f\n",x_step);
         x_step *=-1;
-       // printf("x_step=%f\n",x_step);
-       }
     if(Ray_LEFT(*data->ray) && x_step > 0)
-    {    
-       // printf("x_step=%f\n",x_step);
          x_step *=-1;
-    }
     return(check_horz_hitwall(data, x_inter, y_inter, x_step, y_step));
 }
 
 void    cast_ray(t_data *x, int x0, int y0) 
 {
-    int num_rays =(x->width * SCALE) / 20;
+    int num_rays =(x->width * SCALE);
     int id_column = 0;
     int i = 0;
     int min;

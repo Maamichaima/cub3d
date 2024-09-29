@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/28 15:44:38 by rraida-          ###   ########.fr       */
+/*   Updated: 2024/09/29 19:51:01 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,19 @@ void delete_player_in_map(t_data *x)
 	}
 }
 
+void inisialise_angle(t_data *x, char p)
+{
+	if(p == 'N')
+		x->player.angle = 3 * PI / 2;
+	else if(p == 'E')
+		x->player.angle = 0;
+	else if(p == 'S')
+		x->player.angle = PI / 2;
+	else if(p == 'W')
+		x->player.angle = PI;
+	x->player.dx = cos(x->player.angle);
+	x->player.dy = sin(x->player.angle);
+}
 void find_player(t_data *x)
 {
 	int i = 0;
@@ -91,6 +104,7 @@ void find_player(t_data *x)
 			// printf("x --> %d  y --> %d \n", i ,j);
 			if (is_player(x->map[i][j]))
 			{
+				inisialise_angle(x, x->map[i][j]);
 				x->player.y = (i * SCALE) + SCALE / 2;
 				x->player.x = (j * SCALE) + SCALE / 2;
 				x->map[i][j] = '0';
@@ -101,6 +115,8 @@ void find_player(t_data *x)
 		i++;
 	}
 }
+
+
 void inisialise(t_data *x, char *av)
 {
 	int *t;
@@ -117,7 +133,7 @@ void inisialise(t_data *x, char *av)
 	x->width = t[0];
 	x->height = t[1];
 	x->rayon = SCALE / 2;
-	x->player.angle = 0;// E W N S
+	// x->player.angle = 0;// E W N S
 	x->player.dx = cos(x->player.angle);
 	x->player.dy = sin(x->player.angle);
 	x->ray = malloc(sizeof(x->ray) * (x->width * SCALE));

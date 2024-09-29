@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/29 15:44:30 by rraida-          ###   ########.fr       */
+/*   Updated: 2024/09/29 19:53:23 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@
 #define A 3
 #define R 4
 #define L 5
-#define P_SPEED 0.3
-#define A_SPEED 0.001
+#define P_SPEED 0.5
+#define A_SPEED 0.01
 
 #define FOV (60.0 * (PI / 180.0))
 	
