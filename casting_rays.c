@@ -13,7 +13,7 @@ double protect_angle(double *angle)
     }
     return(*angle);
 }
-int     Distance_2Points(int x,int y,int x_wall,int y_wall)
+double     Distance_2Points(double x,double y,double x_wall,double y_wall)
 {
     return(sqrt(((x_wall - x) *(x_wall - x)) +((y_wall - y) *(y_wall - y) )));
 }
@@ -57,7 +57,7 @@ int is_wall(t_data x,int i ,int j)
 {
     int a;
     int b;
-    if(i < 0 || i > (x.width * SCALE) || j < 0 && j > (x.height * SCALE))
+    if(i < 0 || i > (x.width * SCALE) || j < 0 || j > (x.height * SCALE))
         return(0);
     a =(int) (i / SCALE);
     b = (int)(j / SCALE);
@@ -92,12 +92,12 @@ int    check_horz_hitwall(t_data *data, double x_inter, double y_inter, double x
         else
         {   
             // printf("x=%d  y=%d\n", next_inter_x, next_inter_y );
-            
+            // my_mlx_pixel_put(data,(int)next_inter_x ,(int)  next_inter_y, 0xFFFF33);
             next_inter_x += x_step;
             next_inter_y += y_step;
         }
- 
     }
+	
     data->ray->wall_inter_X = x_wall;
     data->ray->wall_inter_Y = y_wall;
     data->ray->distance = Distance_2Points(data->player.x,data->player.y,x_wall,y_wall);
@@ -113,6 +113,8 @@ int     first_H_inter( int  id_column ,t_data *data)
     
 
     y_inter =(int)(data->player.y / SCALE) * SCALE ;
+	if(data->ray->direction == UP_RIGHT || data->ray->direction == UP_LEFT)
+       y_inter  += (SCALE);
     x_inter =  data->player.x + ( (y_inter - data->player.y)  / tan(data->ray->ray_angle));
     y_step = SCALE;
     x_step = (int)(SCALE / tan(data->ray->ray_angle));
@@ -121,25 +123,24 @@ int     first_H_inter( int  id_column ,t_data *data)
         y_step *= -1;
         x_step *= -1;
     }
-
     return(check_horz_hitwall(data, x_inter, y_inter, x_step, y_step));
 }
 
 void    cast_ray(t_data *x, int x0, int y0) 
 {
-    int num_rays =(x->width * SCALE) / 20;
+    int num_rays =(x->width * SCALE) / 10;
     int id_column = 0;
     int i = 0;
     int min;
 
     double ray_angle;
 
-    ray_angle = x->player.angle; //- (FOV / 2);// protect_angle
+    ray_angle = x->player.angle ;//- (FOV / 2);// protect_angle
     x->ray->ray_angle = protect_angle(&ray_angle);
     first_H_inter(id_column,x);
     first_V_inter(id_column,x);
+	draw_ray(x, x->player.x, x->player.y, x->ray->wall_inter_X,x->ray->wall_inter_Y);
     //my_mlx_pixel_put(x,(int)x->ray->wall_inter_X ,(int)x->ray->wall_inter_Y, 0xFF0000);
-   // draw_ray(x, x->player.x, x->player.y, x->ray->wall_inter_X,x->ray->wall_inter_Y);
     // ray_angle = x->ray.ray_angle + FOV / num_rays;
     // x->ray.ray_angle = protect_angle(&ray_angle);
     
@@ -154,7 +155,9 @@ void    cast_ray(t_data *x, int x0, int y0)
     // {
     //     ray_angle = x->ray->ray_angle + FOV / num_rays;
     //     x->ray->ray_angle = protect_angle(&ray_angle);
-        
+	// 	first_H_inter(id_column,x);
+	// 	first_V_inter(id_column,x);
+	// 	draw_ray(x, x->player.x, x->player.y, x->ray->wall_inter_X,x->ray->wall_inter_Y);
     //    // draw_line_angle(x, x0,y0);
         
     //     id_column++;

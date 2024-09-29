@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cast_vertical.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/28 23:44:38 by cmaami            #+#    #+#             */
+/*   Updated: 2024/09/29 11:02:17 by cmaami           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Cub3d.h"
 
 int    check_vert_hitwall(t_data *data, double x_inter, double y_inter, double x_step, double y_step)
@@ -24,12 +36,11 @@ int    check_vert_hitwall(t_data *data, double x_inter, double y_inter, double x
         }
         else
         {   
-            my_mlx_pixel_put(data,(int)next_inter_x ,(int)  next_inter_y, 0xFFFF33);
-            next_inter_x -= x_step;
-            next_inter_y -= y_step;
+            // my_mlx_pixel_put(data,(int)next_inter_x ,(int)  next_inter_y, 0xFFFF33);
+            next_inter_x += x_step ;
+            next_inter_y += y_step ;
         }
     }
-    
     vert_distance = Distance_2Points(data->player.x,data->player.y,x_wall,y_wall);
     if( vert_distance < data->ray->distance)
     {   
@@ -48,26 +59,20 @@ int    first_V_inter( int  id_column ,t_data *data)
     double x_step = 0 ; // the delta distance between one intersection to an other
     double y_step = 0;
     
-
     x_inter =(int)(data->player.x / SCALE  ) * SCALE ;
-    y_inter =  data->player.y + ( (x_inter - data->player.x) * tan(data->ray->ray_angle));
     if(data->ray->direction == UP_RIGHT || data->ray->direction == DOWN_RIGHT)
-       x_inter  += SCALE;
+       x_inter  += (SCALE);// - data->player.x);
+    y_inter =  data->player.y + ( (x_inter - data->player.x) * tan(data->ray->ray_angle));
     x_step = SCALE;
     y_step =(int) (SCALE * tan(data->ray->ray_angle));
-    if(data->ray->direction == UP_RIGHT || data->ray->direction == DOWN_RIGHT)
+    if (data->ray->direction == UP_LEFT || data->ray->direction == DOWN_LEFT)
     {
-		x_step *= -1;
-		y_step *= -1;
+        x_step *= -1;
+        y_step *= -1;
     }
-    
-    return(check_vert_hitwall(data,x_inter,y_inter,x_step,y_step));
+	// printf("inter --> %f x_player--> %f\n", x_inter, data->player.x);
+    return(check_vert_hitwall(data, x_inter, y_inter, x_step, y_step));
 }
-
-
-
-
-
 
  // if(data->ray.direction == UP_RIGHT || data->ray.direction == DOWN_RIGHT)
     //     x_inter  -= SCALE;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/28 16:03:30 by rraida-          ###   ########.fr       */
+/*   Updated: 2024/09/29 11:23:31 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_ray
 	double	wall_inter_X;
 	double	wall_inter_Y;
 	char direction;
-	int	distance;
+	double	distance;
 } t_ray;
 
 typedef struct s_data
@@ -139,5 +139,5 @@ int    check_vert_hitwall(t_data *data, double x_inter, double y_inter, double x
 int     first_V_inter( int  id_column ,t_data *data);
 int is_wall(t_data x,int i ,int j);
 void    check_ray_position(t_ray *ray);
-int     Distance_2Points(int x,int y,int x_wall,int y_wall);
+double     Distance_2Points(double x,double y,double x_wall,double y_wall);
 #endif
