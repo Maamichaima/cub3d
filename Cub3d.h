@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/29 11:23:31 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/29 15:44:30 by rraida-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,17 @@
 #define A 3
 #define R 4
 #define L 5
-#define P_SPEED 0.5
-#define A_SPEED 0.01
+#define P_SPEED 0.3
+#define A_SPEED 0.001
 
 #define FOV (60.0 * (PI / 180.0))
 	
 typedef enum
 {
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
 	DOWN_RIGHT,
 	DOWN_LEFT,
 	UP_RIGHT,
@@ -73,7 +77,7 @@ typedef struct s_ray
 	double ray_angle;
 	double	wall_inter_X;
 	double	wall_inter_Y;
-	char direction;
+	int  direction;
 	double	distance;
 } t_ray;
 
@@ -137,7 +141,14 @@ int  draw_ray(t_data *data, int x0, int y0,int x_wall, int y_wall);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int    check_vert_hitwall(t_data *data, double x_inter, double y_inter, double x_step, double y_step);
 int     first_V_inter( int  id_column ,t_data *data);
-int is_wall(t_data x,int i ,int j);
-void    check_ray_position(t_ray *ray);
+int is_wall(t_data x,double i ,double j);
+int    check_ray_position(t_ray *ray);
 double     Distance_2Points(double x,double y,double x_wall,double y_wall);
+int     Ray_UP(t_ray ray);
+int     Ray_DOWN(t_ray ray);
+int     Ray_RIGHT(t_ray ray);
+int     Ray_LEFT(t_ray ray);
+
+
+
 #endif

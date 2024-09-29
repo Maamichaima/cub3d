@@ -6,7 +6,7 @@
 /*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:45:54 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/28 16:50:08 by rraida-          ###   ########.fr       */
+/*   Updated: 2024/09/29 14:44:25 by rraida-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int draw(t_data *x)
 	double b;
 
 	key_hook(x);
-	check_ray_position(x->ray);
+	//check_ray_position(x->ray);
 	while(i < (x->height * SCALE))
 	{
 		j = 0;
