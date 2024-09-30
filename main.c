@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/29 19:51:01 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/30 15:26:37 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ void find_player(t_data *x)
 	}
 }
 
-
 void inisialise(t_data *x, char *av)
 {
 	int *t;
@@ -130,16 +129,11 @@ void inisialise(t_data *x, char *av)
 	x->file_map = av;
 	fd = open(x->file_map, O_RDONLY);
 	x->map = get_map(fd ,x);
-	x->width = t[0];
-	x->height = t[1];
 	x->rayon = SCALE / 2;
-	// x->player.angle = 0;// E W N S
-	x->player.dx = cos(x->player.angle);
-	x->player.dy = sin(x->player.angle);
-	x->ray = malloc(sizeof(x->ray) * (x->width * SCALE));
-	//x->ray->ray_angle = 0;
+	x->num_rays = x->width * SCALE;
+	x->ray = malloc(sizeof(t_ray) * (x->width * SCALE));
+	// printf("%f \n", x->num_rays);
 	int i = 0;
-
 	while(i < 6)
 	{
 		x->keys[i] = 0;

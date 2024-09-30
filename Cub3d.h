@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/29 19:53:23 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/30 16:07:31 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 #define P_SPEED 0.5
 #define A_SPEED 0.01
 
-#define FOV (60.0 * (PI / 180.0))
+#define FOV (60 * (PI / 180))
 	
 typedef enum
 {
@@ -74,10 +74,10 @@ typedef struct s_image
 
 typedef struct s_ray
 {
-	double ray_angle;
+	double 	ray_angle;
 	double	wall_inter_X;
 	double	wall_inter_Y;
-	int  direction;
+	int 	direction;
 	double	distance;
 } t_ray;
 
@@ -92,6 +92,7 @@ typedef struct s_data
 	int 	rayon;
 	t_player player;
 	t_image	 image;
+	double	num_rays;
 	t_ray	*ray;
 	int keys[6];
 } t_data;
@@ -137,10 +138,10 @@ int draw(t_data *x);
 int key_hook(t_data *x);
 void draw_line_angle(t_data *data, int x0, int y0);
 void    cast_ray(t_data *x, int x0, int y0);
-int  draw_ray(t_data *data, int x0, int y0,int x_wall, int y_wall);
+int  draw_ray(t_data *data, int x0, int y0, t_ray ray);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int    check_vert_hitwall(t_data *data, double x_inter, double y_inter, double x_step, double y_step);
-int     first_V_inter( int  id_column ,t_data *data);
+void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_inter, double x_step, double y_step);
+void     first_V_inter( int  id_column ,t_data *data);
 int is_wall(t_data x,double i ,double j);
 int    check_ray_position(t_ray *ray);
 double     Distance_2Points(double x,double y,double x_wall,double y_wall);
