@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 12:30:25 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/30 18:11:27 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/30 18:17:14 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,10 +160,11 @@ void    cast_ray(t_data *x, int x0, int y0)
 		}
 		first_H_inter(i, x);
 		first_V_inter(i, x);
-		draw_ray(x, x->player.x, x->player.y, x->ray[i]);
+		// draw_ray(x, x->player.x, x->player.y, x->ray[i]);
     	// draw_line_angle(x, x0,y0);
     //     id_column++;
         i++;
     }
+	rander_prijected_wall(x);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/30 16:07:31 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/30 22:13:41 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <math.h>
 # include "libft/libft.h"
 #define SCALE 30
-#define WIDTH 
-#define LENGTH
+#define WIDTH 900
+#define LENGTH 700
 #define PI 3.14
 #define LIGNE_OF_PLAYER 50
 
@@ -149,7 +149,7 @@ int     Ray_UP(t_ray ray);
 int     Ray_DOWN(t_ray ray);
 int     Ray_RIGHT(t_ray ray);
 int     Ray_LEFT(t_ray ray);
-
+void rander_prijected_wall(t_data *data);
 
 
 #endif

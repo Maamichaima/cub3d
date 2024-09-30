@@ -2,7 +2,7 @@ NAME = cub3D
 NAME_B = cub3D_bonus
 
 SRC = main.c parse_map.c textures.c check_color.c parse_textures.c check_all.c get_map.c lst.c draw.c key_hook.c casting_rays.c\
-	cast_vertical.c
+	cast_vertical.c rander_3D.c
 SRC_B = 
 
 CFLAGS = #-fsanitize=address -g3 #-Wall -Wextra -Werror 

@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/30 15:26:37 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/30 21:30:36 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ int main(int ac, char **av)
 {
 	t_data x;
 	inisialise(&x, av[1]);
+	// printf("width --> %zu height --> %zu", x.width,x .height);
 	if(check_all(&x))
 	{
 		find_player(&x);

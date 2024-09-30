@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:45:54 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/30 18:11:02 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/09/30 21:52:51 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int draw(t_data *x)
 	double a;
 	double b;
 
+	
 	key_hook(x);
 	//check_ray_position(x->ray);
 	while(i < (x->height * SCALE))
@@ -86,20 +87,20 @@ int draw(t_data *x)
 		j = 0;
 		while(j < (x->width * SCALE))
 		{
-			a = i / SCALE;
-			b = j / SCALE;
-			if((int)i % SCALE == 0 || (int)j % SCALE == 0)
+			// a = i / SCALE;
+			// b = j / SCALE;
+			// if((int)i % SCALE == 0 || (int)j % SCALE == 0)
 				my_mlx_pixel_put(x, j, i, 0x000000);
-			else if (a >= 0 && a < x->height && b >= 0 && b < x->width && x->map[(int)a][(int)b] == '1')
-            	my_mlx_pixel_put(x, j, i, 0xe0d5d9);
-			else if(a >= 0 && a < x->height && b >= 0 && b < x->width && x->map[(int)a][(int)b] == '0')
-            	my_mlx_pixel_put(x, j, i, 0x215dbf);
+			// else if (a >= 0 && a < x->height && b >= 0 && b < x->width && x->map[(int)a][(int)b] == '1')
+            // 	my_mlx_pixel_put(x, j, i, 0xe0d5d9);
+			// else if(a >= 0 && a < x->height && b >= 0 && b < x->width && x->map[(int)a][(int)b] == '0')
+            // 	my_mlx_pixel_put(x, j, i, 0x215dbf);
 			j++;
 		}
 		i++;
 	}
 	// my_mlx_pixel_put(&x, x->player.x, x->player.y, 0xf54242); // draw just player
-	color_one_square(x->player.x - SCALE / 2, x->player.y - SCALE / 2, x);
+	// color_one_square(x->player.x - SCALE / 2, x->player.y - SCALE / 2, x);
 	//draw_line_angle(x, x->player.x, x->player.y);
 	cast_ray(x, x->player.x, x->player.y);
 	//draw_ray(x, x->player.x, x->player.y);
