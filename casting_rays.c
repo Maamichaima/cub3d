@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 12:30:25 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/30 18:17:14 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/01 18:47:48 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void    check_horz_hitwall(t_data *data, int index, double x_inter, double y_int
     double y_wall = 0;
     next_inter_x = x_inter;
     next_inter_y = y_inter;
-   
+
     if(Ray_UP(data->ray[index]))
         next_inter_y--;
     while(next_inter_x >= 0 && next_inter_x < (data->width * SCALE) &&  next_inter_y >= 0 &&  next_inter_y < (data->height * SCALE))
@@ -119,6 +119,7 @@ void    check_horz_hitwall(t_data *data, int index, double x_inter, double y_int
     data->ray[index].wall_inter_Y = y_wall;
     data->ray[index].distance = Distance_2Points(data->player.x, data->player.y, x_wall, y_wall);
 }
+
 void     first_H_inter(int index ,t_data *data)
 {
     double x_inter = 0; // first intersection with horizontal line
@@ -126,14 +127,14 @@ void     first_H_inter(int index ,t_data *data)
     double x_step = 0 ; // the delta distance between one intersection to an other
     double y_step = 0;
 
-    y_inter =(int)(data->player.y / SCALE) * SCALE ;
+    y_inter =(int) floor(data->player.y / SCALE) * SCALE ;
 	if(Ray_DOWN(data->ray[index]))
        y_inter  += (SCALE);
     x_inter =  data->player.x + (y_inter - data->player.y)  / tan(data->ray[index].ray_angle);
     y_step = SCALE;
     if(Ray_UP(data->ray[index]))
         y_step *= -1;
-    x_step =(int) SCALE / tan(data->ray[index].ray_angle);
+    x_step = SCALE / tan(data->ray[index].ray_angle);
     if(Ray_RIGHT(data->ray[index])&& x_step < 0)
         x_step *=-1;
     if(Ray_LEFT(data->ray[index]) && x_step > 0)
@@ -162,9 +163,8 @@ void    cast_ray(t_data *x, int x0, int y0)
 		first_V_inter(i, x);
 		// draw_ray(x, x->player.x, x->player.y, x->ray[i]);
     	// draw_line_angle(x, x0,y0);
-    //     id_column++;
+    	// id_column++;
         i++;
     }
-	rander_prijected_wall(x);
+	// rander_prijected_wall(x);
 }
-

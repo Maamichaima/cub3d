@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 23:44:38 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/30 16:29:20 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/01 18:28:49 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_int
         next_inter_x--;
     while(next_inter_x >= 0 && next_inter_x < (data->width * SCALE) &&  next_inter_y >= 0 &&  next_inter_y < (data->height * SCALE))
     {
+		// printf("x = %f | y = %f\n", next_inter_x, next_inter_y);
         if(is_wall(*data,next_inter_x,next_inter_y))
         {   
             is_wall_flag = 1;
@@ -56,14 +57,14 @@ void    first_V_inter(int index ,t_data *data)
     double x_step = 0 ; // the delta distance between one intersection to an other
     double y_step = 0;
     
-    x_inter =(int)(data->player.x / SCALE ) * SCALE ;
+    x_inter =(int) floor(data->player.x / SCALE ) * SCALE ;
     if(Ray_RIGHT(data->ray[index]) )
        x_inter  += (SCALE);
     y_inter =  data->player.y + ( (x_inter - data->player.x) * tan(data->ray[index].ray_angle));
     x_step = SCALE;
     if(Ray_LEFT(data->ray[index]))
         x_step *= -1;
-    y_step =(int) (SCALE * tan(data->ray[index].ray_angle));
+    y_step = (SCALE * tan(data->ray[index].ray_angle));
     if(Ray_UP(data->ray[index]) && y_step > 0)
         y_step *= -1;
     if(Ray_DOWN(data->ray[index]) && y_step < 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:01:22 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/27 15:28:18 by rraida-          ###   ########.fr       */
+/*   Updated: 2024/10/01 14:31:36 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ int key_hook(t_data *x)
 	int h;
 
 	mlx_clear_window(x->mlx_ptr, x->mlx_win);
+	if(x->keys[ESC] == 1)
+		exit (0);
 	if(x->keys[W])
     {
         x_x = x->player.x + (x->player.dx * P_SPEED);

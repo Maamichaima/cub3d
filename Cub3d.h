@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/30 22:13:41 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/01 19:04:29 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 #define A 3
 #define R 4
 #define L 5
+#define ESC 6
 #define P_SPEED 0.5
 #define A_SPEED 0.01
 
@@ -94,7 +95,7 @@ typedef struct s_data
 	t_image	 image;
 	double	num_rays;
 	t_ray	*ray;
-	int keys[6];
+	int keys[7];
 } t_data;
 
 
@@ -150,6 +151,6 @@ int     Ray_DOWN(t_ray ray);
 int     Ray_RIGHT(t_ray ray);
 int     Ray_LEFT(t_ray ray);
 void rander_prijected_wall(t_data *data);
-
-
+void mini_map(t_data *x, double scale);
+void color_one_square(int start_x, int start_y, void *x, double scale);
 #endif

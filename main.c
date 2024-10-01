@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/30 21:30:36 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/01 14:52:51 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,8 @@ int	keyOnPres(int key, t_data *x)
 		x->keys[R] = 1;
 	if(key == XK_Left)
 		x->keys[L] = 1;
+	if(key == 65307)
+		x->keys[ESC] = 1;
 	return 0;
 }
 int	keyOnRelease(int key, t_data *x)
@@ -171,6 +173,8 @@ int	keyOnRelease(int key, t_data *x)
 		x->keys[R] = 0;
 	if(key == XK_Left)
 		x->keys[L] = 0;
+	if(key == 65307)
+		x->keys[ESC] = 0;
 	return 0;
 }
 
