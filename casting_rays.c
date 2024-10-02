@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 12:30:25 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/01 18:47:48 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/02 14:47:13 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void    check_horz_hitwall(t_data *data, int index, double x_inter, double y_int
     data->ray[index].wall_inter_X = x_wall;
     data->ray[index].wall_inter_Y = y_wall;
     data->ray[index].distance = Distance_2Points(data->player.x, data->player.y, x_wall, y_wall);
+	data->ray[index].direction = 'h';
 }
 
 void     first_H_inter(int index ,t_data *data)

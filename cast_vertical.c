@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 23:44:38 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/01 18:28:49 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/02 16:02:03 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_int
         data->ray[index].distance = vert_distance;
 		data->ray[index].wall_inter_X = x_wall;
 		data->ray[index].wall_inter_Y = y_wall;
+		data->ray[index].direction = 'v';
     }
 }
 

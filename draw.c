@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:45:54 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/01 19:19:51 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/02 16:20:57 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,23 @@ void color_one_square(int start_x, int start_y, void *x,  double scale)
 {
     int i = 0;
 	int j = 0;
-	int s_x = start_x + SCALE /2;
-	int s_y = start_y + SCALE /2;
+	int s_x = start_x + SCALE / 2;
+	int s_y = start_y + SCALE / 2;
     int color = 0xf54242;
 
-    // while (i < SCALE)
-    // {
-	// 	j = 0;
-    //     while (j < SCALE)
-    //     {
-	// 		// printf("%d   %d \n", i, j);
-	// 		if(i < (SCALE - 10) && j < (SCALE - 10) && i > 10 && j > 10)
+    while (i < SCALE)
+    {
+		j = 0;
+        while (j < SCALE)
+        {
+			// printf("%d   %d \n", i, j);
+			// printf("%d   %d \n", start_x, start_y);
+			if(i < (SCALE - 10) && j < (SCALE - 10) && i > 10 && j > 10)
             	my_mlx_pixel_put(x, start_x + i, start_y + j, color);
-	// 		j++;
-    //     }
-	// 	i++;
-    // }
+			j++;
+        }
+		i++;
+    }
 }
 
 int center_x = 15;
@@ -101,7 +102,7 @@ int draw(t_data *x)
 	// draw_line_angle(x, x->player.x, x->player.y);
 	cast_ray(x, x->player.x, x->player.y);
 	rander_prijected_wall(x);
-	// mini_map(x, SCALE * 0.4);
+	// mini_map(x, SCALE);
 	// draw_ray(x, x->player.x, x->player.y);
 	mlx_put_image_to_window(x->mlx_ptr, x->mlx_win, x->image.ptr_img, 0, 0);
 	return 0;

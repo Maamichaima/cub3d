@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:53:33 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/01 19:07:19 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/02 16:17:51 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ void mini_map(t_data *x, double scale)
 	double i = 0;
 	double j = 0;
 	
-	while(i < (x->height * scale))
+	while(i < (x->height * SCALE))
 	{
 		j = 0;
-		while(j < (x->width * scale))
+		while(j < (x->width * SCALE))
 		{
-			a = i / scale;
-			b = j / scale;
-			if((int)i % (int)scale == 0 || (int)j % (int)scale == 0)
+			a = i / SCALE;
+			b = j / SCALE;
+			if((int)i % (int)SCALE == 0 || (int)j % (int)SCALE == 0)
 				my_mlx_pixel_put(x, j, i, 0x000000);
 			else if (a >= 0 && a < x->height && b >= 0 && b < x->width && x->map[(int)a][(int)b] == '1')
             	my_mlx_pixel_put(x, j, i, 0xe0d5d9);
@@ -49,5 +49,7 @@ void mini_map(t_data *x, double scale)
 		}
 		i++;
 	}
-	color_one_square((x->player.x / SCALE) - scale / 2, (x->player.y / SCALE) - scale / 2, x, scale);
+	color_one_square((x->player.x) - SCALE / 2, (x->player.y) - SCALE / 2, x, SCALE);
+	cast_ray_mini_map(x);
+	draw_line_angle(x, x->player.x, x->player.y);
 }

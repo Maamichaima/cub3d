@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/01 19:04:29 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/02 14:46:17 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_ray
 	double 	ray_angle;
 	double	wall_inter_X;
 	double	wall_inter_Y;
-	int 	direction;
+	char 	direction;
 	double	distance;
 } t_ray;
 
