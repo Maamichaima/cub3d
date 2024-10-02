@@ -5,7 +5,7 @@ SRC = main.c parse_map.c textures.c check_color.c parse_textures.c check_all.c g
 	cast_vertical.c rander_3D.c mini_map.c
 SRC_B = 
 
-CFLAGS = #-fsanitize=address -g3 #-Wall -Wextra -Werror 
+CFLAGS = #-Wall -Wextra -Werror #-fsanitize=address -g3 
 
 CC = cc -g
 

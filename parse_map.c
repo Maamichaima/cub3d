@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 00:26:19 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/21 18:14:10 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/02 20:36:09 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 char **fillBlanks(t_data x)
 {
-	int i = 0;
-	int j = 0;
-	int found = 0;
+	size_t i = 0;
 	char **copie_map;
 
 	copie_map = malloc(sizeof(char *) *( x.height + 1));
@@ -43,7 +41,7 @@ int	smya(char c)
 	return 0;
 }
 
-int check_next_to_zero(char **tab, int i, int j, t_data x)
+int check_next_to_zero(char **tab, size_t i, size_t j, t_data x)
 {
 	if(i <= 0 || i >= x.height || j <= 0 || j >= x.width)
 		return 1;

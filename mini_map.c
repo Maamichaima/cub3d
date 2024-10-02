@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:53:33 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/02 16:17:51 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/02 21:30:13 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void cast_ray_mini_map(t_data *x)
 	while(i < x->num_rays)
     {
 		draw_ray(x, x->player.x, x->player.y, x->ray[i]);
+		// printf("%f   %f   \n", x->player.angle, x->ray[i].ray_angle);
     	// draw_line_angle(x, x0,y0);
     //     id_column++;
         i++;
@@ -31,6 +32,7 @@ void mini_map(t_data *x, double scale)
 	double b;
 	double i = 0;
 	double j = 0;
+	(void) scale;
 	
 	while(i < (x->height * SCALE))
 	{
@@ -51,5 +53,5 @@ void mini_map(t_data *x, double scale)
 	}
 	color_one_square((x->player.x) - SCALE / 2, (x->player.y) - SCALE / 2, x, SCALE);
 	cast_ray_mini_map(x);
-	draw_line_angle(x, x->player.x, x->player.y);
+	// draw_line_angle(x, x->player.x, x->player.y);
 }

@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 12:30:25 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/02 14:47:13 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/02 22:02:55 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ double protect_angle(double angle)
 }
 double     Distance_2Points(double x,double y,double x_wall,double y_wall)
 {
+	if(x_wall == 0 && y_wall == 0)
+		return INT_MAX;
     return(sqrt(((x_wall - x) * (x_wall - x)) + ((y_wall - y) * (y_wall - y) )));
 }
 // int    check_ray_position(t_ray *ray)

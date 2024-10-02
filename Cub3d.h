@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/02 14:46:17 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/02 22:14:03 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@
 # include <stdlib.h>
 # include <string.h>
 # include <math.h>
+# include <limits.h>
 # include "libft/libft.h"
 #define SCALE 30
 #define WIDTH 900
 #define LENGTH 700
-#define PI 3.14
+#define PI 3.14159265359
 #define LIGNE_OF_PLAYER 50
 
 #define W 0
@@ -38,8 +39,8 @@
 #define R 4
 #define L 5
 #define ESC 6
-#define P_SPEED 0.5
-#define A_SPEED 0.01
+#define P_SPEED 0.3
+#define A_SPEED 0.005
 
 #define FOV (60 * (PI / 180))
 	
@@ -125,7 +126,7 @@ int check_is_int(char *str);
 int check_color(char *ligne, char *attr);
 char **fillBlanks(t_data x);
 int	smya(char c);
-int check_next_to_zero(char **tab, int i, int j, t_data x);
+int check_next_to_zero(char **tab, size_t i, size_t j, t_data x);
 int check_zero_in_map(char **tab, t_data x);
 char **alloc_map(int size);
 int check_start_map(char *ligne);

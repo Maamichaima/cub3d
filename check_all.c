@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 20:05:12 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/21 19:13:58 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/02 20:38:21 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int check_all(t_data *x)
 {
 	t_texture *t;
 	int fd;
-	int i = 0;
 
 	fd = open(x->file_map, O_RDONLY);
 	t = get_texture(fd);

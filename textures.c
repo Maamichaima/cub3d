@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:16:34 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/21 15:25:18 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/02 20:36:46 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int check_textures_is_duplicate(char *data, t_texture *t)
 
 int    check_textures(t_texture *txt)
 {
-	int var = 0;
 	t_texture *tmp;
 
 	tmp = txt;
