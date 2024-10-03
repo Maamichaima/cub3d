@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rander_3D.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 12:34:11 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/02 22:09:19 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/02 23:56:07 by rraida-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void draw_rect(t_data *data, double wall_height, int j, int color)
 {
 	int i = (data->height * SCALE / 2) - wall_height / 2;
+	if( wall_height > (data->height * SCALE / 2) + wall_height / 2)
+		wall_height = (data->height * SCALE / 2) + wall_height / 2;
 	while(i < (data->height * SCALE / 2) + wall_height / 2)
 	{
 		if(i >= 0 && i < data->height * SCALE)
@@ -42,17 +44,19 @@ int set_wall_color(t_ray ray, double player_angle)
 	return (0);
 }
 
-void rander_prijected_wall(t_data *data)
+void render_projected_wall(t_data *data)
 {
 	double i = 0;
 	double d_projection_plane;
 	double wall_height;
 	int color;
+	double correct_wall_distance;
 
 	while(i < data->num_rays)
 	{
 		d_projection_plane = (data->width * SCALE / 2) / tan(FOV /2);
-		wall_height = (SCALE / data->ray[(int)i].distance) * d_projection_plane;
+		correct_wall_distance =  data->ray[(int)i].distance * cos( data->ray[(int)i].ray_angle - data->player.angle );
+		wall_height = (SCALE / correct_wall_distance) * d_projection_plane;
 		color = set_wall_color(data->ray[(int)i], data->player.angle);
 		draw_rect(data, wall_height, i, color);
 		i++;

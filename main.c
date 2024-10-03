@@ -140,7 +140,12 @@ void inisialise(t_data *x, char *av)
 		i++;
 	}
 }
-
+int	ft_close(t_data *x)
+{
+	mlx_destroy_image(x->mlx_ptr, x->image.ptr_img );
+	mlx_destroy_window(x->mlx_ptr, x->mlx_win);
+	exit(0);
+}
 int	keyOnPres(int key, t_data *x)
 {
 	if(key == XK_w)
@@ -182,7 +187,7 @@ int main(int ac, char **av)
 {
 	t_data x;
 	inisialise(&x, av[1]);
-	// printf("width --> %zu height --> %zu", x.width,x .height);
+	 //printf("width --> %zu height --> %zu", x.width,x .height);
 	if(check_all(&x))
 	{
 		find_player(&x);
@@ -191,6 +196,7 @@ int main(int ac, char **av)
 		x.image.addr = mlx_get_data_addr(x.image.ptr_img, &x.image.bits_per_pixel,
 					&x.image.line_length, &x.image.endian);
 		// mlx_key_hook(x.mlx_win, key_hook, &x);
+		mlx_hook(x.mlx_win, 17, 0, &ft_close, &x);
 		mlx_hook(x.mlx_win, KeyPress, 1L<<0, keyOnPres, &x);
 		mlx_hook(x.mlx_win, KeyRelease, 1L<<1, keyOnRelease, &x);
 		mlx_loop_hook (x.mlx_ptr, draw, &x);

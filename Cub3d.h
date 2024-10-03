@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/02 22:14:03 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/03 00:07:59 by rraida-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 #define WIDTH 900
 #define LENGTH 700
 #define PI 3.14159265359
-#define LIGNE_OF_PLAYER 50
+#define LIGNE_OF_PLAYER 20
 
 #define W 0
 #define D 1
@@ -40,21 +40,10 @@
 #define L 5
 #define ESC 6
 #define P_SPEED 0.3
-#define A_SPEED 0.005
-
+#define A_SPEED 0.01
+#define MINIMAP_SCALE 0.25
 #define FOV (60 * (PI / 180))
 	
-typedef enum
-{
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT,
-	DOWN_RIGHT,
-	DOWN_LEFT,
-	UP_RIGHT,
-	UP_LEFT
-}ray_direction;
 
 typedef struct s_player
 {
@@ -151,7 +140,7 @@ int     Ray_UP(t_ray ray);
 int     Ray_DOWN(t_ray ray);
 int     Ray_RIGHT(t_ray ray);
 int     Ray_LEFT(t_ray ray);
-void rander_prijected_wall(t_data *data);
+void render_projected_wall(t_data *data);
 void mini_map(t_data *x, double scale);
 void color_one_square(int start_x, int start_y, void *x, double scale);
 #endif

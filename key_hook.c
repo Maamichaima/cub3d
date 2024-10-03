@@ -116,6 +116,7 @@ int key_hook(t_data *x)
 	mlx_clear_window(x->mlx_ptr, x->mlx_win);
 	if(x->keys[ESC] == 1)
 		exit (0);
+	
 	if(x->keys[W])
     {
         x_x = x->player.x + (x->player.dx * P_SPEED);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:45:54 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/02 22:11:49 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/03 00:13:38 by rraida-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void color_one_square(int start_x, int start_y, void *x,  double scale)
 			// printf("%d   %d \n", i, j);
 			// printf("%d   %d \n", start_x, start_y);
 			if(i < (SCALE - 10) && j < (SCALE - 10) && i > 10 && j > 10)
-            	my_mlx_pixel_put(x, start_x + i, start_y + j, color);
+            	my_mlx_pixel_put(x, (start_x + i) * MINIMAP_SCALE, (start_y + j) * MINIMAP_SCALE, color);
 			j++;
         }
 		i++;
@@ -98,11 +98,11 @@ int draw(t_data *x)
 
 	clear_img(x);
 	key_hook(x);
-	// color_one_square(x->player.x - SCALE / 2, x->player.y - SCALE / 2, x);
+	 //color_one_square(x->player.x - SCALE / 2, x->player.y - SCALE / 2, x);
 	// draw_line_angle(x, x->player.x, x->player.y);
 	cast_ray(x, x->player.x, x->player.y);
-	rander_prijected_wall(x);
-	// mini_map(x, SCALE);
+	render_projected_wall(x);
+	mini_map(x, SCALE);
 	// draw_ray(x, x->player.x, x->player.y);
 	mlx_put_image_to_window(x->mlx_ptr, x->mlx_win, x->image.ptr_img, 0, 0);
 	return 0;

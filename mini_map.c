@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:53:33 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/02 21:30:13 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/03 00:19:47 by rraida-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void cast_ray_mini_map(t_data *x)
 	
 	while(i < x->num_rays)
     {
-		draw_ray(x, x->player.x, x->player.y, x->ray[i]);
+		draw_ray(x, x->player.x , x->player.y, x->ray[i]);
 		// printf("%f   %f   \n", x->player.angle, x->ray[i].ray_angle);
     	// draw_line_angle(x, x0,y0);
     //     id_column++;
@@ -41,17 +41,17 @@ void mini_map(t_data *x, double scale)
 		{
 			a = i / SCALE;
 			b = j / SCALE;
-			if((int)i % (int)SCALE == 0 || (int)j % (int)SCALE == 0)
-				my_mlx_pixel_put(x, j, i, 0x000000);
-			else if (a >= 0 && a < x->height && b >= 0 && b < x->width && x->map[(int)a][(int)b] == '1')
-            	my_mlx_pixel_put(x, j, i, 0xe0d5d9);
+			// if((int)i % (int)SCALE  == 0 || (int)j % (int)SCALE == 0)
+			// 	my_mlx_pixel_put(x,j, i, 0x000000);
+			if (a >= 0 && a < x->height && b >= 0 && b < x->width && x->map[(int)a][(int)b] == '1')
+            	my_mlx_pixel_put(x, MINIMAP_SCALE *j, MINIMAP_SCALE * i, 0xe0d5d9);
 			else if(a >= 0 && a < x->height && b >= 0 && b < x->width && x->map[(int)a][(int)b] == '0')
-            	my_mlx_pixel_put(x, j, i, 0x215dbf);
+            	my_mlx_pixel_put(x, MINIMAP_SCALE *j,MINIMAP_SCALE *  i, 0x215dbf);
 			j++;
 		}
 		i++;
 	}
 	color_one_square((x->player.x) - SCALE / 2, (x->player.y) - SCALE / 2, x, SCALE);
-	cast_ray_mini_map(x);
-	// draw_line_angle(x, x->player.x, x->player.y);
+	//cast_ray_mini_map(x);
+	draw_line_angle(x, x->player.x * MINIMAP_SCALE, x->player.y * MINIMAP_SCALE);
 }

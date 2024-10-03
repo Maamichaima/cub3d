@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   casting_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 12:30:25 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/02 22:02:55 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/03 00:17:25 by rraida-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int  draw_ray(t_data *data, int x0, int y0 , t_ray ray)//,int x_wall, int y_wall
         x = x0 + i  * cos(ray.ray_angle);
         y = y0  + i * sin(ray.ray_angle);
 		if(x >= 0 && y >= 0)
-			my_mlx_pixel_put(data, x, y, 0xFFFF33);
+			my_mlx_pixel_put(data, x * MINIMAP_SCALE, y * MINIMAP_SCALE, 0xFFFF33);
 		i++;
 	}
     return(0);
