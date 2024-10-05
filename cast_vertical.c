@@ -24,7 +24,7 @@ void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_int
     next_inter_x = x_inter;
     next_inter_y = y_inter;
     if(Ray_LEFT(data->ray[index]))
-        next_inter_x--;
+        next_inter_x -= 0.00001;
     while(next_inter_x >= 0 && next_inter_x < (data->width * SCALE) &&  next_inter_y >= 0 &&  next_inter_y < (data->height * SCALE))
     {
 		// printf("x = %f | y = %f\n", next_inter_x, next_inter_y);

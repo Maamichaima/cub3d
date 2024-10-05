@@ -14,7 +14,14 @@
 
 void draw_rect(t_data *data, double wall_height, int j, int color)
 {
-	int i = (data->height * SCALE / 2) - wall_height / 2;
+	int i = 0;
+	// while(i < (data->height * SCALE / 2) - wall_height / 2)
+	// {	
+	// 	if(i >= 0 && i < data->height * SCALE)
+	// 		my_mlx_pixel_put(data, j, i, 0x34baeb);
+	// 	i++;
+	// }
+	i = (data->height * SCALE / 2) - wall_height / 2;
 	if( wall_height > (data->height * SCALE / 2) + wall_height / 2)
 		wall_height = (data->height * SCALE / 2) + wall_height / 2;
 	while(i < (data->height * SCALE / 2) + wall_height / 2)
@@ -23,6 +30,13 @@ void draw_rect(t_data *data, double wall_height, int j, int color)
 			my_mlx_pixel_put(data, j, i, color);
 		i++;
 	}
+	
+	// while(i < data->height * SCALE)
+	// {
+	// 	if(i >= 0 && i < data->height * SCALE)
+	// 		my_mlx_pixel_put(data, j, i,0xeb6b34);
+	// 	i++;
+	// }
 }
 
 int set_wall_color(t_ray ray, double player_angle)
@@ -47,11 +61,25 @@ int set_wall_color(t_ray ray, double player_angle)
 void render_projected_wall(t_data *data)
 {
 	double i = 0;
+	int j = 0;
 	double d_projection_plane;
 	double wall_height;
 	int color;
 	double correct_wall_distance;
-
+	while(i <(data->width * SCALE))
+	{
+		j = 0;
+		while( j < (data->height * SCALE) )
+		{	
+			if(j < (data->height  * SCALE / 2))
+				my_mlx_pixel_put(data, i, j, 0x34baeb);
+			else if(j > (data->height  * SCALE / 2))
+				my_mlx_pixel_put(data, i, j, 0xeb6b34);
+			j++;
+		}
+		i++;
+	}
+	i = 0;
 	while(i < data->num_rays)
 	{
 		d_projection_plane = (data->width * SCALE / 2) / tan(FOV /2);

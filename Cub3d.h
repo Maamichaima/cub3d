@@ -72,6 +72,16 @@ typedef struct s_ray
 	double	distance;
 } t_ray;
 
+typedef struct s_texture
+{
+	void *ptr_img;
+	int   height;
+	int   width;
+	char *data; // path to the file
+	char *attr;
+	struct s_texture *next;
+} t_texture;
+
 typedef struct s_data
 {
 	void *mlx_ptr;
@@ -83,18 +93,14 @@ typedef struct s_data
 	int 	rayon;
 	t_player player;
 	t_image	 image;
+	t_texture texture;
 	double	num_rays;
 	t_ray	*ray;
 	int keys[7];
 } t_data;
 
 
-typedef struct s_texture
-{
-	char *attr;
-	char *data;
-	struct s_texture *next;
-} t_texture;
+
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
@@ -143,4 +149,5 @@ int     Ray_LEFT(t_ray ray);
 void render_projected_wall(t_data *data);
 void mini_map(t_data *x, double scale);
 void color_one_square(int start_x, int start_y, void *x, double scale);
+void    get_textures_buffer(t_data *data);
 #endif

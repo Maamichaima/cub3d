@@ -24,6 +24,8 @@ int check_all(t_data *x)
 	char **c = fillBlanks(*x);
 	if(checkPlayer(x->map) && check_zero_in_map(c, *x) && check_textures(t))
 	{
+		x->texture = *t;
+		get_textures_buffer(x);
 		printf("map valide\n");
 		return 1;
 	}

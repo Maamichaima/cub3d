@@ -54,14 +54,14 @@ t_texture *get_path(char *line)
     while(line  && line[i] != 32)
         tmp[j++] = line[i++];
     tmp[j] = '\0';
-    info->attr = strdup(tmp); //ft_strdup
+    info->attr = ft_strdup_libft(tmp); //ft_strdup
     line = skip_white_spaces(line + i);
     j = 0;
     i = 0;
     while(line && line[i] != '\0' && line[i] != '\n') 
         buffer[j++] = line[i++];
     buffer[j] = '\0';
-    info->data = strdup(buffer);//ft_strdup
+    info->data =ft_strdup_libft(ft_strtrim(buffer, " \t\n"));//ft_strdup
     info->next = NULL; 
     return(info);
 }
