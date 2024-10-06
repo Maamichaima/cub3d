@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/02 22:06:25 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/06 17:03:35 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,22 @@ void find_player(t_data *x)
 	}
 }
 
+void init_textures(t_data *data)
+{
+	t_texture *t = data->texture;
+
+	// t = dta;
+	// while(t)
+	// {
+		data->texture->ptr_img = mlx_xpm_file_to_image(data->mlx_ptr, "texture.xpm",&data->texture->width,&data->texture->height);
+		if(!data->texture->ptr_img)
+        	printf("Image reading has failed \n");
+		data->texture->img.addr = mlx_get_data_addr(data->texture->ptr_img, &data->texture->img.bits_per_pixel, &data->texture->img.line_length, &data->texture->img.endian);
+	// 	t = t->next;
+	// }
+	// data->texture = t;
+}
+
 void inisialise(t_data *x, char *av)
 {
 	int *t;
@@ -139,6 +155,7 @@ void inisialise(t_data *x, char *av)
 		x->keys[i] = 0;
 		i++;
 	}
+	init_textures(x);
 }
 int	ft_close(t_data *x)
 {
@@ -192,7 +209,9 @@ int main(int ac, char **av)
 	{
 		find_player(&x);
 		x.mlx_win = mlx_new_window(x.mlx_ptr, x.width * SCALE, x.height * SCALE, "Cub3D");
-		x.image.ptr_img = mlx_new_image(x.mlx_ptr, x.width * SCALE, x.height * SCALE);
+		// x.image.ptr_img = mlx_new_image(x.mlx_ptr, x.width * SCALE, x.height * SCALE);
+		x.mlx_win = mlx_new_window(x.mlx_ptr, WIDTH, HEIGHT, "Cub3D");
+		x.image.ptr_img = mlx_new_image(x.mlx_ptr, WIDTH, HEIGHT);
 		x.image.addr = mlx_get_data_addr(x.image.ptr_img, &x.image.bits_per_pixel,
 					&x.image.line_length, &x.image.endian);
 		// mlx_key_hook(x.mlx_win, key_hook, &x);
@@ -200,6 +219,7 @@ int main(int ac, char **av)
 		mlx_hook(x.mlx_win, KeyPress, 1L<<0, keyOnPres, &x);
 		mlx_hook(x.mlx_win, KeyRelease, 1L<<1, keyOnRelease, &x);
 		mlx_loop_hook (x.mlx_ptr, draw, &x);
+		// get_textures_buffer(&x);
 		mlx_loop(x.mlx_ptr);
 	}
 	// int i = 0;

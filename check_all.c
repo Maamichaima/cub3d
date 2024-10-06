@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 20:05:12 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/02 20:38:21 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/06 16:22:27 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int check_all(t_data *x)
 	char **c = fillBlanks(*x);
 	if(checkPlayer(x->map) && check_zero_in_map(c, *x) && check_textures(t))
 	{
-		x->texture = *t;
-		get_textures_buffer(x);
+		// x->texture = t;
+		// get_textures_buffer(x);
 		printf("map valide\n");
 		return 1;
 	}

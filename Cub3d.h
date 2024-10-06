@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/03 00:07:59 by rraida-          ###   ########.fr       */
+/*   Updated: 2024/10/06 16:50:51 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include "libft/libft.h"
 #define SCALE 30
 #define WIDTH 900
-#define LENGTH 700
+#define HEIGHT 600
 #define PI 3.14159265359
 #define LIGNE_OF_PLAYER 20
 
@@ -74,6 +74,7 @@ typedef struct s_ray
 
 typedef struct s_texture
 {
+	t_image img;
 	void *ptr_img;
 	int   height;
 	int   width;
@@ -93,7 +94,7 @@ typedef struct s_data
 	int 	rayon;
 	t_player player;
 	t_image	 image;
-	t_texture texture;
+	t_texture *texture;
 	double	num_rays;
 	t_ray	*ray;
 	int keys[7];
@@ -150,4 +151,5 @@ void render_projected_wall(t_data *data);
 void mini_map(t_data *x, double scale);
 void color_one_square(int start_x, int start_y, void *x, double scale);
 void    get_textures_buffer(t_data *data);
+unsigned int my_mlx_pixel_get(t_image image, int x, int y);
 #endif

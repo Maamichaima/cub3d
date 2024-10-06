@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:45:54 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/03 00:13:38 by rraida-          ###   ########.fr       */
+/*   Updated: 2024/10/05 10:32:56 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ void clear_img(t_data *x)
 	double i = 0;
 	double j = 0;
 	
-	while(i < (x->height * SCALE))
+	while(i < (HEIGHT))//x->height * SCALE
 	{
 		j = 0;
-		while(j < (x->width * SCALE))
+		while(j < WIDTH)//(x->width * SCALE))
 		{
 			my_mlx_pixel_put(x, j, i, 0x000000);
 			j++;
@@ -102,7 +102,7 @@ int draw(t_data *x)
 	// draw_line_angle(x, x->player.x, x->player.y);
 	cast_ray(x, x->player.x, x->player.y);
 	render_projected_wall(x);
-	mini_map(x, SCALE);
+	// mini_map(x, SCALE);
 	// draw_ray(x, x->player.x, x->player.y);
 	mlx_put_image_to_window(x->mlx_ptr, x->mlx_win, x->image.ptr_img, 0, 0);
 	return 0;
