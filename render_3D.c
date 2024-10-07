@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 12:34:11 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/07 00:08:44 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/07 21:19:29 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ double dmod(double x, double y) {
 // 	}
 // }
 
-void draw_rect(t_data *data, double wall_height, int j, int color) // 
+void draw_rect(t_data *data, double wall_height, int j, int color)
 {
 	int	lim = (HEIGHT / 2) + wall_height / 2;
 	int i = (HEIGHT / 2) - wall_height / 2;
-	if (lim > HEIGHT)
-		lim = HEIGHT;
+	// if (lim > HEIGHT)
+	// 	lim = HEIGHT;
 	// printf("%f \n", wall_height);
 	while(i < lim)
 	{
@@ -75,16 +75,16 @@ int set_wall_color(t_ray ray, double player_angle)
 {
     if (ray.direction == 'h')
     {
-        if (ray.ray_angle > 0 && ray.ray_angle < PI) 
-            return 0xD239FF;
-        else 
+        // if (ray.ray_angle > 0 && ray.ray_angle < PI) 
+        //     return 0xD239FF;
+        // else 
             return 0xFF25CD;
     }
     else if (ray.direction == 'v')
 	{
-        if (ray.ray_angle < (PI / 2) || ray.ray_angle > 3 * (PI / 2))
-            return 0x66D7FF;
-        else 
+        // if (ray.ray_angle < (PI / 2) || ray.ray_angle > 3 * (PI / 2))
+        //     return 0x66D7FF;
+        // else 
             return 0xFFF666;
     }
 	return (0);
@@ -98,32 +98,33 @@ void draw_line_of_tex(t_data *data, double wall_height, double j)
 	int i = (HEIGHT / 2) - wall_height / 2;
 	double a, b;
 	
-	if (lim > HEIGHT)
-		lim = HEIGHT;
-	if (i < 0)
-		i = 0;
+	// if (lim > HEIGHT)
+	// 	lim = HEIGHT;
+	// if (i < 0)
+	// 	i = 0;
     // data->texture->ptr_img = mlx_xpm_file_to_image(data->mlx_ptr, "texture->xpm",&data->texture->width,&data->texture->height);
 	// data->texture->img.addr = mlx_get_data_addr(data->texture->ptr_img, &data->texture->img.bits_per_pixel, &data->texture->img.line_length, &data->texture->img.endian);
-    scale_height = wall_height / (double)data->texture->height;
-    scale_width = wall_height / (double)data->texture->width;
+    scale_height = wall_height / data->texture->height;
+    scale_width = wall_height / data->texture->width;
 	if(!data->texture->ptr_img)
         printf("Image reading has failed \n");
 	unsigned int color;
-	double	d = j / SCALE * SCALE;
-	d = j - d;
+	double	d = (long long)data->ray[(long long)j].wall_inter_X / SCALE * SCALE;
+	d = data->ray[(long long)j].wall_inter_X - d;
 	a = dmod((j + d) / scale_width, data->texture->width);
 	// printf("%d \n", i);
 	while(i < lim)
 	{
-		b = (i - ((HEIGHT / 2) - wall_height / 2)) / scale_height;
+		b = dmod((i - ((HEIGHT / 2) - wall_height / 2)) / scale_height, data->texture->height);
 		color = 0;
-		if(a < data->texture->width && a >= 0 && dmod(b, data->texture->height) < data->texture->height && dmod(b, data->texture->height) >= 0)
-			color = my_mlx_pixel_get(data->texture->img, a, dmod(b, data->texture->height));
+		if(a < data->texture->width && a >= 0 && b < data->texture->height && b >= 0)
+			color = my_mlx_pixel_get(data->texture->img, a, b);
 		if(i >= 0 && i < HEIGHT && j >= 0 && j < WIDTH)
 			my_mlx_pixel_put(data, j, i, color);
 		i++;
 	}
 }
+
 
 void render_projected_wall(t_data *data)
 {
@@ -131,7 +132,7 @@ void render_projected_wall(t_data *data)
 	int j = 0;
 	double d_projection_plane;
 	double wall_height;
-	int color;
+	int color = 0;
 	double correct_wall_distance;
 	while(i < WIDTH)//(data->width * SCALE))
 	{
@@ -150,7 +151,7 @@ void render_projected_wall(t_data *data)
 	while(i < data->num_rays)
 	{
 		d_projection_plane = (WIDTH / 2) / tan(FOV /2);//(data->width * SCALE / 2) / tan(FOV /2);
-		correct_wall_distance =  data->ray[(int)i].distance * cos( data->ray[(int)i].ray_angle - data->player.angle );
+		correct_wall_distance =  data->ray[(long long)i].distance * cos( data->ray[(long long)i].ray_angle - data->player.angle);
 		wall_height = (SCALE / correct_wall_distance) * d_projection_plane;
 		// color = set_wall_color(data->ray[(int)i], data->player.angle);
 		// draw_rect(data, wall_height, i, color);

@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:01:22 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/02 22:05:42 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/07 20:20:02 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,6 @@ int key_hook(t_data *x)
         y_y = x->player.y + (x->player.dx * P_SPEED);
         h = x_x / SCALE;
         f = y_y / SCALE;
-
         if(x->map[f][h] == '0')
         {
             x->player.x = x_x;
@@ -168,7 +167,6 @@ int key_hook(t_data *x)
         y_y = x->player.y - (x->player.dx * P_SPEED);
         h = x_x / SCALE;
         f = y_y / SCALE;
-
         if(x->map[f][h] == '0')
         {
             x->player.x = x_x;

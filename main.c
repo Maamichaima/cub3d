@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/06 17:03:35 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/07 20:45:49 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void init_textures(t_data *data)
 	// t = dta;
 	// while(t)
 	// {
-		data->texture->ptr_img = mlx_xpm_file_to_image(data->mlx_ptr, "texture.xpm",&data->texture->width,&data->texture->height);
+		data->texture->ptr_img = mlx_xpm_file_to_image(data->mlx_ptr, "texturs_2.xpm",&data->texture->width,&data->texture->height);
 		if(!data->texture->ptr_img)
         	printf("Image reading has failed \n");
 		data->texture->img.addr = mlx_get_data_addr(data->texture->ptr_img, &data->texture->img.bits_per_pixel, &data->texture->img.line_length, &data->texture->img.endian);
@@ -146,7 +146,7 @@ void inisialise(t_data *x, char *av)
 	fd = open(x->file_map, O_RDONLY);
 	x->map = get_map(fd ,x);
 	x->rayon = SCALE / 2;
-	x->num_rays = x->width * SCALE;
+	x->num_rays = WIDTH;
 	x->ray = malloc(sizeof(t_ray) * (x->width * SCALE));
 	// printf("%f \n", x->num_rays);
 	int i = 0;
@@ -208,7 +208,7 @@ int main(int ac, char **av)
 	if(check_all(&x))
 	{
 		find_player(&x);
-		x.mlx_win = mlx_new_window(x.mlx_ptr, x.width * SCALE, x.height * SCALE, "Cub3D");
+		// x.mlx_win = mlx_new_window(x.mlx_ptr, x.width * SCALE, x.height * SCALE, "Cub3D");
 		// x.image.ptr_img = mlx_new_image(x.mlx_ptr, x.width * SCALE, x.height * SCALE);
 		x.mlx_win = mlx_new_window(x.mlx_ptr, WIDTH, HEIGHT, "Cub3D");
 		x.image.ptr_img = mlx_new_image(x.mlx_ptr, WIDTH, HEIGHT);
