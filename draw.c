@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:45:54 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/07 21:01:33 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/09 17:26:28 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int draw(t_data *x)
 
 	clear_img(x);
 	key_hook(x);
-	 //color_one_square(x->player.x - SCALE / 2, x->player.y - SCALE / 2, x);
+	//color_one_square(x->player.x - SCALE / 2, x->player.y - SCALE / 2, x);
 	// draw_line_angle(x, x->player.x, x->player.y);
 	cast_ray(x, x->player.x, x->player.y);
 	render_projected_wall(x);

@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 12:34:11 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/07 21:19:29 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/10 14:16:27 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,41 +90,51 @@ int set_wall_color(t_ray ray, double player_angle)
 	return (0);
 }
 
-void draw_line_of_tex(t_data *data, double wall_height, double j)
+double get_start_text(t_ray ray, t_texture tex)
+{
+	double	d;
+	
+	if (ray.direction == 'h')
+	{
+		d = (long long)ray.wall_inter_X / SCALE * SCALE;
+		d = (ray.wall_inter_X - d) / SCALE * tex.width;
+	}
+	else
+	{
+		d = (long long)ray.wall_inter_Y / SCALE * SCALE;
+		d = (ray.wall_inter_Y - d) / SCALE * tex.width;
+	}
+	return d;
+}
+
+void draw_line_of_tex(t_data *data, double wall_height, double i)
 {
 	double scale_width;
 	double scale_height;
-	int	lim = (HEIGHT / 2) + wall_height / 2;
-	int i = (HEIGHT / 2) - wall_height / 2;
+	double	lim = (HEIGHT / 2) + wall_height / 2;
+	double j = (HEIGHT / 2) - wall_height / 2;
 	double a, b;
+	unsigned int color;
+	double	d;
 	
-	// if (lim > HEIGHT)
-	// 	lim = HEIGHT;
-	// if (i < 0)
-	// 	i = 0;
-    // data->texture->ptr_img = mlx_xpm_file_to_image(data->mlx_ptr, "texture->xpm",&data->texture->width,&data->texture->height);
-	// data->texture->img.addr = mlx_get_data_addr(data->texture->ptr_img, &data->texture->img.bits_per_pixel, &data->texture->img.line_length, &data->texture->img.endian);
+	if (lim > HEIGHT)
+		lim = HEIGHT;
+	if (j < 0)
+		j = 0;
     scale_height = wall_height / data->texture->height;
     scale_width = wall_height / data->texture->width;
-	if(!data->texture->ptr_img)
-        printf("Image reading has failed \n");
-	unsigned int color;
-	double	d = (long long)data->ray[(long long)j].wall_inter_X / SCALE * SCALE;
-	d = data->ray[(long long)j].wall_inter_X - d;
-	a = dmod((j + d) / scale_width, data->texture->width);
-	// printf("%d \n", i);
-	while(i < lim)
+	d = get_start_text(data->ray[(long long)i], *data->texture);
+	a = dmod((i + d), data->texture->width);
+	while(j < lim)
 	{
-		b = dmod((i - ((HEIGHT / 2) - wall_height / 2)) / scale_height, data->texture->height);
-		color = 0;
+		b = dmod((j - ((HEIGHT / 2) - wall_height / 2)) / scale_height, data->texture->height);
 		if(a < data->texture->width && a >= 0 && b < data->texture->height && b >= 0)
 			color = my_mlx_pixel_get(data->texture->img, a, b);
-		if(i >= 0 && i < HEIGHT && j >= 0 && j < WIDTH)
-			my_mlx_pixel_put(data, j, i, color);
-		i++;
+		if(j >= 0 && j < HEIGHT && i >= 0 && i < WIDTH)
+			my_mlx_pixel_put(data, i, j, color);
+		j++;
 	}
 }
-
 
 void render_projected_wall(t_data *data)
 {

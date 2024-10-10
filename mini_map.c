@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:53:33 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/03 00:19:47 by rraida-          ###   ########.fr       */
+/*   Updated: 2024/10/09 17:36:54 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void mini_map(t_data *x, double scale)
 			a = i / SCALE;
 			b = j / SCALE;
 			// if((int)i % (int)SCALE  == 0 || (int)j % (int)SCALE == 0)
-			// 	my_mlx_pixel_put(x,j, i, 0x000000);
+			// 	my_mlx_pixel_put(x,MINIMAP_SCALE * j, MINIMAP_SCALE * i, 0x000000);
 			if (a >= 0 && a < x->height && b >= 0 && b < x->width && x->map[(int)a][(int)b] == '1')
             	my_mlx_pixel_put(x, MINIMAP_SCALE *j, MINIMAP_SCALE * i, 0xe0d5d9);
 			else if(a >= 0 && a < x->height && b >= 0 && b < x->width && x->map[(int)a][(int)b] == '0')
