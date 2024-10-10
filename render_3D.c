@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 12:34:11 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/10 14:16:27 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/10 16:44:45 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,16 @@ int set_wall_color(t_ray ray, double player_angle)
 {
     if (ray.direction == 'h')
     {
-        // if (ray.ray_angle > 0 && ray.ray_angle < PI) 
-        //     return 0xD239FF;
-        // else 
+        if (ray.ray_angle > 0 && ray.ray_angle < PI) 
+            return 0xD239FF;
+        else 
             return 0xFF25CD;
     }
     else if (ray.direction == 'v')
 	{
-        // if (ray.ray_angle < (PI / 2) || ray.ray_angle > 3 * (PI / 2))
-        //     return 0x66D7FF;
-        // else 
+        if (ray.ray_angle < (PI / 2) || ray.ray_angle > 3 * (PI / 2))
+            return 0x66D7FF;
+        else 
             return 0xFFF666;
     }
 	return (0);
@@ -107,6 +107,38 @@ double get_start_text(t_ray ray, t_texture tex)
 	return d;
 }
 
+t_texture hh(t_texture *t, char *str)
+{
+	while(t)
+	{
+		if(ft_strcmp(t->attr, str) == 0)
+			return (*t);
+		t = t->next;
+	}
+	return *t;
+}
+
+t_texture get_wall_tex(t_ray ray, t_data data)
+{
+	t_texture *t;
+
+	t = data.texture;
+	if (ray.direction == 'h')
+    {
+        if (ray.ray_angle > 0 && ray.ray_angle < PI) 
+            return (hh(data.texture, "SO"));
+        else 
+            return (hh(data.texture, "NO"));
+    }
+    else
+	{
+        if (ray.ray_angle < (PI / 2) || ray.ray_angle > 3 * (PI / 2))
+            return (hh(data.texture, "EA"));
+        else 
+            return (hh(data.texture, "WE"));
+    }
+}
+
 void draw_line_of_tex(t_data *data, double wall_height, double i)
 {
 	double scale_width;
@@ -116,20 +148,21 @@ void draw_line_of_tex(t_data *data, double wall_height, double i)
 	double a, b;
 	unsigned int color;
 	double	d;
+	t_texture t = get_wall_tex(data->ray[(long long)i], *data);
 	
 	if (lim > HEIGHT)
 		lim = HEIGHT;
 	if (j < 0)
 		j = 0;
-    scale_height = wall_height / data->texture->height;
-    scale_width = wall_height / data->texture->width;
-	d = get_start_text(data->ray[(long long)i], *data->texture);
-	a = dmod((i + d), data->texture->width);
+    scale_height = wall_height / t.height;
+    scale_width = wall_height / t.width;
+	d = get_start_text(data->ray[(long long)i], t);
+	a = dmod((i + d), t.width);
 	while(j < lim)
 	{
-		b = dmod((j - ((HEIGHT / 2) - wall_height / 2)) / scale_height, data->texture->height);
-		if(a < data->texture->width && a >= 0 && b < data->texture->height && b >= 0)
-			color = my_mlx_pixel_get(data->texture->img, a, b);
+		b = dmod((j - ((HEIGHT / 2) - wall_height / 2)) / scale_height, t.height);
+		if(a < t.width && a >= 0 && b < t.height && b >= 0)
+			color = my_mlx_pixel_get(t.img, a, b);
 		if(j >= 0 && j < HEIGHT && i >= 0 && i < WIDTH)
 			my_mlx_pixel_put(data, i, j, color);
 		j++;

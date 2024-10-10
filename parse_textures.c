@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:25:03 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/02 20:37:53 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/10 16:24:20 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,5 @@ char    **correct_map(t_data *x)
         i++;
     }
     x->map[k] = NULL;
-   // printf("%s\n",x->map[k]);
     return(x->map);
 }

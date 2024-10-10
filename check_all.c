@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 20:05:12 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/06 16:22:27 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/10 15:50:41 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 
 int check_all(t_data *x)
 {
-	t_texture *t;
 	int fd;
 
 	fd = open(x->file_map, O_RDONLY);
-	t = get_texture(fd);
+	x->texture = get_texture(fd);
 	// fd = open(x->file_map, O_RDONLY);
 	// get_map(fd ,x);
+	// printf("%s   %s \n", t->attr, t->data);
 	char **c = fillBlanks(*x);
-	if(checkPlayer(x->map) && check_zero_in_map(c, *x) && check_textures(t))
+	if(checkPlayer(x->map) && check_zero_in_map(c, *x) && check_textures(x->texture))
 	{
-		// x->texture = t;
-		// get_textures_buffer(x);
 		printf("map valide\n");
 		return 1;
 	}

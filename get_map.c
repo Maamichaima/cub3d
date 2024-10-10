@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:14:30 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/21 18:10:10 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/10 15:36:03 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ t_texture *get_texture(int fd)
     t_texture *info;
     texture = NULL;
     line = get_next_line(fd);
+	
+			// puts(line);
     while(line && check_start_map(line))
     {
         i = 0;
@@ -81,7 +83,9 @@ t_texture *get_texture(int fd)
         if(line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E' || line[i] == 'F' || line[i] == 'C' || line[i] != '\0')
         {   
             info =  get_path(line);
-            ft_lstadd_back_txt(&texture,info);
+			// puts(info->attr);
+			// puts(info->data);
+            ft_lstadd_back_txt(&texture, info);
         }
        	line = get_next_line(fd);
     }

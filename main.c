@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/07 20:45:49 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/10 16:23:28 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,20 +116,28 @@ void find_player(t_data *x)
 	}
 }
 
+int is_textures(char *str)
+{
+	if(!ft_strcmp(str, "EA") || !ft_strcmp(str, "NO") ||!ft_strcmp(str, "WE") ||!ft_strcmp(str, "SO"))
+		return 1;
+	return 0;
+}
+
 void init_textures(t_data *data)
 {
 	t_texture *t = data->texture;
-
-	// t = dta;
-	// while(t)
-	// {
-		data->texture->ptr_img = mlx_xpm_file_to_image(data->mlx_ptr, "texturs_2.xpm",&data->texture->width,&data->texture->height);
-		if(!data->texture->ptr_img)
-        	printf("Image reading has failed \n");
-		data->texture->img.addr = mlx_get_data_addr(data->texture->ptr_img, &data->texture->img.bits_per_pixel, &data->texture->img.line_length, &data->texture->img.endian);
-	// 	t = t->next;
-	// }
-	// data->texture = t;
+	
+	while(t)
+	{
+		if(is_textures(t->attr))
+		{
+			t->ptr_img = mlx_xpm_file_to_image(data->mlx_ptr, t->data, &t->width, &t->height);
+			if(!t->ptr_img)
+				printf("Image reading has failed \n");
+			t->img.addr = mlx_get_data_addr(t->ptr_img, &t->img.bits_per_pixel, &t->img.line_length, &t->img.endian);
+		}
+		t = t->next;
+	}
 }
 
 void inisialise(t_data *x, char *av)
@@ -155,7 +163,6 @@ void inisialise(t_data *x, char *av)
 		x->keys[i] = 0;
 		i++;
 	}
-	init_textures(x);
 }
 int	ft_close(t_data *x)
 {
@@ -204,12 +211,12 @@ int main(int ac, char **av)
 {
 	t_data x;
 	inisialise(&x, av[1]);
-	 //printf("width --> %zu height --> %zu", x.width,x .height);
 	if(check_all(&x))
 	{
+		init_textures(&x);
 		find_player(&x);
-		// x.mlx_win = mlx_new_window(x.mlx_ptr, x.width * SCALE, x.height * SCALE, "Cub3D");
-		// x.image.ptr_img = mlx_new_image(x.mlx_ptr, x.width * SCALE, x.height * SCALE);
+		x.mlx_win = mlx_new_window(x.mlx_ptr, x.width * SCALE, x.height * SCALE, "Cub3D");
+		x.image.ptr_img = mlx_new_image(x.mlx_ptr, x.width * SCALE, x.height * SCALE);
 		x.mlx_win = mlx_new_window(x.mlx_ptr, WIDTH, HEIGHT, "Cub3D");
 		x.image.ptr_img = mlx_new_image(x.mlx_ptr, WIDTH, HEIGHT);
 		x.image.addr = mlx_get_data_addr(x.image.ptr_img, &x.image.bits_per_pixel,
