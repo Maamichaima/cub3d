@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:45:54 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/09 17:26:28 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/14 16:11:54 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,24 @@ void color_one_square(int start_x, int start_y, void *x,  double scale)
 {
     int i = 0;
 	int j = 0;
-	int s_x = start_x + SCALE / 2;
-	int s_y = start_y + SCALE / 2;
+	double s_x = start_x - MINIMAP_SCALE / 2;
+	double s_y = start_y - MINIMAP_SCALE / 2;
     int color = 0xf54242;
 
-    while (i < SCALE)
+	// printf(" %d   %f   %d   %f \n", start_x, (s_x + i), start_y, (s_y + j));
+	// my_mlx_pixel_put(x, s_x, s_x, 0xf54242);
+	// my_mlx_pixel_put(x, s_x + MINIMAP_SCALE, s_x + MINIMAP_SCALE, 0xf54242);
+    while (i <= MINIMAP_SCALE)
     {
 		j = 0;
-        while (j < SCALE)
+        while (j <= MINIMAP_SCALE)
         {
-			// printf("%d   %d \n", i, j);
 			// printf("%d   %d \n", start_x, start_y);
-			if(i < (SCALE - 10) && j < (SCALE - 10) && i > 10 && j > 10)
-            	my_mlx_pixel_put(x, (start_x + i) * MINIMAP_SCALE, (start_y + j) * MINIMAP_SCALE, color);
+			if(i <= (MINIMAP_SCALE - 3) && j <= (MINIMAP_SCALE - 3 ) && i >= 3 && j >= 3)
+			{
+				// puts("hhh");
+            	my_mlx_pixel_put(x, (s_x + i), (s_y + j), color);
+			}
 			j++;
         }
 		i++;
@@ -102,7 +107,7 @@ int draw(t_data *x)
 	// draw_line_angle(x, x->player.x, x->player.y);
 	cast_ray(x, x->player.x, x->player.y);
 	render_projected_wall(x);
-	mini_map(x, SCALE);
+	mini_map(x);
 	// draw_ray(x, x->player.x, x->player.y);
 	// printf("%f %f \n", x->player.x, x->player.y); 
 	mlx_put_image_to_window(x->mlx_ptr, x->mlx_win, x->image.ptr_img, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/06 16:50:51 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/14 16:11:49 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 #define ESC 6
 #define P_SPEED 0.3
 #define A_SPEED 0.01
-#define MINIMAP_SCALE 0.25
+#define MINIMAP_SCALE 10
 #define FOV (60 * (PI / 180))
 	
 
@@ -148,7 +148,7 @@ int     Ray_DOWN(t_ray ray);
 int     Ray_RIGHT(t_ray ray);
 int     Ray_LEFT(t_ray ray);
 void render_projected_wall(t_data *data);
-void mini_map(t_data *x, double scale);
+void mini_map(t_data *x);
 void color_one_square(int start_x, int start_y, void *x, double scale);
 void    get_textures_buffer(t_data *data);
 unsigned int my_mlx_pixel_get(t_image image, int x, int y);
