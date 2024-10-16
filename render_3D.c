@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 12:34:11 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/10 16:44:45 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/16 01:22:41 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,11 +156,10 @@ void draw_line_of_tex(t_data *data, double wall_height, double i)
 		j = 0;
     scale_height = wall_height / t.height;
     scale_width = wall_height / t.width;
-	d = get_start_text(data->ray[(long long)i], t);
-	a = dmod((i + d), t.width);
+	a = get_start_text(data->ray[(long long)i], t);
 	while(j < lim)
 	{
-		b = dmod((j - ((HEIGHT / 2) - wall_height / 2)) / scale_height, t.height);
+		b = (j - ((HEIGHT / 2) - wall_height / 2)) / scale_height;
 		if(a < t.width && a >= 0 && b < t.height && b >= 0)
 			color = my_mlx_pixel_get(t.img, a, b);
 		if(j >= 0 && j < HEIGHT && i >= 0 && i < WIDTH)

@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/14 16:11:49 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/16 01:24:48 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <math.h>
 # include <limits.h>
 # include "libft/libft.h"
-#define SCALE 30
-#define WIDTH 900
-#define HEIGHT 600
+#define SCALE 100
+#define WIDTH 1280
+#define HEIGHT 720
 #define PI 3.14159265359
 #define LIGNE_OF_PLAYER 20
 
@@ -39,8 +39,8 @@
 #define R 4
 #define L 5
 #define ESC 6
-#define P_SPEED 0.3
-#define A_SPEED 0.01
+#define P_SPEED 3
+#define A_SPEED 0.05
 #define MINIMAP_SCALE 10
 #define FOV (60 * (PI / 180))
 	

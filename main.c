@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/10 16:23:28 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/16 01:23:54 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void inisialise(t_data *x, char *av)
 	x->map = get_map(fd ,x);
 	x->rayon = SCALE / 2;
 	x->num_rays = WIDTH;
-	x->ray = malloc(sizeof(t_ray) * (x->width * SCALE));
+	x->ray = malloc(sizeof(t_ray) * WIDTH);
 	// printf("%f \n", x->num_rays);
 	int i = 0;
 	while(i < 6)
@@ -215,8 +215,6 @@ int main(int ac, char **av)
 	{
 		init_textures(&x);
 		find_player(&x);
-		x.mlx_win = mlx_new_window(x.mlx_ptr, x.width * SCALE, x.height * SCALE, "Cub3D");
-		x.image.ptr_img = mlx_new_image(x.mlx_ptr, x.width * SCALE, x.height * SCALE);
 		x.mlx_win = mlx_new_window(x.mlx_ptr, WIDTH, HEIGHT, "Cub3D");
 		x.image.ptr_img = mlx_new_image(x.mlx_ptr, WIDTH, HEIGHT);
 		x.image.addr = mlx_get_data_addr(x.image.ptr_img, &x.image.bits_per_pixel,
