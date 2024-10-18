@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:14:30 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/10 15:36:03 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/18 16:03:08 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,18 @@ t_texture *get_path(char *line)
     return(info);
 }
 
+t_texture	*ft_lstnew_txt(char *attr, char *data)
+{
+	t_texture	*l;
+
+	l = malloc(sizeof(t_texture));
+	if (!l)
+		return (NULL);
+	l->attr = attr;
+	l->data = data;
+	l->next = NULL;
+	return (l);
+}
 t_texture *get_texture(int fd)
 {
     char *line;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:01:22 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/07 20:20:02 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/18 16:42:38 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int key_hook(t_data *x)
         h = x_x / SCALE;
         f = y_y / SCALE;
 
-        if(x->map[f][h] == '0')
+        if(x->map[f][h] == '0' || x->map[f][h] == 'O')
         {
             x->player.x = x_x;
             x->player.y = y_y;
@@ -139,7 +139,7 @@ int key_hook(t_data *x)
         h = x_x / SCALE;
         f = y_y / SCALE;
 
-        if(x->map[f][h] == '0')
+        if(x->map[f][h] == '0' || x->map[f][h] == 'O')
         {
             x->player.x = x_x;
             x->player.y = y_y;
@@ -153,7 +153,7 @@ int key_hook(t_data *x)
         y_y = x->player.y + (x->player.dx * P_SPEED);
         h = x_x / SCALE;
         f = y_y / SCALE;
-        if(x->map[f][h] == '0')
+        if(x->map[f][h] == '0' || x->map[f][h] == 'O')
         {
             x->player.x = x_x;
             x->player.y = y_y;
@@ -167,7 +167,7 @@ int key_hook(t_data *x)
         y_y = x->player.y - (x->player.dx * P_SPEED);
         h = x_x / SCALE;
         f = y_y / SCALE;
-        if(x->map[f][h] == '0')
+        if(x->map[f][h] == '0' || x->map[f][h] == 'O')
         {
             x->player.x = x_x;
             x->player.y = y_y;

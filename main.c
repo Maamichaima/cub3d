@@ -6,7 +6,7 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/17 13:58:35 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/18 18:21:27 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void find_player(t_data *x)
 
 int is_textures(char *str)
 {
-	if(!ft_strcmp(str, "EA") || !ft_strcmp(str, "NO") ||!ft_strcmp(str, "WE") ||!ft_strcmp(str, "SO"))
+	if(!ft_strcmp(str, "EA") || !ft_strcmp(str, "NO") ||!ft_strcmp(str, "WE") ||!ft_strcmp(str, "SO") || !ft_strcmp(str, "d") )
 		return 1;
 	return 0;
 }
@@ -126,7 +126,10 @@ int is_textures(char *str)
 void init_textures(t_data *data)
 {
 	t_texture *t = data->texture;
+	t_texture *new;
 	
+	new = ft_lstnew_txt("d","textures/2.xpm");
+	ft_lstadd_back_txt(&data->texture,new);
 	while(t)
 	{
 		if(is_textures(t->attr))
@@ -170,8 +173,27 @@ int	ft_close(t_data *x)
 	mlx_destroy_window(x->mlx_ptr, x->mlx_win);
 	exit(0);
 }
+void	implement_door_status(t_data *x)
+{
+	int i = 0;
+	int a;
+	int b;
+	
+	while(i < x->num_rays)
+	{
+		if(x->ray[i].is_door)
+		{
+			a = x->ray[i].wall_inter_X /SCALE;
+			b = x->ray[i].wall_inter_Y / SCALE;
+			x->map[b][a] = 'O';
+			break;
+		}
+		i++;
+	}
+}
 int	keyOnPres(int key, t_data *x)
 {
+	// printf("%d \n", key);
 	if(key == 13)//XK_w)
 		x->keys[W] = 1;
 	if(key == 1)//XK_s)
@@ -184,8 +206,10 @@ int	keyOnPres(int key, t_data *x)
 		x->keys[R] = 1;
 	if(key == 123)//XK_Left)
 		x->keys[L] = 1;
-	if(key == 65307)
+	if(key == 53)
 		x->keys[ESC] = 1;
+	if(key ==  31)
+		implement_door_status(x);
 	return 0;
 }
 int	keyOnRelease(int key, t_data *x)

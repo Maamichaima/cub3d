@@ -6,7 +6,7 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/17 12:46:17 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/18 16:01:20 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_ray
 	double	wall_inter_Y;
 	char 	direction;
 	double	distance;
+	int is_door;
 } t_ray;
 
 typedef struct s_texture
@@ -153,5 +154,7 @@ void mini_map(t_data *x);
 void color_one_square(int start_x, int start_y, void *x, double scale);
 void    get_textures_buffer(t_data *data);
 unsigned int my_mlx_pixel_get(t_image image, int x, int y);
-
+int hit_door(t_data x,double i ,double j);
+t_texture	*ft_lstnew_txt(char *attr, char *data);
+int is_door(char c);
 #endif

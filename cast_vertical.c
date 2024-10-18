@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_vertical.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 23:44:38 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/02 21:58:49 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/18 15:41:40 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_int
     double x_wall = 0; // first intersection with the wall
     double y_wall = 0;
     double vert_distance = 0;
-
+	int is_door = 0;
+	
     next_inter_x = x_inter;
     next_inter_y = y_inter;
     if(Ray_LEFT(data->ray[index]))
@@ -35,6 +36,13 @@ void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_int
             y_wall = next_inter_y ;
             break;
         }
+		else if(hit_door(*data,next_inter_x,next_inter_y))
+		{
+			x_wall = next_inter_x ;
+            y_wall = next_inter_y ;
+			is_door = 1;
+            break;
+		}
         else
         {
             next_inter_x += x_step ;
@@ -48,6 +56,7 @@ void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_int
 		data->ray[index].wall_inter_X = x_wall;
 		data->ray[index].wall_inter_Y = y_wall;
 		data->ray[index].direction = 'v';
+		data->ray[index].is_door = is_door;
     }
 }
 

@@ -6,7 +6,7 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 12:34:11 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/17 21:39:46 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/18 18:22:29 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ t_texture get_wall_tex(t_ray ray, t_data data)
 	t_texture *t;
 
 	t = data.texture;
+	if(ray.is_door == 1)
+		return(hh(data.texture,"d"));
 	if (ray.direction == 'h')
     {
         if (ray.ray_angle > 0 && ray.ray_angle < PI) 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   casting_rays.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rraida- <rraida-@student.42.fr>            +#+  +:+       +#+        */
+/*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 12:30:25 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/03 00:17:25 by rraida-          ###   ########.fr       */
+/*   Updated: 2024/10/18 15:40:16 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,18 @@ int is_wall(t_data x,double i ,double j)
         return(1);
     return(0);
 }
+int hit_door(t_data x,double i ,double j)
+{
+    int a;
+    int b;
+    if(i < 0 || i > (x.width * SCALE) || j < 0 || j > (x.height * SCALE))
+        return(0);
+    a =(int) (i / SCALE);
+    b = (int)(j / SCALE);
+    if(x.map[b][a] == 'd')
+        return(1);
+    return(0);
+}
 void    check_horz_hitwall(t_data *data, int index, double x_inter, double y_inter, double x_step, double y_step)
 {
     double next_inter_x; // pixel before the wall
@@ -100,6 +112,7 @@ void    check_horz_hitwall(t_data *data, int index, double x_inter, double y_int
     double y_wall = 0;
     next_inter_x = x_inter;
     next_inter_y = y_inter;
+	int is_door = 0;
 
     if(Ray_UP(data->ray[index]))
         next_inter_y -= 0.00001;
@@ -111,6 +124,13 @@ void    check_horz_hitwall(t_data *data, int index, double x_inter, double y_int
             y_wall = next_inter_y ;
             break;
         }
+		else if(hit_door(*data,next_inter_x,next_inter_y))
+		{
+			x_wall = next_inter_x ;
+            y_wall = next_inter_y ;
+			is_door = 1;
+            break;
+		}
         else
         {
             next_inter_x += x_step;
@@ -121,6 +141,7 @@ void    check_horz_hitwall(t_data *data, int index, double x_inter, double y_int
     data->ray[index].wall_inter_Y = y_wall;
     data->ray[index].distance = Distance_2Points(data->player.x, data->player.y, x_wall, y_wall);
 	data->ray[index].direction = 'h';
+	data->ray[index].is_door = is_door;
 }
 
 void     first_H_inter(int index ,t_data *data)
