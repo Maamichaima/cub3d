@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:25:03 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/21 15:25:06 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/10 16:24:20 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void    check_characters(t_data x)
 char    **get_map(int fd, t_data *x)
 {
     char *line ;
-    int i = 0;
     int j = 0;
     if(x->map == NULL)
         return(NULL);
@@ -75,7 +74,6 @@ char    **correct_map(t_data *x)
     int j;
     int k;
     char **tb;
-    char **tmp;
     i = 0;
     k = 0;
    
@@ -93,6 +91,5 @@ char    **correct_map(t_data *x)
         i++;
     }
     x->map[k] = NULL;
-   // printf("%s\n",x->map[k]);
     return(x->map);
 }

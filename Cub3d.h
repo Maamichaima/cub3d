@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/24 19:08:59 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/16 01:24:48 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@
 # include <stdlib.h>
 # include <string.h>
 # include <math.h>
+# include <limits.h>
 # include "libft/libft.h"
-#define SCALE 30
-#define WIDTH 
-#define LENGTH 
-#define PI 3.14
-#define LIGNE_OF_PLAYER 50
+#define SCALE 100
+#define WIDTH 1280
+#define HEIGHT 720
+#define PI 3.14159265359
+#define LIGNE_OF_PLAYER 20
 
 #define W 0
 #define D 1
@@ -37,9 +38,13 @@
 #define A 3
 #define R 4
 #define L 5
-#define P_SPEED 0.5
-#define A_SPEED 0.01
-#define FOV_ANGLE 1.0471
+#define ESC 6
+#define P_SPEED 3
+#define A_SPEED 0.03
+#define MINIMAP_SCALE 10
+#define FOV (60 * (PI / 180))
+	
+
 typedef struct s_player
 {
 	double x;
@@ -60,9 +65,24 @@ typedef struct s_image
 
 typedef struct s_ray
 {
-	double ray_angle;
-	double num_rays;
+	double 	ray_angle;
+	double	wall_inter_X;
+	double	wall_inter_Y;
+	char 	direction;
+	double	distance;
+	int 	is_door;
 } t_ray;
+
+typedef struct s_texture
+{
+	t_image img;
+	void *ptr_img;
+	int   height;
+	int   width;
+	char *data; // path to the file
+	char *attr;
+	struct s_texture *next;
+} t_texture;
 
 typedef struct s_data
 {
@@ -75,17 +95,14 @@ typedef struct s_data
 	int 	rayon;
 	t_player player;
 	t_image	 image;
-	t_ray ray;
-	int keys[6];
+	t_texture *texture;
+	double	num_rays;
+	t_ray	*ray;
+	int keys[7];
 } t_data;
 
 
-typedef struct s_texture
-{
-	char *attr;
-	char *data;
-	struct s_texture *next;
-} t_texture;
+
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
@@ -106,7 +123,7 @@ int check_is_int(char *str);
 int check_color(char *ligne, char *attr);
 char **fillBlanks(t_data x);
 int	smya(char c);
-int check_next_to_zero(char **tab, int i, int j, t_data x);
+int check_next_to_zero(char **tab, size_t i, size_t j, t_data x);
 int check_zero_in_map(char **tab, t_data x);
 char **alloc_map(int size);
 int check_start_map(char *ligne);
@@ -119,4 +136,26 @@ int is_player(char c);
 int draw(t_data *x);
 int key_hook(t_data *x);
 void draw_line_angle(t_data *data, int x0, int y0);
+void    cast_ray(t_data *x, int x0, int y0);
+int  draw_ray(t_data *data, int x0, int y0, t_ray ray);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_inter, double x_step, double y_step);
+void     first_V_inter( int  id_column ,t_data *data);
+int is_wall(t_data x,double i ,double j);
+int    check_ray_position(t_ray *ray);
+double     Distance_2Points(double x,double y,double x_wall,double y_wall);
+int     Ray_UP(t_ray ray);
+int     Ray_DOWN(t_ray ray);
+int     Ray_RIGHT(t_ray ray);
+int     Ray_LEFT(t_ray ray);
+void render_projected_wall(t_data *data);
+void mini_map(t_data *x);
+void color_one_square(int start_x, int start_y, void *x, double scale);
+void    get_textures_buffer(t_data *data);
+unsigned int my_mlx_pixel_get(t_image image, int x, int y);
+void get_wall_pos(t_data *x);
+int is_door(char c);
+int     hit_door(t_data *x,double i,double j);
+t_texture *ft_lstnew_txt(char *attr,char *data);
+int	check_next_to_door(char **tab, size_t i, size_t j);
 #endif

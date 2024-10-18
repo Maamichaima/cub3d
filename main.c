@@ -6,12 +6,23 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/24 19:07:07 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/16 01:23:54 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3d.h"
 
+size_t	ft_strlen_map(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	if(!s)
+		return (0);
+	while (s[i] != '\0' && s[i] != '\n')
+		i++;
+	return (i);
+}
 int *count_length_width(char *av)
 {
 	int *t = malloc(sizeof(int) * 2);
@@ -47,6 +58,14 @@ int *count_length_width(char *av)
 	return t;
 }
 
+// void	my_mlx_pixel_put(t_fractol *data, int x, int y, int color)
+// {
+// 	char	*dst;
+
+// 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+// 	*(unsigned int *)dst = color;
+// }
+
 
 void delete_player_in_map(t_data *x)
 {
@@ -70,6 +89,19 @@ void delete_player_in_map(t_data *x)
 	}
 }
 
+void inisialise_angle(t_data *x, char p)
+{
+	if(p == 'N')
+		x->player.angle = 3 * PI / 2;
+	else if(p == 'E')
+		x->player.angle = 0;
+	else if(p == 'S')
+		x->player.angle = PI / 2;
+	else if(p == 'W')
+		x->player.angle = PI;
+	x->player.dx = cos(x->player.angle);
+	x->player.dy = sin(x->player.angle);
+}
 void find_player(t_data *x)
 {
 	int i = 0;
@@ -80,8 +112,10 @@ void find_player(t_data *x)
 		j = 0;
 		while(x->map[i][j])
 		{
+			// printf("x --> %d  y --> %d \n", i ,j);
 			if (is_player(x->map[i][j]))
 			{
+				inisialise_angle(x, x->map[i][j]);
 				x->player.y = (i * SCALE) + SCALE / 2;
 				x->player.x = (j * SCALE) + SCALE / 2;
 				x->map[i][j] = '0';
@@ -92,6 +126,34 @@ void find_player(t_data *x)
 		i++;
 	}
 }
+
+int is_textures(char *str)
+{
+	if(!ft_strcmp(str, "EA") || !ft_strcmp(str, "NO") ||!ft_strcmp(str, "WE") ||!ft_strcmp(str, "SO") || !ft_strcmp(str, "d"))
+		return 1;
+	return 0;
+}
+
+void init_textures(t_data *data)
+{
+	t_texture *t = data->texture;
+	t_texture *info;
+
+	info = ft_lstnew_txt("d","textures/2.xpm");
+	ft_lstadd_back_txt(&t, info);
+	while(t)
+	{
+		if(is_textures(t->attr))
+		{
+			t->ptr_img = mlx_xpm_file_to_image(data->mlx_ptr, t->data, &t->width, &t->height);
+			if(!t->ptr_img)
+				printf("Image reading has failed \n");
+			t->img.addr = mlx_get_data_addr(t->ptr_img, &t->img.bits_per_pixel, &t->img.line_length, &t->img.endian);
+		}
+		t = t->next;
+	}
+}
+
 void inisialise(t_data *x, char *av)
 {
 	int *t;
@@ -105,14 +167,10 @@ void inisialise(t_data *x, char *av)
 	x->file_map = av;
 	fd = open(x->file_map, O_RDONLY);
 	x->map = get_map(fd ,x);
-	x->width = t[0];
-	x->height = t[1];
-	x->rayon = SCALE / 1;
-	x->player.angle = 0;// E W N S
-	// x->ray.ray_angle = x->player.angle - (FOV_ANGLE / 2);
-	x->ray.num_rays = (x->width * SCALE) / 1;
-	x->player.dx = cos(x->player.angle);
-	x->player.dy = sin(x->player.angle);
+	x->rayon = SCALE / 2;
+	x->num_rays = WIDTH;
+	x->ray = malloc(sizeof(t_ray) * WIDTH);
+	// printf("%f \n", x->num_rays);
 	int i = 0;
 	while(i < 6)
 	{
@@ -120,7 +178,12 @@ void inisialise(t_data *x, char *av)
 		i++;
 	}
 }
-
+int	ft_close(t_data *x)
+{
+	mlx_destroy_image(x->mlx_ptr, x->image.ptr_img );
+	mlx_destroy_window(x->mlx_ptr, x->mlx_win);
+	exit(0);
+}
 int	keyOnPres(int key, t_data *x)
 {
 	if(key == XK_w)
@@ -135,6 +198,10 @@ int	keyOnPres(int key, t_data *x)
 		x->keys[R] = 1;
 	if(key == XK_Left)
 		x->keys[L] = 1;
+	if(key == 65307)
+		x->keys[ESC] = 1;
+	if(key == XK_o)
+		get_wall_pos(x);
 	return 0;
 }
 int	keyOnRelease(int key, t_data *x)
@@ -151,6 +218,8 @@ int	keyOnRelease(int key, t_data *x)
 		x->keys[R] = 0;
 	if(key == XK_Left)
 		x->keys[L] = 0;
+	if(key == 65307)
+		x->keys[ESC] = 0;
 	return 0;
 }
 
@@ -160,14 +229,18 @@ int main(int ac, char **av)
 	inisialise(&x, av[1]);
 	if(check_all(&x))
 	{
+		init_textures(&x);
 		find_player(&x);
-		x.mlx_win = mlx_new_window(x.mlx_ptr, x.width * SCALE, x.height * SCALE, "Cub3D");
-		x.image.ptr_img = mlx_new_image(x.mlx_ptr, x.width * SCALE, x.height * SCALE);
+		x.mlx_win = mlx_new_window(x.mlx_ptr, WIDTH, HEIGHT, "Cub3D");
+		x.image.ptr_img = mlx_new_image(x.mlx_ptr, WIDTH, HEIGHT);
 		x.image.addr = mlx_get_data_addr(x.image.ptr_img, &x.image.bits_per_pixel,
 					&x.image.line_length, &x.image.endian);
+		// mlx_key_hook(x.mlx_win, key_hook, &x);
+		mlx_hook(x.mlx_win, 17, 0, &ft_close, &x);
 		mlx_hook(x.mlx_win, KeyPress, 1L<<0, keyOnPres, &x);
 		mlx_hook(x.mlx_win, KeyRelease, 1L<<1, keyOnRelease, &x);
 		mlx_loop_hook (x.mlx_ptr, draw, &x);
+		// get_textures_buffer(&x);
 		mlx_loop(x.mlx_ptr);
 	}
 	// int i = 0;

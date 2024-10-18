@@ -6,7 +6,7 @@
 /*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:14:30 by cmaami            #+#    #+#             */
-/*   Updated: 2024/09/21 18:10:10 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/10 15:36:03 by cmaami           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ int	checkPlayer(char **map)
 		{
 			if(is_player(map[i][j]))
 				count++;
+			else if(is_door(map[i][j]))
+			{
+				j++;
+				continue;
+			}
 			j++;
 		}
 		i++;
@@ -40,6 +45,18 @@ int	checkPlayer(char **map)
 		return 1;
 	else
 		return 0;
+}
+t_texture *ft_lstnew_txt(char *attr,char *data)
+{
+	t_texture	*l;
+
+	l = malloc(sizeof(t_texture));
+	if (!l)
+		return (NULL);
+	l->attr = ft_strdup_libft(attr);
+	l->data = ft_strdup_libft(data);
+	l->next = NULL;
+	return (l);
 }
 
 t_texture *get_path(char *line)
@@ -54,14 +71,14 @@ t_texture *get_path(char *line)
     while(line  && line[i] != 32)
         tmp[j++] = line[i++];
     tmp[j] = '\0';
-    info->attr = strdup(tmp); //ft_strdup
+    info->attr = ft_strdup_libft(tmp); //ft_strdup
     line = skip_white_spaces(line + i);
     j = 0;
     i = 0;
     while(line && line[i] != '\0' && line[i] != '\n') 
         buffer[j++] = line[i++];
     buffer[j] = '\0';
-    info->data = strdup(buffer);//ft_strdup
+    info->data =ft_strdup_libft(ft_strtrim(buffer, " \t\n"));//ft_strdup
     info->next = NULL; 
     return(info);
 }
@@ -74,6 +91,8 @@ t_texture *get_texture(int fd)
     t_texture *info;
     texture = NULL;
     line = get_next_line(fd);
+	
+			// puts(line);
     while(line && check_start_map(line))
     {
         i = 0;
@@ -81,7 +100,9 @@ t_texture *get_texture(int fd)
         if(line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E' || line[i] == 'F' || line[i] == 'C' || line[i] != '\0')
         {   
             info =  get_path(line);
-            ft_lstadd_back_txt(&texture,info);
+			// puts(info->attr);
+			// puts(info->data);
+            ft_lstadd_back_txt(&texture, info);
         }
        	line = get_next_line(fd);
     }
