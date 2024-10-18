@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/16 01:24:48 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/17 12:46:17 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 #define CUB3D_H
 
-# include <mlx.h>
-# include <X11/X.h>
-# include <X11/keysym.h>
+// # include <mlx.h> // linux
+# include "mlx/mlx.h" // mac
+// # include <X11/X.h>
+// # include <X11/keysym.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -152,4 +153,5 @@ void mini_map(t_data *x);
 void color_one_square(int start_x, int start_y, void *x, double scale);
 void    get_textures_buffer(t_data *data);
 unsigned int my_mlx_pixel_get(t_image image, int x, int y);
+
 #endif

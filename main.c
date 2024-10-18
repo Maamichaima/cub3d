@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/16 01:23:54 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/17 13:58:35 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,17 +172,17 @@ int	ft_close(t_data *x)
 }
 int	keyOnPres(int key, t_data *x)
 {
-	if(key == XK_w)
+	if(key == 13)//XK_w)
 		x->keys[W] = 1;
-	if(key == XK_s)
+	if(key == 1)//XK_s)
 		x->keys[S] = 1;
-	if(key == XK_d)
+	if(key == 2)//XK_d)
 		x->keys[D] = 1;
-	if(key == XK_a)
+	if(key == 0)//XK_a)
 		x->keys[A] = 1;
-	if(key == XK_Right)
+	if(key == 124)//XK_Right)
 		x->keys[R] = 1;
-	if(key == XK_Left)
+	if(key == 123)//XK_Left)
 		x->keys[L] = 1;
 	if(key == 65307)
 		x->keys[ESC] = 1;
@@ -190,21 +190,56 @@ int	keyOnPres(int key, t_data *x)
 }
 int	keyOnRelease(int key, t_data *x)
 {
-	if(key == XK_w)
+	if(key == 13)//XK_w)
 		x->keys[W] = 0;
-	if(key == XK_s)
+	if(key == 1)//XK_s)
 		x->keys[S] = 0;
-	if(key == XK_d)
+	if(key == 2)//XK_d)
 		x->keys[D] = 0;
-	if(key == XK_a)
+	if(key == 0)//XK_a)
 		x->keys[A] = 0;
-	if(key == XK_Right)
+	if(key == 124)//XK_Right)
 		x->keys[R] = 0;
-	if(key == XK_Left)
+	if(key == 123)//XK_Left)
 		x->keys[L] = 0;
 	if(key == 65307)
 		x->keys[ESC] = 0;
 	return 0;
+}
+
+int	*x_mouse(void)
+{
+	static int	x = 0;
+
+	return (&x);
+}
+
+int mouse_move(int x, int y, t_data *data)
+{
+	int static c = 0;
+    if(c == 0)
+	{
+		*x_mouse() = x;
+		c = 1;
+	}
+	if(x > *x_mouse())
+	{
+		data->player.angle += A_SPEED;
+		if(data->player.angle >= 2 * PI)
+			data->player.angle -= 2 * PI;
+		data->player.dx = cos(data->player.angle);
+		data->player.dy = sin(data->player.angle);
+	}
+	if(x < *x_mouse())
+	{
+		data->player.angle -= A_SPEED;
+		if(data->player.angle < 0)
+			data->player.angle = 2 * PI - data->player.angle;
+		data->player.dx = cos(data->player.angle);
+		data->player.dy = sin(data->player.angle);
+	}
+	*x_mouse() = x;
+    return (0);
 }
 
 int main(int ac, char **av)
@@ -221,8 +256,9 @@ int main(int ac, char **av)
 					&x.image.line_length, &x.image.endian);
 		// mlx_key_hook(x.mlx_win, key_hook, &x);
 		mlx_hook(x.mlx_win, 17, 0, &ft_close, &x);
-		mlx_hook(x.mlx_win, KeyPress, 1L<<0, keyOnPres, &x);
-		mlx_hook(x.mlx_win, KeyRelease, 1L<<1, keyOnRelease, &x);
+		mlx_hook(x.mlx_win, 02, 1L<<0, keyOnPres, &x);
+		mlx_hook(x.mlx_win, 6, 1L << 6, mouse_move, &x);
+		mlx_hook(x.mlx_win, 03, 1L<<1, keyOnRelease, &x);
 		mlx_loop_hook (x.mlx_ptr, draw, &x);
 		// get_textures_buffer(&x);
 		mlx_loop(x.mlx_ptr);
@@ -234,33 +270,3 @@ int main(int ac, char **av)
 	// 	i++;
 	// }
 }
-// int main(int ac, char **av)
-// {
-// 	t_data x;
-// 	int i = 0;
-// 	 int fd = open(av[1], O_RDONLY);
-// 	char *line;
-// 	int rt;
-// 	 inisialise(&x, av[1]);
-	//  rt = check_map(x);
-	//  check_characters(x);
-	//  printf("%d  %d\n",x.width,x.height);
-	// x.mlx_win = mlx_new_window(x.mlx_ptr, x.width * SCALE, x.height * SCALE, "Cub3D");
-	// c(x);
-	// while (x.map[i])
-	// {
-	// 	printf("%s", x.map[i]);
-	// 	i++;
-	// }
-	// get_texture(fd);
-	// get_map(fd ,&x);
-	// correct_map(&x);
-	//check_zero_in_map(fillBlanks(x), x);
-	// printf("\n\nnew map \n");
-	// while (x.map[i])
-	// {
-	// 	printf("%s", x.map[i]);
-	// 	i++;
-	//  }
-	 //mlx_loop(x.mlx_ptr);
-//}
