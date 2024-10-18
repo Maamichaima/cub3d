@@ -6,7 +6,7 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/18 18:21:27 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/18 21:42:47 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void init_textures(t_data *data)
 	t_texture *t = data->texture;
 	t_texture *new;
 	
-	new = ft_lstnew_txt("d","textures/2.xpm");
+	new = ft_lstnew_txt("d","textures/door2.xpm");
 	ft_lstadd_back_txt(&data->texture,new);
 	while(t)
 	{
