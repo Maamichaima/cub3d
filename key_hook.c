@@ -6,11 +6,17 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:01:22 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/18 16:42:38 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/22 15:45:12 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3d.h"
+
+int	check_distance(t_data *x)
+{
+	return (Distance_2Points(x->player.x, x->player.y
+		, x->ray[WIDTH / 2].wall_inter_X, x->ray[WIDTH / 2].wall_inter_Y) >= P_DISTANCE);
+}
 
 void slide_w(t_data *data)
 {
@@ -21,7 +27,7 @@ void slide_w(t_data *data)
 
 	h = slide_x / SCALE;
 	f = slide_y / SCALE;
-	if(data->map[f][h] == '0')
+	if(data->ray[WIDTH / 2].direction == 'h' && data->map[f][h] == '0')//zidi hadi
 	{
 		// printf("herekna x\n");
 		data->player.x = slide_x;
@@ -32,7 +38,7 @@ void slide_w(t_data *data)
 		slide_y = data->player.y + (data->player.dy * P_SPEED);
 		h = slide_x / SCALE;
 		f = slide_y / SCALE;
-		if(data->map[f][h] == '0')
+		if(data->ray[WIDTH / 2].direction == 'v' && data->map[f][h] == '0')
 		{
 			// printf("herekna y\n");
 			data->player.y = slide_y;
@@ -106,22 +112,11 @@ void slide_a(t_data *data)
 	}
 }
 
-void	implement_door_status1( t_data *x)
+int	*move(void)
 {
-	// int i = 0;
-	// int a;
-	// int b;
-	// double angle ;
-	// angle = protect_angle(x->ray[WIDTH / 2].ray_angle*(M_PI/180));
-	// a =(int) (x->player.x + sin(angle))/SCALE;
-	// b = (int)(x->player.y + cos(angle))/SCALE;
-	// 	printf("hello: %f ,x=%d , y=%d  ,%c \n",x->ray[WIDTH / 2].ray_angle*(M_PI/180),a, b, x->map[b][a]);
-	// if(x->map[b][a] == 'd')
-	// {	x->map[b][a] = 'O';
-	// 	}
-	// else if(x->map[b][a] == 'O'&&a != x->player.x && b != x->player.y)
-	// {	x->map[b][a] = 'd';
-	// 	}
+	static int	x = 0;
+
+	return (&x);
 }
 
 int key_hook(t_data *x)
@@ -137,16 +132,19 @@ int key_hook(t_data *x)
 	
 	if(x->keys[W])
     {
-        x_x = x->player.x + (x->player.dx * P_SPEED);
-        y_y = x->player.y + (x->player.dy * P_SPEED);
-        h = x_x / SCALE;
-        f = y_y / SCALE;
+       if (check_distance(x))//ohadi
+	   {
+			x_x = x->player.x + (x->player.dx * P_SPEED);
+			y_y = x->player.y + (x->player.dy * P_SPEED);
+			h = x_x / SCALE;
+			f = y_y / SCALE;
 
-        if(x->map[f][h] == '0' || x->map[f][h] == 'O')
-        {
-            x->player.x = x_x;
-            x->player.y = y_y;
-        }
+			if(x->map[f][h] == '0' || x->map[f][h] == 'O')
+			{
+				x->player.x = x_x;
+				x->player.y = y_y;
+			}
+		}
         else
 			slide_w(x);
 	}

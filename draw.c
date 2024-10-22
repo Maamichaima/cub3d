@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:45:54 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/14 16:11:54 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/22 15:31:36 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ void clear_img(t_data *x)
 	double i = 0;
 	double j = 0;
 	
-	while(i < (HEIGHT))//x->height * SCALE
+	while(i < (HEIGHT))
 	{
 		j = 0;
-		while(j < WIDTH)//(x->width * SCALE))
+		while(j < WIDTH)
 		{
 			my_mlx_pixel_put(x, j, i, 0x000000);
 			j++;
@@ -94,23 +94,18 @@ void clear_img(t_data *x)
 	}
 }
 
-int draw(t_data *x)
+int draw(t_data *data)
 {
-	double i = 0;
-	double j = 0;
-	double a;
-	double b;
-
-	clear_img(x);
-	key_hook(x);
-	//color_one_square(x->player.x - SCALE / 2, x->player.y - SCALE / 2, x);
-	// draw_line_angle(x, x->player.x, x->player.y);
-	cast_ray(x, x->player.x, x->player.y);
-	// implement_door_status(x,x->ray[WIDTH / 2]);
-	render_projected_wall(x);
-	mini_map(x);
-	// draw_ray(x, x->player.x, x->player.y);
-	// printf("%f %f \n", x->player.x, x->player.y); 
-	mlx_put_image_to_window(x->mlx_ptr, x->mlx_win, x->image.ptr_img, 0, 0);
+	int x, y;
+	
+	// mlx_mouse_get_pos(data->mlx_ptr, &x, &y);
+	// mouse_move(x, y, data);
+	clear_img(data);
+	key_hook(data);
+	cast_ray(data, data->player.x, data->player.y);
+	render_projected_wall(data);
+	animation(data);
+	mini_map(data);
+	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->image.ptr_img, 0, 0);
 	return 0;
 } 

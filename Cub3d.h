@@ -6,7 +6,7 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/18 16:01:20 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/22 15:45:43 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@
 #define ESC 6
 #define O 7
 #define C 8
-#define P_SPEED 3
+#define P_SPEED 4
+#define P_DISTANCE 15
 #define A_SPEED 0.05
 #define MINIMAP_SCALE 10
 #define FOV (60 * (PI / 180))
@@ -105,6 +106,8 @@ typedef struct s_data
 	double	num_rays;
 	t_ray	*ray;
 	int keys[9];
+	t_texture animation[91];
+	int ff;
 } t_data;
 
 
@@ -166,4 +169,5 @@ int hit_o(t_data x,double i ,double j);
 void	implement_door_status( t_data *x,t_ray ray);
 void	implement_door_status1( t_data *x);
 double protect_angle(double angle);
+void    animation(t_data *data);
 #endif

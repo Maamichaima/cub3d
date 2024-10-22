@@ -6,7 +6,7 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:17 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/18 21:42:47 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/22 15:52:37 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void init_textures(t_data *data)
 	t_texture *t = data->texture;
 	t_texture *new;
 	
-	new = ft_lstnew_txt("d","textures/door2.xpm");
+	new = ft_lstnew_txt("d","textures/door3.xpm");
 	ft_lstadd_back_txt(&data->texture,new);
 	while(t)
 	{
@@ -153,6 +153,36 @@ void init_textures(t_data *data)
 		}
 		t = t->next;
 	}
+	int i = 0;
+	while(i < 91)
+	{
+		data->animation[i].ptr_img = mlx_xpm_file_to_image(data->mlx_ptr, data->animation[i]. data, &data->animation[i]. width, &data->animation[i]. height);
+		if(!data->animation[i]. ptr_img)
+			printf("Image reading has failed \n");
+		data->animation[i].img.addr = mlx_get_data_addr(data->animation[i]. ptr_img, &data->animation[i]. img.bits_per_pixel, &data->animation[i]. img.line_length, &data->animation[i]. img.endian);
+		i++;
+	}
+}
+
+char *get_name_animation(int i)
+{
+	char *str;
+	char *num;
+
+	str = malloc(sizeof(char) * (50 + 1));
+	if(!str)
+		return NULL;
+	str = "animation/final";
+	num = ft_itoa(i + 1);
+	if(ft_strlen(num) == 1)
+	{
+		str = ft_strjoin(str, "00");
+		str = ft_strjoin(str, num);
+	}
+	else
+		str = ft_strjoin(str, num);
+	str = ft_strjoin(str, ".xpm");
+	return str;
 }
 
 void inisialise(t_data *x, char *av)
@@ -178,7 +208,15 @@ void inisialise(t_data *x, char *av)
 		x->keys[i] = 0;
 		i++;
 	}
+	i = 0;
+	while (i < 91)
+	{
+		x->animation[i].data = get_name_animation(i);
+		i++;
+	}
+	x->ff = 0;
 }
+
 int	ft_close(t_data *x)
 {
 	mlx_destroy_image(x->mlx_ptr, x->image.ptr_img );
@@ -226,6 +264,8 @@ int	keyOnPres(int key, t_data *x)
 		x->keys[O] = 1;
 	if(key ==  8)
 		x->keys[C] = 1;
+	if(key == 46 && x->ff < 21)
+		x->ff = 22;
 	return 0;
 }
 int	keyOnRelease(int key, t_data *x)
