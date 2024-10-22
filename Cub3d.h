@@ -40,6 +40,8 @@
 #define R 4
 #define L 5
 #define ESC 6
+#define O 7
+#define C 8
 #define P_SPEED 3
 #define A_SPEED 0.05
 #define MINIMAP_SCALE 10
@@ -72,6 +74,9 @@ typedef struct s_ray
 	char 	direction;
 	double	distance;
 	int is_door;
+	int is_open;
+	int	x;
+	int	y;
 } t_ray;
 
 typedef struct s_texture
@@ -99,7 +104,7 @@ typedef struct s_data
 	t_texture *texture;
 	double	num_rays;
 	t_ray	*ray;
-	int keys[7];
+	int keys[9];
 } t_data;
 
 
@@ -154,7 +159,11 @@ void mini_map(t_data *x);
 void color_one_square(int start_x, int start_y, void *x, double scale);
 void    get_textures_buffer(t_data *data);
 unsigned int my_mlx_pixel_get(t_image image, int x, int y);
-int hit_door(t_data x,double i ,double j);
+int hit_door(t_data *x,int index ,double i ,double j);
 t_texture	*ft_lstnew_txt(char *attr, char *data);
 int is_door(char c);
+int hit_o(t_data x,double i ,double j);
+void	implement_door_status( t_data *x,t_ray ray);
+void	implement_door_status1( t_data *x);
+double protect_angle(double angle);
 #endif

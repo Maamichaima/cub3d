@@ -21,7 +21,9 @@ void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_int
     double y_wall = 0;
     double vert_distance = 0;
 	int is_door = 0;
-	
+    int is_open_door = 0;
+    int a, b;
+    t_ray ray ;
     next_inter_x = x_inter;
     next_inter_y = y_inter;
     if(Ray_LEFT(data->ray[index]))
@@ -29,6 +31,12 @@ void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_int
     while(next_inter_x >= 0 && next_inter_x < (data->width * SCALE) &&  next_inter_y >= 0 &&  next_inter_y < (data->height * SCALE))
     {
 		// printf("x = %f | y = %f\n", next_inter_x, next_inter_y);
+        if (!is_open_door && hit_o(*data,next_inter_x,next_inter_y))
+        {
+            data->ray[index].x = next_inter_x;
+            data->ray[index].y = next_inter_y;
+            is_open_door = 1;
+        }
         if(is_wall(*data,next_inter_x,next_inter_y))
         {   
             is_wall_flag = 1;
@@ -36,18 +44,27 @@ void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_int
             y_wall = next_inter_y ;
             break;
         }
-		else if(hit_door(*data,next_inter_x,next_inter_y))
-		{
-			x_wall = next_inter_x ;
-            y_wall = next_inter_y ;
-			is_door = 1;
-            break;
-		}
-        else
+        else if( hit_door(data,index,next_inter_x,next_inter_y))
         {
-            next_inter_x += x_step ;
-            next_inter_y += y_step ;
+            x_wall = next_inter_x ;
+            y_wall = next_inter_y ;
+            is_door = 1;
+            break;
         }
+        //   if(index == WIDTH / 2  && hit_o(*data,next_inter_x,next_inter_y))
+        // {    data->ray[index].is_open = 1;
+
+        //     ray = data->ray[index];
+        //     ray.wall_inter_X  = next_inter_x;
+        //     ray.wall_inter_Y  = next_inter_y;
+        //     ray.is_door = 0;
+            
+        //    }
+        next_inter_x += x_step ;
+        next_inter_y += y_step ;
+     
+		// if (!data->ray[index].is_open &&  index == WIDTH / 2 &&  hit_o(*data,next_inter_x,next_inter_y ))
+        //     data->ray[index].is_open = 1;
     }
     vert_distance = Distance_2Points(data->player.x, data->player.y, x_wall, y_wall);
     if(vert_distance < data->ray[index].distance)
@@ -58,6 +75,8 @@ void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_int
 		data->ray[index].direction = 'v';
 		data->ray[index].is_door = is_door;
     }
+    //    if(ray.wall_inter_X  &&  ray.wall_inter_Y)
+    //         implement_door_status(data,ray);
 }
 
 void    first_V_inter(int index ,t_data *data)

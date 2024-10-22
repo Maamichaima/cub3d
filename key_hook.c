@@ -106,6 +106,24 @@ void slide_a(t_data *data)
 	}
 }
 
+void	implement_door_status1( t_data *x)
+{
+	// int i = 0;
+	// int a;
+	// int b;
+	// double angle ;
+	// angle = protect_angle(x->ray[WIDTH / 2].ray_angle*(M_PI/180));
+	// a =(int) (x->player.x + sin(angle))/SCALE;
+	// b = (int)(x->player.y + cos(angle))/SCALE;
+	// 	printf("hello: %f ,x=%d , y=%d  ,%c \n",x->ray[WIDTH / 2].ray_angle*(M_PI/180),a, b, x->map[b][a]);
+	// if(x->map[b][a] == 'd')
+	// {	x->map[b][a] = 'O';
+	// 	}
+	// else if(x->map[b][a] == 'O'&&a != x->player.x && b != x->player.y)
+	// {	x->map[b][a] = 'd';
+	// 	}
+}
+
 int key_hook(t_data *x)
 {
 	double x_x;
@@ -114,7 +132,7 @@ int key_hook(t_data *x)
 	int h;
 
 	mlx_clear_window(x->mlx_ptr, x->mlx_win);
-	if(x->keys[ESC] == 1)
+	if(x->keys[ESC])
 		exit (0);
 	
 	if(x->keys[W])
@@ -191,6 +209,8 @@ int key_hook(t_data *x)
 		x->player.dx = cos(x->player.angle);
 		x->player.dy = sin(x->player.angle);
 	}
+	// if (x->keys[O])
+	// 	implement_door_status1(x);
 	// draw(*x);
-	return 0;
+	return 0; 
 }

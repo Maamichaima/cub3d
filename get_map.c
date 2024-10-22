@@ -146,6 +146,7 @@ char **alloc_map(int size)
 {
 	char **map = NULL;
 
+
 	map = malloc(sizeof(char*) * (size + 1));
 	if(!map)
 		return NULL;

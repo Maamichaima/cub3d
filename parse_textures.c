@@ -60,7 +60,7 @@ char    **get_map(int fd, t_data *x)
         line = get_next_line(fd);
     while(line)
     {
-        x->map[j] = line;
+        x->map[j] = ft_strdup_libft(line);
         line = get_next_line(fd);
         j++;
     }

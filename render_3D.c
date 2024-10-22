@@ -84,7 +84,7 @@ t_texture get_wall_tex(t_ray ray, t_data data)
 	t_texture *t;
 
 	t = data.texture;
-	if(ray.is_door == 1)
+	if(ray.is_door)
 		return(hh(data.texture,"d"));
 	if (ray.direction == 'h')
     {

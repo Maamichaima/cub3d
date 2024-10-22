@@ -106,6 +106,7 @@ int draw(t_data *x)
 	//color_one_square(x->player.x - SCALE / 2, x->player.y - SCALE / 2, x);
 	// draw_line_angle(x, x->player.x, x->player.y);
 	cast_ray(x, x->player.x, x->player.y);
+	// implement_door_status(x,x->ray[WIDTH / 2]);
 	render_projected_wall(x);
 	mini_map(x);
 	// draw_ray(x, x->player.x, x->player.y);

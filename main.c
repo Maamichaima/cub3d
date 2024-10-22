@@ -12,6 +12,18 @@
 
 #include "Cub3d.h"
 
+size_t	ft_strlen_map(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	if(!s)
+		return (0);
+	while (s[i] != '\0' && s[i] != '\n')
+		i++;
+	return (i);
+}
+
 int *count_length_width(char *av)
 {
 	int *t = malloc(sizeof(int) * 2);
@@ -34,8 +46,8 @@ int *count_length_width(char *av)
 	}
 	while(ligne)
 	{	
-		if(ft_strlen(ligne) >= length)
-			length = ft_strlen(ligne);
+		if(ft_strlen_map(ligne) >= length)
+			length = ft_strlen_map(ligne);
 		width++;
 		free(ligne);
 		ligne = get_next_line(fd);
@@ -161,7 +173,7 @@ void inisialise(t_data *x, char *av)
 	x->ray = malloc(sizeof(t_ray) * WIDTH);
 	// printf("%f \n", x->num_rays);
 	int i = 0;
-	while(i < 6)
+	while(i < 9)
 	{
 		x->keys[i] = 0;
 		i++;
@@ -173,23 +185,23 @@ int	ft_close(t_data *x)
 	mlx_destroy_window(x->mlx_ptr, x->mlx_win);
 	exit(0);
 }
-void	implement_door_status(t_data *x)
+
+void	implement_door_status( t_data *x, t_ray ray)
 {
-	int i = 0;
-	int a;
-	int b;
+	// int i = 0;
+	// int a;
+	// int b;
+
+	// a =(int) ray.wall_inter_X / SCALE;
+	// b =(int) ray.wall_inter_Y / SCALE;
 	
-	while(i < x->num_rays)
-	{
-		if(x->ray[i].is_door)
-		{
-			a = x->ray[i].wall_inter_X /SCALE;
-			b = x->ray[i].wall_inter_Y / SCALE;
-			x->map[b][a] = 'O';
-			break;
-		}
-		i++;
-	}
+	// if(!ray.is_open  )//&& x->keys[O])
+	// {	x->map[b][a] = 'O';
+	// 	ray.is_open = 1;}
+	// else if(ray.is_open )//&& x->keys[O])
+	// {	x->map[b][a] = 'd';
+	// 	ray.is_open = 0;
+	// 	ray.is_door = 1;}
 }
 int	keyOnPres(int key, t_data *x)
 {
@@ -208,8 +220,12 @@ int	keyOnPres(int key, t_data *x)
 		x->keys[L] = 1;
 	if(key == 53)
 		x->keys[ESC] = 1;
+	// if(key ==  31)
+	// 	implement_door_status1(x);
 	if(key ==  31)
-		implement_door_status(x);
+		x->keys[O] = 1;
+	if(key ==  8)
+		x->keys[C] = 1;
 	return 0;
 }
 int	keyOnRelease(int key, t_data *x)
@@ -228,6 +244,8 @@ int	keyOnRelease(int key, t_data *x)
 		x->keys[L] = 0;
 	if(key == 65307)
 		x->keys[ESC] = 0;
+	// if (key == 31)
+	// 	x->keys[O] = 0;
 	return 0;
 }
 
