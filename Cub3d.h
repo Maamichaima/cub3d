@@ -6,7 +6,7 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/22 15:45:43 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/22 20:12:02 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 #define P_SPEED 4
 #define P_DISTANCE 15
 #define A_SPEED 0.05
-#define MINIMAP_SCALE 10
+#define MINIMAP_SCALE 15
 #define FOV (60 * (PI / 180))
 	
 
@@ -110,8 +110,11 @@ typedef struct s_data
 	int ff;
 } t_data;
 
-
-
+typedef struct s_garbage
+{
+	void				*p;
+	struct s_garbage 	*next;
+} t_garbage;
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
@@ -170,4 +173,7 @@ void	implement_door_status( t_data *x,t_ray ray);
 void	implement_door_status1( t_data *x);
 double protect_angle(double angle);
 void    animation(t_data *data);
+void *ft_malloc(int size, char c);
+void	inisialise_angle(t_data *x, char p);
+void	find_player(t_data *x);
 #endif

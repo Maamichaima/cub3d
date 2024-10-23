@@ -6,7 +6,7 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 23:44:38 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/18 15:41:40 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/22 19:19:14 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_int
         next_inter_x -= 0.00001;
     while(next_inter_x >= 0 && next_inter_x < (data->width * SCALE) &&  next_inter_y >= 0 &&  next_inter_y < (data->height * SCALE))
     {
-		// printf("x = %f | y = %f\n", next_inter_x, next_inter_y);
         if (!is_open_door && hit_o(*data,next_inter_x,next_inter_y))
         {
             data->ray[index].x = next_inter_x;
@@ -51,20 +50,8 @@ void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_int
             is_door = 1;
             break;
         }
-        //   if(index == WIDTH / 2  && hit_o(*data,next_inter_x,next_inter_y))
-        // {    data->ray[index].is_open = 1;
-
-        //     ray = data->ray[index];
-        //     ray.wall_inter_X  = next_inter_x;
-        //     ray.wall_inter_Y  = next_inter_y;
-        //     ray.is_door = 0;
-            
-        //    }
         next_inter_x += x_step ;
         next_inter_y += y_step ;
-     
-		// if (!data->ray[index].is_open &&  index == WIDTH / 2 &&  hit_o(*data,next_inter_x,next_inter_y ))
-        //     data->ray[index].is_open = 1;
     }
     vert_distance = Distance_2Points(data->player.x, data->player.y, x_wall, y_wall);
     if(vert_distance < data->ray[index].distance)
@@ -75,8 +62,6 @@ void    check_vert_hitwall(t_data *data, int index, double x_inter, double y_int
 		data->ray[index].direction = 'v';
 		data->ray[index].is_door = is_door;
     }
-    //    if(ray.wall_inter_X  &&  ray.wall_inter_Y)
-    //         implement_door_status(data,ray);
 }
 
 void    first_V_inter(int index ,t_data *data)

@@ -6,7 +6,7 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:01:22 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/22 15:45:12 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/22 20:40:28 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@ void slide_w(t_data *data)
 
 	h = slide_x / SCALE;
 	f = slide_y / SCALE;
-	if(data->ray[WIDTH / 2].direction == 'h' && data->map[f][h] == '0')//zidi hadi
-	{
-		// printf("herekna x\n");
+	if(data->ray[WIDTH / 2].direction == 'h' && data->map[f][h] == '0')
 		data->player.x = slide_x;
-	}
 	else
 	{
 		slide_x = data->player.x;
@@ -39,10 +36,7 @@ void slide_w(t_data *data)
 		h = slide_x / SCALE;
 		f = slide_y / SCALE;
 		if(data->ray[WIDTH / 2].direction == 'v' && data->map[f][h] == '0')
-		{
-			// printf("herekna y\n");
 			data->player.y = slide_y;
-		}
 	}
 }
 
@@ -119,96 +113,124 @@ int	*move(void)
 	return (&x);
 }
 
-int key_hook(t_data *x)
+void move_w(t_data *x)
 {
 	double x_x;
 	double y_y;
 	int f;
 	int h;
+	
+	if (check_distance(x))
+	{
+		x_x = x->player.x + (x->player.dx * P_SPEED);
+		y_y = x->player.y + (x->player.dy * P_SPEED);
+		h = x_x / SCALE;
+		f = y_y / SCALE;
+		if(x->map[f][h] == '0' || x->map[f][h] == 'O')
+		{
+			x->player.x = x_x;
+			x->player.y = y_y;
+		}
+	}
+	else
+		slide_w(x);
+}
 
+void move_s(t_data *x)
+{
+	double x_x;
+	double y_y;
+	int f;
+	int h;
+	
+	x_x = x->player.x - (x->player.dx * P_SPEED);
+	y_y = x->player.y - (x->player.dy * P_SPEED);
+	h = x_x / SCALE;
+	f = y_y / SCALE;
+
+	if(x->map[f][h] == '0' || x->map[f][h] == 'O')
+	{
+		x->player.x = x_x;
+		x->player.y = y_y;
+	}
+	else
+		slide_s(x);
+}
+
+void move_d(t_data *x)
+{
+	double x_x;
+	double y_y;
+	int f;
+	int h;
+	
+	x_x = x->player.x - (x->player.dy * P_SPEED);
+	y_y = x->player.y + (x->player.dx * P_SPEED);
+	h = x_x / SCALE;
+	f = y_y / SCALE;
+	if(x->map[f][h] == '0' || x->map[f][h] == 'O')
+	{
+		x->player.x = x_x;
+		x->player.y = y_y;
+	}
+	else
+		slide_d(x);
+}
+
+void move_a(t_data *x)
+{
+	double x_x;
+	double y_y;
+	int f;
+	int h;
+	
+	x_x = x->player.x + (x->player.dy * P_SPEED);
+	y_y = x->player.y - (x->player.dx * P_SPEED);
+	h = x_x / SCALE;
+	f = y_y / SCALE;
+	if(x->map[f][h] == '0' || x->map[f][h] == 'O')
+	{
+		x->player.x = x_x;
+		x->player.y = y_y;
+	}
+	else
+		slide_a(x);
+}
+
+void move_r(t_data *x)
+{
+	x->player.angle += A_SPEED;
+	if(x->player.angle >= 2 * PI)
+		x->player.angle -= 2 * PI;
+	x->player.dx = cos(x->player.angle);
+	x->player.dy = sin(x->player.angle);
+}
+
+void move_l(t_data *x)
+{
+	x->player.angle -= A_SPEED;
+	if(x->player.angle < 0)
+		x->player.angle = 2 * PI - x->player.angle;
+	x->player.dx = cos(x->player.angle);
+	x->player.dy = sin(x->player.angle);
+}
+
+int key_hook(t_data *x)
+{
 	mlx_clear_window(x->mlx_ptr, x->mlx_win);
 	if(x->keys[ESC])
 		exit (0);
-	
 	if(x->keys[W])
-    {
-       if (check_distance(x))//ohadi
-	   {
-			x_x = x->player.x + (x->player.dx * P_SPEED);
-			y_y = x->player.y + (x->player.dy * P_SPEED);
-			h = x_x / SCALE;
-			f = y_y / SCALE;
-
-			if(x->map[f][h] == '0' || x->map[f][h] == 'O')
-			{
-				x->player.x = x_x;
-				x->player.y = y_y;
-			}
-		}
-        else
-			slide_w(x);
-	}
+		move_w(x);
 	if(x->keys[S])
-    {
-        x_x = x->player.x - (x->player.dx * P_SPEED);
-        y_y = x->player.y - (x->player.dy * P_SPEED);
-        h = x_x / SCALE;
-        f = y_y / SCALE;
-
-        if(x->map[f][h] == '0' || x->map[f][h] == 'O')
-        {
-            x->player.x = x_x;
-            x->player.y = y_y;
-        }
-        else
-            slide_s(x);
-    }
+		move_s(x);
     if(x->keys[D])
-    {
-        x_x = x->player.x - (x->player.dy * P_SPEED);
-        y_y = x->player.y + (x->player.dx * P_SPEED);
-        h = x_x / SCALE;
-        f = y_y / SCALE;
-        if(x->map[f][h] == '0' || x->map[f][h] == 'O')
-        {
-            x->player.x = x_x;
-            x->player.y = y_y;
-        }
-        else
-            slide_d(x);
-    }
+		move_d(x);
     if(x->keys[A])
-    {
-        x_x = x->player.x + (x->player.dy * P_SPEED);
-        y_y = x->player.y - (x->player.dx * P_SPEED);
-        h = x_x / SCALE;
-        f = y_y / SCALE;
-        if(x->map[f][h] == '0' || x->map[f][h] == 'O')
-        {
-            x->player.x = x_x;
-            x->player.y = y_y;
-        }
-        else
-            slide_a(x);
-	}
+		move_a(x);
 	if(x->keys[R])
-	{
-		x->player.angle += A_SPEED;
-		if(x->player.angle >= 2 * PI)
-			x->player.angle -= 2 * PI;
-		x->player.dx = cos(x->player.angle);
-		x->player.dy = sin(x->player.angle);
-	}
+		move_r(x);
 	if(x->keys[L])
-	{
-		x->player.angle -= A_SPEED;
-		if(x->player.angle < 0)
-			x->player.angle = 2 * PI - x->player.angle;
-		x->player.dx = cos(x->player.angle);
-		x->player.dy = sin(x->player.angle);
-	}
-	// if (x->keys[O])
-	// 	implement_door_status1(x);
-	// draw(*x);
+		move_l(x);
 	return 0; 
 }

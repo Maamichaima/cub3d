@@ -6,7 +6,7 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 00:26:19 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/18 16:01:02 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/23 12:17:54 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,10 @@ char **fillBlanks(t_data x)
 	size_t i = 0;
 	char **copie_map;
 
-	copie_map = malloc(sizeof(char *) *( x.height + 1));
-	
-	//printf("%s\n", x.map[x.height - ]);
+	copie_map = ft_malloc(sizeof(char *) * (x.height + 1), 'a');
 	while(i < x.height)
 	{
-		//printf("%s \n", x.map[i]);
-		copie_map[i] = ft_calloc(x.width + 1, 1);
+		copie_map[i] = ft_calloc(ft_strlen(x.map[i]) + 1, 1);
 		ft_strlcpy(copie_map[i], x.map[i], ft_strlen(x.map[i]) + 1);
 		i++;
 	}
@@ -68,11 +65,13 @@ int check_zero_in_map(char **tab, t_data x)
 	int i = 0;
 	int j = 0;
 
-	while(tab[i])
+	while(tab && tab[i])
 	{
 		j = 0;
+		
 		while(tab[i][j])
 		{
+			printf("%c ", tab[i][j]);
 			if((tab[i][j] == '0' || is_player(tab[i][j]) || is_door(tab[i][j]))&& check_next_to_zero(tab, i, j, x))
 				return 0;
 			j++;
