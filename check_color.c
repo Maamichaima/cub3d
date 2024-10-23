@@ -6,34 +6,11 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 21:00:58 by maamichaima       #+#    #+#             */
-/*   Updated: 2024/10/22 19:26:32 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/23 17:08:04 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3d.h"
-
-int	possible_color(char *attr)
-{
-	if (ft_strcmp(attr, "C") == 0 || ft_strcmp(attr, "F") == 0)
-		return (1);
-	return (0);
-}
-
-int	count_comma(char *ligne)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (ligne[i])
-	{
-		if (ligne[i] == ',')
-			count++;
-		i++;
-	}
-	return (count);
-}
 
 int	check_is_int(char *str)
 {
@@ -47,7 +24,6 @@ int	check_is_int(char *str)
 		i++;
 	if (ft_strlen(str) > 4 || !str[i])
 		return (0);
-	// printf("---%s---\n", str);
 	while (str[i] && str[i] != '\n')
 	{
 		if (!ft_isdigit(str[i]))
@@ -60,51 +36,51 @@ int	check_is_int(char *str)
 		return (0);
 	return (1);
 }
-unsigned int	create_rgb( int r, int g, int b)
+
+void	set_floor_ceiling(char **tab, t_data *x, char *att)
 {
-	return ( r << 16 | g << 8 | b );
-}
-int check_color(char *ligne, char *att,t_data *x)// count (,) and check if the count of tab[i] is num
-{
-	char **tab;
-	int i;
-	int retu;
+	int	i;
 	int rgb[3];
-	if(!possible_color(att))
-		return 0;
-		
-	int count = 0;
+
 	i = 0;
-	if(count_comma(ligne) != 2)
-		return 0;
-	tab = ft_split(ligne, ',');
-	while(tab[i])
+	while (tab[i])
 	{
-		if((check_is_int(ft_strtrim(tab[i], " \t\n"))) == 0)
+		rgb[i] = ft_atoi(tab[i]);
+		i++;
+	}
+	if (att[0] == 'C')
+		x->c = create_rgb(rgb[0], rgb[1], rgb[2]);
+	else
+		x->f = create_rgb(rgb[0], rgb[1], rgb[2]);
+}
+
+int	check_color(char *ligne, char *att, t_data *x)
+{
+	char	**tab;
+	int		i;
+	int		retu;
+
+	if (!possible_color(att))
+		return (0);
+	i = 0;
+	if (count_comma(ligne) != 2)
+		return (0);
+	tab = ft_split(ligne, ',');
+	while (tab[i])
+	{
+		if ((check_is_int(ft_strtrim(tab[i], " \t\n"))) == 0)
 		{
 			retu = 0;
-			break;
+			break ;
 		}
-		count++;
 		i++;
 	}
 	retu = 1;
-	if(count != 3)
-		return 0;
+	if (i != 3)
+		return (0);
 	else
-	{
-		i = 0;
-		while(tab[i])
-		{
-			rgb[i] = ft_atoi(tab[i]);
-			i++;
-		}
-		if(att[0] == 'C')
-			x->c = create_rgb(rgb[0],rgb[1],rgb[2]);
-		else
-			x->f = create_rgb(rgb[0],rgb[1],rgb[2]);
-	}
-	return retu;
+		set_floor_ceiling(tab, x, att);
+	return (retu);
 }
 
 char	*skip_white_spaces(char *str)

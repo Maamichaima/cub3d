@@ -6,44 +6,11 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:14:30 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/22 19:43:51 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/23 19:13:44 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3d.h"
-
-int	is_player(char c)
-{
-	if (c == 'E' || c == 'N' || c == 'S' || c == 'W')
-		return (1);
-	return (0);
-}
-
-int	checkPlayer(char **map)
-{
-	int	i;
-	int	j;
-	int	count;
-
-	i = 0;
-	j = 0;
-	count = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (is_player(map[i][j]))
-				count++;
-			j++;
-		}
-		i++;
-	}
-	if (count == 1)
-		return (1);
-	else
-		return (0);
-}
 
 t_texture	*get_path(char *line)
 {
@@ -72,45 +39,6 @@ t_texture	*get_path(char *line)
 	info->data = ft_strdup_libft(ft_strtrim(buffer, " \t\n"));
 	info->next = NULL;
 	return (info);
-}
-
-t_texture	*ft_lstnew_txt(char *attr, char *data)
-{
-	t_texture	*l;
-
-	l = ft_malloc(sizeof(t_texture), 'a');
-	if (!l)
-		return (NULL);
-	l->attr = attr;
-	l->data = data;
-	l->next = NULL;
-	return (l);
-}
-
-t_texture	*get_texture(int fd)
-{
-	char		*line;
-	int			i;
-	t_texture	*texture;
-	t_texture	*info;
-
-	i = 0;
-	texture = NULL;
-	line = get_next_line(fd);
-	while (line && check_start_map(line))
-	{
-		i = 0;
-		line = skip_white_spaces(line);
-		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E'
-			|| line[i] == 'F' || line[i] == 'C' || line[i] != '\0')
-		{
-			info = get_path(line);
-			ft_lstadd_back_txt(&texture, info);
-		}
-		line = get_next_line(fd);
-	}
-	close(fd);
-	return (texture);
 }
 
 void set_map_data(char **map, int fd, int size)

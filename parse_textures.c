@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmaami <cmaami@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:25:03 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/10 16:24:20 by cmaami           ###   ########.fr       */
+/*   Updated: 2024/10/23 19:13:20 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,30 @@ char    **correct_map(t_data *x)
     }
     x->map[k] = NULL;
     return(x->map);
+}
+
+t_texture	*get_texture(int fd)
+{
+	char		*line;
+	int			i;
+	t_texture	*texture;
+	t_texture	*info;
+
+	i = 0;
+	texture = NULL;
+	line = get_next_line(fd);
+	while (line && check_start_map(line))
+	{
+		i = 0;
+		line = skip_white_spaces(line);
+		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E'
+			|| line[i] == 'F' || line[i] == 'C' || line[i] != '\0')
+		{
+			info = get_path(line);
+			ft_lstadd_back_txt(&texture, info);
+		}
+		line = get_next_line(fd);
+	}
+	close(fd);
+	return (texture);
 }

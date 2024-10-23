@@ -6,7 +6,7 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 12:34:11 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/18 18:22:29 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/23 17:15:47 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ double	get_start_text(t_ray ray, t_texture tex)
 
 	if (ray.direction == 'h')
 	{
-		d = (long long)ray.wall_inter_X / SCALE * SCALE;
-		d = (ray.wall_inter_X - d) / SCALE * tex.width;
+		d = (long long)ray.wall_inter_x / SCALE * SCALE;
+		d = (ray.wall_inter_x - d) / SCALE * tex.width;
 	}
 	else
 	{
-		d = (long long)ray.wall_inter_Y / SCALE * SCALE;
-		d = (ray.wall_inter_Y - d) / SCALE * tex.width;
+		d = (long long)ray.wall_inter_y / SCALE * SCALE;
+		d = (ray.wall_inter_y - d) / SCALE * tex.width;
 	}
 	return (d);
 }
