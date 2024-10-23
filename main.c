@@ -241,6 +241,7 @@ int	main(int ac, char **av)
 	inisialise(&x, av[1]);
 	if (check_all(&x))
 	{
+		//printf("%d %d\n",x.f,x.c);
 		init_textures(&x);
 		find_player(&x);
 		x.mlx_win = mlx_new_window(x.mlx_ptr, WIDTH, HEIGHT, "Cub3D");

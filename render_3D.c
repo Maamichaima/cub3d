@@ -194,10 +194,10 @@ void	draw_flor_ceiling(t_data *data)
 			if (dark_factor > 1)
 				dark_factor = 1;
 			if (j < HEIGHT / 2)
-				my_mlx_pixel_put(data, i, j, apply_darkness(0x34baeb,
+				my_mlx_pixel_put(data, i, j, apply_darkness(data->c,
 						dark_factor));
 			else if (j > HEIGHT / 2)
-				my_mlx_pixel_put(data, i, j, apply_darkness(0xeb6b34,
+				my_mlx_pixel_put(data, i, j, apply_darkness(data->f,
 						dark_factor));
 			j++;
 		}

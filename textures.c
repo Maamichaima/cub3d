@@ -59,7 +59,7 @@ int check_textures_is_duplicate(char *data, t_texture *t)
 	return 0;
 }
 
-int    check_textures(t_texture *txt)
+int    check_textures(t_texture *txt,t_data *x)
 {
 	t_texture *tmp;
 
@@ -68,7 +68,7 @@ int    check_textures(t_texture *txt)
     {
 		// printf("%s  %s  \n", txt->attr, txt->data);
 		// printf("%d   %d\n", valid_files(ft_strtrim(txt->data, " \t\n"), txt->attr) ,check_color(txt->data, txt->attr));
-        if(!valid_files(ft_strtrim(txt->data, " \t\n"), txt->attr) && !check_color(txt->data, txt->attr))
+        if(!valid_files(ft_strtrim(txt->data, " \t\n"), txt->attr) && !check_color(txt->data, txt->attr,x))
 			return 0;
 		if(!check_textures_is_duplicate(txt->attr, tmp))
 			return 0;

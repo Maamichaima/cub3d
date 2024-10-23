@@ -108,6 +108,8 @@ typedef struct s_data
 	int keys[9];
 	t_texture animation[91];
 	int ff;
+	unsigned int c;
+	unsigned int f;
 } t_data;
 
 typedef struct s_garbage
@@ -132,14 +134,14 @@ void	ft_lstadd_back_txt(t_texture **lst, t_texture *new);
 int	ft_strcmp(char *s1, char *s2);
 int count_comma(char *ligne);
 int check_is_int(char *str);
-int check_color(char *ligne, char *attr);
+int check_color(char *ligne, char *att,t_data *x);
 char **fillBlanks(t_data x);
 int	smya(char c);
 int check_next_to_zero(char **tab, size_t i, size_t j, t_data x);
 int check_zero_in_map(char **tab, t_data x);
 char **alloc_map(int size);
 int check_start_map(char *ligne);
-int    check_textures(t_texture *txt);
+
 void inisialise(t_data *x, char *n);
 int check_all(t_data *x);
 int possible_color(char *attr);
@@ -176,4 +178,7 @@ void    animation(t_data *data);
 void *ft_malloc(int size, char c);
 void	inisialise_angle(t_data *x, char p);
 void	find_player(t_data *x);
+void door_keys(t_data *x);
+unsigned int	create_rgb(int t, int r, int g);
+int    check_textures(t_texture *txt,t_data *x);
 #endif

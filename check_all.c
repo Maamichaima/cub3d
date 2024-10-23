@@ -20,7 +20,7 @@ int check_all(t_data *x)
 	fd = open(x->file_map, O_RDONLY);
 	x->texture = get_texture(fd);
 	c = fillBlanks(*x);
-	if(checkPlayer(x->map) && check_zero_in_map(c, *x) && check_textures(x->texture))
+	if(checkPlayer(x->map) && check_zero_in_map(c, *x) && check_textures(x->texture,x))
 	{
 		printf("map valide\n");
 		return 1;

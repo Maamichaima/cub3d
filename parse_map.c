@@ -21,7 +21,7 @@ char **fillBlanks(t_data x)
 	while(i < x.height)
 	{
 		copie_map[i] = ft_calloc(ft_strlen(x.map[i]) + 1, 1);
-		ft_strlcpy(copie_map[i], x.map[i], ft_strlen(x.map[i]) + 1);
+		ft_strlcpy(copie_map[i], ft_strtrim( x.map[i],"\n"), ft_strlen(x.map[i]) + 1);
 		i++;
 	}
 	copie_map[i] = NULL;
@@ -71,7 +71,7 @@ int check_zero_in_map(char **tab, t_data x)
 		
 		while(tab[i][j])
 		{
-			printf("%c ", tab[i][j]);
+			//printf("%c ", tab[i][j]);
 			if((tab[i][j] == '0' || is_player(tab[i][j]) || is_door(tab[i][j]))&& check_next_to_zero(tab, i, j, x))
 				return 0;
 			j++;

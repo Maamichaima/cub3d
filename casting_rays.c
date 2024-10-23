@@ -162,14 +162,7 @@ void    check_horz_hitwall(t_data *data, int index, double x_inter, double y_int
             is_door = 1;
             break;
         }
-        // if(index == WIDTH / 2  && hit_o(*data,next_inter_x,next_inter_y))
-        // {    data->ray[index].is_open = 1;
-
-        //     ray = data->ray[index];
-        //     ray.wall_inter_X  = next_inter_x;
-        //     ray.wall_inter_Y  = next_inter_y;
-        //     ray.is_door = 0;
-        //    }
+       
         next_inter_x += x_step;
         next_inter_y += y_step;
         
@@ -206,7 +199,49 @@ void     first_H_inter(int index ,t_data *data)
         x_step *=-1;
     check_horz_hitwall(data, index, x_inter, y_inter, x_step, y_step);
 }
+void door_keys(t_data *x)
+{
+    //test
+    int  i = 0;
+    double current_distance ,closet_distance = INT_MAX;
+    double distance ,open_distance = INT_MAX;
 
+    int flag = -1;
+    int flag1 = -1;
+             
+        while( i < x->num_rays)
+        {
+            if (x->ray[i].is_door )
+            {
+                current_distance = x->ray[i].distance;   // Distance_2Points(x->player.x,x->player.y,x->ray[i].wall_inter_X,x->ray[i].wall_inter_Y);
+                if(current_distance < closet_distance)
+                    {
+                        closet_distance = current_distance;
+                        flag = i;
+                    }
+                }
+            else if(x->ray[i].is_open)
+            {
+                distance = Distance_2Points(x->player.x,x->player.y,x->ray[i].x,x->ray[i].y);
+                if(distance  < open_distance)
+                {
+                    open_distance = distance;
+                    flag1 = i;
+                }
+            }
+            
+            i++;
+        }
+
+    //printf("%f\n",closet_distance);
+    if (x->keys[O] && flag != -1 && closet_distance < 250 )
+        x->map[(int)x->ray[flag].wall_inter_Y / SCALE][(int)x->ray[flag].wall_inter_X / SCALE] = 'O';
+    if (x->keys[C] && flag1 != -1 && open_distance < 250)
+        x->map[(int)x->ray[flag1].y / SCALE][(int)x->ray[flag1].x / SCALE] = 'd';
+    x->keys[C] = 0;
+    x->keys[O] = 0;
+
+}
 void    cast_ray(t_data *x, int x0, int y0) 
 {
     int id_column = 0;
@@ -227,77 +262,10 @@ void    cast_ray(t_data *x, int x0, int y0)
 		first_H_inter(i, x);
 		first_V_inter(i, x);
         
-		// draw_ray(x, x->player.x, x->player.y, x->ray[i]);
-    	// draw_line_angle(x, x0,y0);
-    	// id_column++; 
+		
         i++;
     }
+        door_keys(x);
+    //test
+    }
     
-    //test
-    i = 0;
-    if (x->keys[O])
-    {
-        while (i < x->num_rays)
-        {
-            if (x->ray[i].is_door)
-            {
-                x->map[(int)x->ray[i].wall_inter_Y / SCALE][(int)x->ray[i].wall_inter_X / SCALE] = 'O';
-                break ;
-            }
-            i++;
-        }
-        x->keys[O] = 0;
-    }
-    i = 0;
-    if (x->keys[C])
-    {
-        while (i < x->num_rays)
-        {
-            if (x->ray[i].is_open)
-            {
-                x->map[(int)x->ray[i].y / SCALE][(int)x->ray[i].x / SCALE] = 'd';
-                break ;
-            }
-            i++;
-        }
-        x->keys[C] = 0;
-    }
-    //test
-
-     // if(i ==  WIDTH / 2 )
-            //implement_door_status(x,x->ray[WIDTH / 2]);  
-	// rander_prijected_wall(x);
-}
-
-
-
-
-
-//  if (index == WIDTH / 2 && !data->ray[index].is_open && hit_o(*data,next_inter_x,next_inter_y ))
-//         {
-//             // puts("hhhhhh");
-//             a = next_inter_x;
-//             b = next_inter_y;
-//             data->ray[index].is_open = 1;
-//         }
-
-
-
-//  if (index == WIDTH / 2 && data->ray[index].is_open && data->keys[O])
-//     {
-//         int x, y;
-//         x = (int)a / SCALE;
-//         y = (int)b / SCALE;
-//         data->map[y][x] = 'd';
-//     }
-
-
-//  if (x->keys[O] && !x->ray[WIDTH / 2].is_open && hit_door(*x, x->ray[WIDTH / 2].wall_inter_X, x->ray[WIDTH / 2].wall_inter_Y))
-//     {
-//         int a;
-//         int b;
-
-//         a =(int) x->ray[WIDTH / 2].wall_inter_X / SCALE;
-//         b =(int) x->ray[WIDTH / 2].wall_inter_Y / SCALE;
-//         x->map[b][a] = 'O';
-//     }
