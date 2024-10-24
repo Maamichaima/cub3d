@@ -12,20 +12,20 @@
 
 #include "Cub3d.h"
 
-void move_w(t_data *x)
+void	move_w(t_data *x)
 {
-	double x_x;
-	double y_y;
-	int f;
-	int h;
-	
+	double	x_x;
+	double	y_y;
+	int		f;
+	int		h;
+
 	if (check_distance(x))
 	{
 		x_x = x->player.x + (x->player.dx * P_SPEED);
 		y_y = x->player.y + (x->player.dy * P_SPEED);
 		h = x_x / SCALE;
 		f = y_y / SCALE;
-		if(x->map[f][h] == '0' || x->map[f][h] == 'O')
+		if (x->map[f][h] == '0' || x->map[f][h] == 'O')
 		{
 			x->player.x = x_x;
 			x->player.y = y_y;
@@ -35,19 +35,18 @@ void move_w(t_data *x)
 		slide_w(x);
 }
 
-void move_s(t_data *x)
+void	move_s(t_data *x)
 {
-	double x_x;
-	double y_y;
-	int f;
-	int h;
-	
+	double	x_x;
+	double	y_y;
+	int		f;
+	int		h;
+
 	x_x = x->player.x - (x->player.dx * P_SPEED);
 	y_y = x->player.y - (x->player.dy * P_SPEED);
 	h = x_x / SCALE;
 	f = y_y / SCALE;
-
-	if(x->map[f][h] == '0' || x->map[f][h] == 'O')
+	if (x->map[f][h] == '0' || x->map[f][h] == 'O')
 	{
 		x->player.x = x_x;
 		x->player.y = y_y;
@@ -56,18 +55,18 @@ void move_s(t_data *x)
 		slide_s(x);
 }
 
-void move_d(t_data *x)
+void	move_d(t_data *x)
 {
-	double x_x;
-	double y_y;
-	int f;
-	int h;
-	
+	double	x_x;
+	double	y_y;
+	int		f;
+	int		h;
+
 	x_x = x->player.x - (x->player.dy * P_SPEED);
 	y_y = x->player.y + (x->player.dx * P_SPEED);
 	h = x_x / SCALE;
 	f = y_y / SCALE;
-	if(x->map[f][h] == '0' || x->map[f][h] == 'O')
+	if (x->map[f][h] == '0' || x->map[f][h] == 'O')
 	{
 		x->player.x = x_x;
 		x->player.y = y_y;
@@ -76,18 +75,18 @@ void move_d(t_data *x)
 		slide_d(x);
 }
 
-void move_a(t_data *x)
+void	move_a(t_data *x)
 {
-	double x_x;
-	double y_y;
-	int f;
-	int h;
-	
+	double	x_x;
+	double	y_y;
+	int		f;
+	int		h;
+
 	x_x = x->player.x + (x->player.dy * P_SPEED);
 	y_y = x->player.y - (x->player.dx * P_SPEED);
 	h = x_x / SCALE;
 	f = y_y / SCALE;
-	if(x->map[f][h] == '0' || x->map[f][h] == 'O')
+	if (x->map[f][h] == '0' || x->map[f][h] == 'O')
 	{
 		x->player.x = x_x;
 		x->player.y = y_y;

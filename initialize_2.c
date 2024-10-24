@@ -12,7 +12,6 @@
 
 #include "Cub3d.h"
 
-
 int	keyOnPres(int key, t_data *x)
 {
 	if (key == 13) // XK_w)

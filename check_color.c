@@ -40,7 +40,7 @@ int	check_is_int(char *str)
 void	set_floor_ceiling(char **tab, t_data *x, char *att)
 {
 	int	i;
-	int rgb[3];
+	int	rgb[3];
 
 	i = 0;
 	while (tab[i])

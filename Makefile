@@ -46,8 +46,9 @@ NAME = cub3D
 NAME_B = cub3D_bonus
 
 SRC = main.c parse_map.c textures.c check_color.c parse_textures.c check_all.c get_map.c lst.c draw.c key_hook.c casting_rays.c\
-	cast_vertical.c render_3D.c mini_map.c textures_buffer.c animation.c garbage.c info_map.c slide.c move.c color_util.c\
-	check_player.c initialize.c initialize_2.c mouse_hook.c
+	cast_vertical.c render_3D.c mini_map.c animation.c garbage.c info_map.c slide.c move.c color_util.c\
+	check_player.c initialize.c initialize_2.c mouse_hook.c check_rays.c check_wall.c cast_horizontal.c utils_0.c check_map.c\
+	render_3D_util.c utils_1.c
 OBJ = $(SRC:.c=.o)
 
 SRC_B = $(SRC)  # Add bonus source files here if different from SRC

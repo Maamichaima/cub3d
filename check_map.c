@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_all.c                                        :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/20 20:05:12 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/24 14:13:23 by maamichaima      ###   ########.fr       */
+/*   Created: 2024/10/24 14:14:22 by maamichaima       #+#    #+#             */
+/*   Updated: 2024/10/24 14:14:54 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3d.h"
 
-int	check_all(t_data *x)
+int	is_door(char c)
 {
-	int		fd;
-	char	**c;
-
-	fd = open(x->file_map, O_RDONLY);
-	x->texture = get_texture(fd);
-	c = fill_blanks(*x);
-	if (check_player(x->map) && check_zero_in_map(c, *x)
-		&& check_textures(x->texture, x))
-	{
-		printf("map valide\n");
+	if (c == 'd')
 		return (1);
-	}
-	else
-	{
-		printf("map not valide\n");
-		return (0);
-	}
+	return (0);
+}
+
+int	smya(char c)
+{
+	if (c != '1' && c != '0' && !is_player(c) && !is_door(c))
+		return (1);
+	return (0);
+}
+
+int	check_doors(char **tab, size_t i, size_t j)
+{
+	if (!((tab[i - 1][j] == '1' && tab[i + 1][j] == '1') || (tab[i][j
+				- 1] == '1' && tab[i][j + 1] == '1')))
+		return (1);
+	return (0);
 }

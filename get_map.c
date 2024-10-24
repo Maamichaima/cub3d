@@ -41,11 +41,11 @@ t_texture	*get_path(char *line)
 	return (info);
 }
 
-void set_map_data(char **map, int fd, int size)
+void	set_map_data(char **map, int fd, int size)
 {
-	int i;
-	char *ligne;
-	
+	int		i;
+	char	*ligne;
+
 	i = 0;
 	while (i < size)
 	{

@@ -6,7 +6,7 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/24 00:41:10 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/24 15:31:02 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define ESC 6
 # define O 7
 # define C 8
-# define P_SPEED 4
+# define P_SPEED 6
 # define P_DISTANCE 15
 # define A_SPEED 0.05
 # define MINIMAP_SCALE 15
@@ -123,7 +123,6 @@ typedef struct s_garbage
 	struct s_garbage	*next;
 }						t_garbage;
 
-
 char					*get_next_line(int fd);
 size_t					ft_strlen(const char *s);
 t_texture				*get_texture(int fd);
@@ -141,7 +140,7 @@ int						ft_strcmp(char *s1, char *s2);
 int						count_comma(char *ligne);
 int						check_is_int(char *str);
 int						check_color(char *ligne, char *att, t_data *x);
-char					**fillBlanks(t_data x);
+char					**fill_blanks(t_data x);
 int						smya(char c);
 int						check_next_to_zero(char **tab, size_t i, size_t j,
 							t_data x);
@@ -152,7 +151,7 @@ int						check_start_map(char *ligne);
 void					inisialise(t_data *x, char *n);
 int						check_all(t_data *x);
 int						possible_color(char *attr);
-int						checkPlayer(char **map);
+int						check_player(char **map);
 int						is_player(char c);
 int						draw(t_data *x);
 int						key_hook(t_data *x);
@@ -162,14 +161,14 @@ int						draw_ray(t_data *data, int x0, int y0, t_ray ray);
 void					my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void					check_vert_hitwall(t_data *data, int index,
 							t_coordinate inter, t_coordinate step);
-void					first_V_inter(int id_column, t_data *data);
+void					first_v_inter(int id_column, t_data *data);
 int						is_wall(t_data x, double i, double j);
-double					Distance_2Points(double x, double y, double x_wall,
+double					distance_2points(double x, double y, double x_wall,
 							double y_wall);
-int						Ray_UP(t_ray ray);
-int						Ray_DOWN(t_ray ray);
-int						Ray_RIGHT(t_ray ray);
-int						Ray_LEFT(t_ray ray);
+int						ray_up(t_ray ray);
+int						ray_down(t_ray ray);
+int						ray_right(t_ray ray);
+int						ray_left(t_ray ray);
 void					render_projected_wall(t_data *data);
 void					mini_map(t_data *x);
 void					color_one_square(int start_x, int start_y, void *x,
@@ -197,12 +196,27 @@ void					slide_s(t_data *data);
 void					slide_d(t_data *data);
 void					slide_a(t_data *data);
 int						check_distance(t_data *x);
-int	mouse_move(int x, int y, t_data *data);
-int	*x_mouse(void);
-int	keyOnRelease(int key, t_data *x);
-int	keyOnPres(int key, t_data *x);
-void	init_keys(t_data *x);
-void	init_textures(t_data *data);
-char	*get_name_animation(int i);
-int	is_textures(char *str);
+int						mouse_move(int x, int y, t_data *data);
+int						*x_mouse(void);
+int						keyOnRelease(int key, t_data *x);
+int						keyOnPres(int key, t_data *x);
+void					init_keys(t_data *x);
+void					init_textures(t_data *data);
+char					*get_name_animation(int i);
+int						is_textures(char *str);
+void					set_value(t_coordinate *c, double x, double y);
+void					set_o_in_map(t_data *x, int flag);
+void					set_d_in_map(t_data *x, int flag1);
+void					check_horz_hitwall(t_data *data, int index,
+							t_coordinate inter, t_coordinate step);
+void					first_h_inter(int index, t_data *data);
+int						check_doors(char **tab, size_t i, size_t j);
+t_texture				hh(t_texture *t, char *str);
+t_texture				get_wall_tex(t_ray ray, t_data data);
+double					get_start_text(t_ray ray, t_texture tex);
+double					distance_from_center(double j);
+unsigned int			darkness(unsigned int color, double distance,
+							int max_distance);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	draw_line_of_tex(t_data *data, double wall_height, double i);
 #endif

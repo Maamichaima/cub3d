@@ -20,7 +20,6 @@ int	is_textures(char *str)
 	return (0);
 }
 
-
 int	ft_close(t_data *x)
 {
 	mlx_destroy_image(x->mlx_ptr, x->image.ptr_img);

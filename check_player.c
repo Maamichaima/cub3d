@@ -6,12 +6,11 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 19:11:25 by maamichaima       #+#    #+#             */
-/*   Updated: 2024/10/23 19:13:57 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/24 13:54:18 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3d.h"
-
 
 int	is_player(char c)
 {
@@ -20,7 +19,7 @@ int	is_player(char c)
 	return (0);
 }
 
-int	checkPlayer(char **map)
+int	check_player(char **map)
 {
 	int	i;
 	int	j;

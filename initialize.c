@@ -6,12 +6,11 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 19:40:12 by maamichaima       #+#    #+#             */
-/*   Updated: 2024/10/23 19:42:00 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/24 14:10:04 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3d.h"
-
 
 void	inisialise_angle(t_data *x, char p)
 {
@@ -27,22 +26,22 @@ void	inisialise_angle(t_data *x, char p)
 	x->player.dy = sin(x->player.angle);
 }
 
-void init_image_animation(t_data *data)
+void	init_image_animation(t_data *x)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (i < 91)
 	{
-		data->animation[i].ptr_img = mlx_xpm_file_to_image(data->mlx_ptr,
-				data->animation[i].data, &data->animation[i].width,
-				&data->animation[i].height);
-		if (!data->animation[i].ptr_img)
+		x->animation[i].ptr_img = mlx_xpm_file_to_image(x->mlx_ptr,
+				x->animation[i].data, &x->animation[i].width,
+				&x->animation[i].height);
+		if (!x->animation[i].ptr_img)
 			printf("Image reading has failed \n");
-		data->animation[i].img.addr = mlx_get_data_addr(data->animation[i].ptr_img,
-				&data->animation[i].img.bits_per_pixel,
-				&data->animation[i].img.line_length,
-				&data->animation[i].img.endian);
+		x->animation[i].img.addr = mlx_get_data_addr(x->animation[i].ptr_img,
+				&x->animation[i].img.bits_per_pixel,
+				&x->animation[i].img.line_length,
+				&x->animation[i].img.endian);
 		i++;
 	}
 }
