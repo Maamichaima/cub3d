@@ -6,7 +6,7 @@
 /*   By: maamichaima <maamichaima@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:24:07 by cmaami            #+#    #+#             */
-/*   Updated: 2024/10/23 19:48:36 by maamichaima      ###   ########.fr       */
+/*   Updated: 2024/10/24 00:41:10 by maamichaima      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ typedef struct s_image
 	int					endian;
 }						t_image;
 
+typedef struct s_coordinate
+{
+	double				x;
+	double				y;
+}						t_coordinate;
+
 typedef struct s_ray
 {
 	double				ray_angle;
@@ -117,11 +123,6 @@ typedef struct s_garbage
 	struct s_garbage	*next;
 }						t_garbage;
 
-typedef struct s_coordinate
-{
-	double				x;
-	double				y;
-}						t_coordinate;
 
 char					*get_next_line(int fd);
 size_t					ft_strlen(const char *s);
