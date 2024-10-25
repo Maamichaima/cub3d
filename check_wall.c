@@ -28,7 +28,7 @@ int	is_wall(t_data x, double i, double j)
 	return (0);
 }
 
-int	hit_door(t_data *x, int index, double i, double j)
+int	hit_door(t_data *x, double i, double j)
 {
 	int	a;
 	int	b;

@@ -23,6 +23,7 @@ int	mouse_move(int x, int y, t_data *data)
 {
 	int static	c;
 
+	(void)y;
 	if (c == 0)
 	{
 		*x_mouse() = x;

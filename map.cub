@@ -1,11 +1,12 @@
-NO   textures/brick-wall_.xpm  
-SO    textures/brick-wall_.xpm 
-WE 	textures/brick-wall_.xpm 
-				EA       textures/brick-wall_.xpm
+NO   textures/wallgris3.xpm  
+SO    textures/wallgris3.xpm 
+WE 	textures/wallgris3.xpm 
+				EA       textures/wallgris3.xpm
 	
 
-F 51, 198 ,  200
-C 184,13,39
+F 97, 97 ,  97
+C 40,45,63
+
 
 111111111111111111
 100000000000000111

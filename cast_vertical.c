@@ -27,7 +27,7 @@ int	is_last_inter_verti(t_data *data, int index, t_coordinate next_inter,
 		wall->y = next_inter.y;
 		return (-1);
 	}
-	else if (hit_door(data, index, next_inter.x, next_inter.y))
+	else if (hit_door(data, next_inter.x, next_inter.y))
 	{
 		wall->x = next_inter.x;
 		wall->y = next_inter.y;

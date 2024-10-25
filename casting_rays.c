@@ -65,13 +65,11 @@ void	door_keys(t_data *x)
 	x->keys[O] = 0;
 }
 
-void	cast_ray(t_data *x, int x0, int y0)
+void	cast_ray(t_data *x)
 {
 	int		id_column;
 	int		i;
 	double	ray_angle;
-	double	d_v;
-	double	d_h;
 
 	id_column = 0;
 	i = 0;

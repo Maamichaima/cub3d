@@ -18,17 +18,21 @@ int	check_all(t_data *x)
 	char	**c;
 
 	fd = open(x->file_map, O_RDONLY);
+	if(fd == -1)
+	{
+		printf("%s", x->file_map);
+		free_exit(" not exist");
+	}
 	x->texture = get_texture(fd);
 	c = fill_blanks(*x);
 	if (check_player(x->map) && check_zero_in_map(c, *x)
 		&& check_textures(x->texture, x))
 	{
-		printf("map valide\n");
 		return (1);
 	}
 	else
 	{
-		printf("map not valide\n");
+		free_exit("map not valide");
 		return (0);
 	}
 }

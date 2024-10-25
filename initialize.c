@@ -37,7 +37,7 @@ void	init_image_animation(t_data *x)
 				x->animation[i].data, &x->animation[i].width,
 				&x->animation[i].height);
 		if (!x->animation[i].ptr_img)
-			printf("Image reading has failed \n");
+			free_exit("Image reading has failed");
 		x->animation[i].img.addr = mlx_get_data_addr(x->animation[i].ptr_img,
 				&x->animation[i].img.bits_per_pixel,
 				&x->animation[i].img.line_length,
@@ -50,10 +50,9 @@ void	init_textures(t_data *data)
 {
 	t_texture	*t;
 	t_texture	*new;
-	int			i;
 
 	t = data->texture;
-	new = ft_lstnew_txt("d", "textures/door3.xpm");
+	new = ft_lstnew_txt("d", "textures/door7.xpm");
 	ft_lstadd_back_txt(&data->texture, new);
 	while (t)
 	{
@@ -62,7 +61,7 @@ void	init_textures(t_data *data)
 			t->ptr_img = mlx_xpm_file_to_image(data->mlx_ptr, t->data,
 					&t->width, &t->height);
 			if (!t->ptr_img)
-				printf("Image reading has failed \n");
+				free_exit("Image reading has failed");
 			t->img.addr = mlx_get_data_addr(t->ptr_img, &t->img.bits_per_pixel,
 					&t->img.line_length, &t->img.endian);
 		}
@@ -87,7 +86,6 @@ void	inisialise(t_data *x, char *av)
 {
 	int	*t;
 	int	fd;
-	int	i;
 
 	t = count_length_width(av);
 	x->mlx_ptr = mlx_init();
@@ -96,6 +94,11 @@ void	inisialise(t_data *x, char *av)
 	x->map = alloc_map(x->height);
 	x->file_map = av;
 	fd = open(x->file_map, O_RDONLY);
+	if(fd == -1)
+	{
+		printf("%s", x->file_map);
+		free_exit(" not exist");
+	}
 	x->map = get_map(fd, x);
 	x->rayon = SCALE / 2;
 	x->num_rays = WIDTH;

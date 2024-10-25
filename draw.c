@@ -21,7 +21,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	color_one_square(int start_x, int start_y, void *x, double scale)
+void	color_one_square(int start_x, int start_y, void *x)
 {
 	int		i;
 	int		j;
@@ -88,7 +88,7 @@ int	draw(t_data *data)
 {
 	clear_img(data);
 	key_hook(data);
-	cast_ray(data, data->player.x, data->player.y);
+	cast_ray(data);
 	render_projected_wall(data);
 	animation(data);
 	mini_map(data);

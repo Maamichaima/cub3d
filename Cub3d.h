@@ -147,7 +147,6 @@ int						check_next_to_zero(char **tab, size_t i, size_t j,
 int						check_zero_in_map(char **tab, t_data x);
 char					**alloc_map(int size);
 int						check_start_map(char *ligne);
-
 void					inisialise(t_data *x, char *n);
 int						check_all(t_data *x);
 int						possible_color(char *attr);
@@ -156,7 +155,7 @@ int						is_player(char c);
 int						draw(t_data *x);
 int						key_hook(t_data *x);
 void					draw_line_angle(t_data *data, int x0, int y0);
-void					cast_ray(t_data *x, int x0, int y0);
+void					cast_ray(t_data *x);
 int						draw_ray(t_data *data, int x0, int y0, t_ray ray);
 void					my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void					check_vert_hitwall(t_data *data, int index,
@@ -171,11 +170,10 @@ int						ray_right(t_ray ray);
 int						ray_left(t_ray ray);
 void					render_projected_wall(t_data *data);
 void					mini_map(t_data *x);
-void					color_one_square(int start_x, int start_y, void *x,
-							double scale);
+void					color_one_square(int start_x, int start_y, void *x);
 void					get_textures_buffer(t_data *data);
 unsigned int			my_mlx_pixel_get(t_image image, int x, int y);
-int						hit_door(t_data *x, int index, double i, double j);
+int						hit_door(t_data *x, double i, double j);
 t_texture				*ft_lstnew_txt(char *attr, char *data);
 int						is_door(char c);
 int						hit_o(t_data x, double i, double j);
@@ -219,4 +217,5 @@ unsigned int			darkness(unsigned int color, double distance,
 							int max_distance);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_line_of_tex(t_data *data, double wall_height, double i);
+void free_exit(char *str);
 #endif

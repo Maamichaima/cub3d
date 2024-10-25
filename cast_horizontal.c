@@ -26,7 +26,7 @@ int	is_last_inter_horz(t_data *data, int index, t_coordinate next_inter,
 		set_value(wall, next_inter.x, next_inter.y);
 		return (0);
 	}
-	else if (hit_door(data, index, next_inter.x, next_inter.y))
+	else if (hit_door(data, next_inter.x, next_inter.y))
 	{
 		set_value(wall, next_inter.x, next_inter.y);
 		data->ray[index].is_door = 1;

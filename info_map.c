@@ -101,12 +101,16 @@ int	*count_length_width(char *av)
 	size_t	length;
 	size_t	width;
 	int		fd;
-	char	*ligne;
 
 	t = ft_malloc(sizeof(int) * 2, 'a');
 	length = 0;
 	width = 0;
 	fd = open(av, O_RDONLY);
+	if(fd == -1)
+	{
+		printf("%s", av);
+		free_exit(" not exist");
+	}
 	length = 0;
 	get_width_height(&width, &length, fd);
 	t[0] = length;

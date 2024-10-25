@@ -29,7 +29,7 @@ void	draw_rect(t_data *data, double wall_height, int j, int color)
 	}
 }
 
-int	set_wall_color(t_ray ray, double player_angle)
+int	set_wall_color(t_ray ray)
 {
 	if (ray.direction == 'h')
 	{

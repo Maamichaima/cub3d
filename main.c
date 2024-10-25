@@ -24,13 +24,16 @@ int	ft_close(t_data *x)
 {
 	mlx_destroy_image(x->mlx_ptr, x->image.ptr_img);
 	mlx_destroy_window(x->mlx_ptr, x->mlx_win);
-	exit(0);
+	free_exit("");
+	return (0);
 }
 
 int	main(int ac, char **av)
 {
 	t_data	x;
 
+	if(ac != 2)
+		free_exit("invalid args");
 	inisialise(&x, av[1]);
 	if (check_all(&x))
 	{
@@ -47,4 +50,5 @@ int	main(int ac, char **av)
 		mlx_loop_hook(x.mlx_ptr, draw, &x);
 		mlx_loop(x.mlx_ptr);
 	}
+	return (0);
 }

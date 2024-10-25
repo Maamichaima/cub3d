@@ -65,8 +65,10 @@ int	check_textures_is_duplicate(char *data, t_texture *t)
 int	check_textures(t_texture *txt, t_data *x)
 {
 	t_texture	*tmp;
+	int count;
 
 	tmp = txt;
+	count = 0;
 	while (txt)
 	{
 		if (!valid_files(ft_strtrim(txt->data, " \t\n"), txt->attr)
@@ -74,7 +76,10 @@ int	check_textures(t_texture *txt, t_data *x)
 			return (0);
 		if (!check_textures_is_duplicate(txt->attr, tmp))
 			return (0);
+			count++;
 		txt = txt->next;
 	}
+	if(count != 6)
+		return (0);
 	return (1);
 }

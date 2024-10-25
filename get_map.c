@@ -59,7 +59,6 @@ void	set_map_data(char **map, int fd, int size)
 char	**read_map(char *av)
 {
 	int		fd;
-	char	*ligne;
 	char	**map;
 	int		*size;
 	int		i;
@@ -67,10 +66,10 @@ char	**read_map(char *av)
 	map = NULL;
 	i = 0;
 	fd = open(av, O_RDONLY);
-	if (fd == -1)
+	if(fd == -1)
 	{
-		printf("map not existe\n");
-		return (NULL);
+		printf("%s", av);
+		free_exit(" not exist");
 	}
 	else
 	{

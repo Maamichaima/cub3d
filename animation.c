@@ -35,7 +35,6 @@ void	animation(t_data *data)
 	t_texture	t;
 	int			i;
 	int			j;
-	int			color;
 
 	j = 300;
 	i = 0;

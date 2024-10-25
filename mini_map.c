@@ -67,7 +67,7 @@ void	mini_map(t_data *x)
 		i++;
 	}
 	color_one_square((width * MINIMAP_SCALE) / 2, (height * MINIMAP_SCALE) / 2,
-		x, SCALE);
+		x);
 	draw_line_angle(x, (width * MINIMAP_SCALE) / 2, (height * MINIMAP_SCALE)
 		/ 2);
 }
