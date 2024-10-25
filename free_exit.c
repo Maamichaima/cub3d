@@ -12,9 +12,11 @@
 
 #include "Cub3d.h"
 
-void free_exit(char *str)
+void free_exit(char *str)//, t_data *data)
 {
     printf("%s\n", str);
     ft_malloc(0, 'f');
+    // mlx_destroy_image();
+    // system("leaks cub3D");
     exit(1);
 }

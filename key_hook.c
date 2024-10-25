@@ -41,7 +41,7 @@ int	key_hook(t_data *x)
 {
 	mlx_clear_window(x->mlx_ptr, x->mlx_win);
 	if (x->keys[ESC])
-		exit(0);
+		free_exit("");
 	if (x->keys[W])
 		move_w(x);
 	if (x->keys[S])

@@ -18,7 +18,7 @@ char	*stt(int fd, char *str)
 	int		i;
 
 	i = 1;
-	buf = malloc((size_t)(BUFFER_SIZE + 1));
+	buf = ft_malloc((size_t)(BUFFER_SIZE + 1), 'a');
 	if (!buf)
 		return (NULL);
 	while (!ft_strchr(str, '\n') && i != 0)
@@ -26,8 +26,8 @@ char	*stt(int fd, char *str)
 		i = read(fd, buf, BUFFER_SIZE);
 		if (i == -1)
 		{
-			free(str);
-			free(buf);
+			// free(str);
+			// free(buf);
 			return (NULL);
 		}
 		buf[i] = '\0';
@@ -35,7 +35,7 @@ char	*stt(int fd, char *str)
 		if (!str)
 			return (NULL);
 	}
-	free(buf);
+	// free(buf);
 	return (str);
 }
 
@@ -53,7 +53,7 @@ char	*line(char *str)
 		i++;
 	if (str[i])
 		i++;
-	s = malloc(i + 1);
+	s = ft_malloc(i + 1, 'a');
 	if (!s)
 		return (NULL);
 	i = 0;
@@ -82,10 +82,10 @@ char	*reste(char *str)
 		i++;
 	if (str[i] == '\n' || str[i] == '\0')
 	{
-		free(str);
+		// free(str);
 		return (NULL);
 	}
-	s = malloc(ft_strlen(str) - i + 1);
+	s = ft_malloc(ft_strlen(str) - i + 1, 'a');
 	if (!s)
 		return (NULL);
 	if (str[i] == '\n')
@@ -93,7 +93,7 @@ char	*reste(char *str)
 	while (str[i] != '\0')
 		s[j++] = str[i++];
 	s[j] = '\0';
-	free(str);
+	// free(str);
 	return (s);
 }
 

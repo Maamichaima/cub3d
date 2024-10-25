@@ -90,7 +90,7 @@ void	get_width_height(size_t *width, size_t *length, int fd)
 		if (ft_strlen_map(ligne) >= *length)
 			*length = ft_strlen_map(ligne);
 		(*width)++;
-		free(ligne);
+		// free(ligne);
 		ligne = get_next_line(fd);
 	}
 }

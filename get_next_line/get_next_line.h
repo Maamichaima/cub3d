@@ -28,5 +28,6 @@ char	*ft_strjoin_(char *s1, char *s2);
 char	*ft_strdup(const char *s1);
 char	*ft_strchr(char *s, int c);
 char	*get_next_line(int fd);
+void	*ft_malloc(int size, char c);
 
 #endif

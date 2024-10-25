@@ -26,13 +26,13 @@ char	*ft_strjoin_(char *s1, char *s2)
 	}
 	ls1 = ft_strlen(s1);
 	ls2 = ft_strlen(s2);
-	p = malloc(sizeof(char) * (ls1 + ls2 + 1));
+	p = ft_malloc(sizeof(char) * (ls1 + ls2 + 1), 'a');
 	if (!p)
 		return (NULL);
 	p[0] = '\0';
 	ft_strlcat(p, s1, ls1 + 1);
 	ft_strlcat(p, s2, ls1 + ls2 + 1);
-	free(s1);
+	// free(s1);
 	return (p);
 }
 
@@ -67,7 +67,7 @@ char	*ft_strdup(const char *s1)
 
 	i = 0;
 	len = ft_strlen(s1);
-	str = malloc(sizeof(*s1) * (len + 1));
+	str = ft_malloc(sizeof(*s1) * (len + 1), 'a');
 	if (!str)
 		return (NULL);
 	while (s1[i] != '\0')
