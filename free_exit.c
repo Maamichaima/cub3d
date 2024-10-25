@@ -17,6 +17,6 @@ void free_exit(char *str)//, t_data *data)
     printf("%s\n", str);
     ft_malloc(0, 'f');
     // mlx_destroy_image();
-    // system("leaks cub3D");
+    system("leaks cub3D");
     exit(1);
 }

@@ -30,7 +30,7 @@ static char	*alloc(char *p, int j, const char *debut)
 {
 	int	i;
 
-	p = malloc(sizeof(char) * (j + 2));
+	p = ft_malloc(sizeof(char) * (j + 2), 'a');
 	if (!p)
 		return (NULL);
 	i = 0;

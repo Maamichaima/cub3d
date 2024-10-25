@@ -75,3 +75,5 @@ void	*ft_malloc(int size, char c)
 	}
 	return (ptr);
 }
+
+// int main 
