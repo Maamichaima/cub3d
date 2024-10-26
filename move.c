@@ -18,6 +18,7 @@ void	move_w(t_data *x)
 	double	y_y;
 	int		f;
 	int		h;
+	pthread_t tid;
 
 	if (check_distance(x))
 	{
@@ -27,6 +28,11 @@ void	move_w(t_data *x)
 		f = y_y / SCALE;
 		if (x->map[f][h] == '0' || x->map[f][h] == 'O')
 		{
+			if(x->sound_flag)
+			{
+				pthread_create(&tid, NULL, play_sound, x);
+				pthread_detach(tid);
+			}
 			x->player.x = x_x;
 			x->player.y = y_y;
 		}

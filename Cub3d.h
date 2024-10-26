@@ -27,6 +27,8 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <unistd.h>
+# include <pthread.h>
+# include <sys/time.h>
 # define SCALE 100
 # define WIDTH 1280
 # define HEIGHT 720
@@ -115,6 +117,7 @@ typedef struct s_data
 	int					ff;
 	unsigned int		c;
 	unsigned int		f;
+	int					sound_flag;
 }						t_data;
 
 typedef struct s_garbage
@@ -219,5 +222,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_line_of_tex(t_data *data, double wall_height, double i);
 void free_exit(char *str);
 size_t	ft_strlen_map(const char *s);
+void *play_sound(void *x);
 
 #endif

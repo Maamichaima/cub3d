@@ -38,7 +38,8 @@ void	put_pixel_mini_map(t_data *x, double i, double j, t_coordinate start)
 
 	a = start.y / SCALE + i / MINIMAP_SCALE;
 	b = start.x / SCALE + j / MINIMAP_SCALE;
-	if (a >= 0 && a < x->height && b >= 0 && b < x->width && is_corner(x->map[(int)a][(int)b]) && ((int)(start.x * MINIMAP_SCALE / SCALE + j) % MINIMAP_SCALE == 0
+	if (a >= 0 && a < x->height && b >= 0 && b < x->width && is_corner(x->map[(int)a][(int)b])
+		&& ((int)(start.x * MINIMAP_SCALE / SCALE + j) % MINIMAP_SCALE == 0
 		|| (int)(start.y * MINIMAP_SCALE / SCALE + i) % MINIMAP_SCALE == 0))
 		my_mlx_pixel_put(x, j, i, 0x000000);
 	else if (a >= 0 && a < x->height && b >= 0 && b < x->width
@@ -47,6 +48,12 @@ void	put_pixel_mini_map(t_data *x, double i, double j, t_coordinate start)
 	else if (a >= 0 && a < x->height && b >= 0 && b < x->width
 		&& x->map[(int)a][(int)b] == '0')
 		my_mlx_pixel_put(x, j, i, 0x215dbf);
+	else if (a >= 0 && a < x->height && b >= 0 && b < x->width
+		&& (x->map[(int)a][(int)b] == 'd'))
+		my_mlx_pixel_put(x, j, i, 0x0);
+	else if (a >= 0 && a < x->height && b >= 0 && b < x->width
+		&& (x->map[(int)a][(int)b] == 'O'))
+		my_mlx_pixel_put(x, j, i, 0xFFFFFF);
 }
 
 void	mini_map(t_data *x)

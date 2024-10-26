@@ -106,4 +106,5 @@ void	inisialise(t_data *x, char *av)
 	init_keys(x);
 	init_data_animation(x);
 	x->ff = 0;
+	x->sound_flag = 1;
 }
