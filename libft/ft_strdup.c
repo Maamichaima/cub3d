@@ -23,7 +23,7 @@ char	*ft_strdup_libft(const char *s1)
 	str = ft_malloc(sizeof(*s1) * (len + 1), 'a');
 	if (!str)
 		return (NULL);
-	while (s1[i] != '\0')
+	while (s1[i] != '\0' && s1[i] != '\n')
 	{
 		str[i] = s1[i];
 		i++;

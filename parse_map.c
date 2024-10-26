@@ -21,8 +21,8 @@ char	**fill_blanks(t_data x)
 	copie_map = ft_malloc(sizeof(char *) * (x.height + 1), 'a');
 	while (i < x.height)
 	{
-		copie_map[i] = ft_calloc(ft_strlen(x.map[i]) + 1, 1);
-		ft_strlcpy(copie_map[i], ft_strtrim(x.map[i], "\n"), ft_strlen(x.map[i])
+		copie_map[i] = ft_calloc(x.width + 1, 1);
+		ft_strlcpy(copie_map[i], ft_strtrim(x.map[i], "\n"), ft_strlen_map(x.map[i])
 			+ 1);
 		i++;
 	}

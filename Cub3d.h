@@ -218,5 +218,6 @@ unsigned int			darkness(unsigned int color, double distance,
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_line_of_tex(t_data *data, double wall_height, double i);
 void free_exit(char *str);
+size_t	ft_strlen_map(const char *s);
 
 #endif

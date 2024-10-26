@@ -25,6 +25,7 @@ int	check_all(t_data *x)
 	}
 	x->texture = get_texture(fd);
 	c = fill_blanks(*x);
+	x->map = c;
 	if (check_player(x->map) && check_zero_in_map(c, *x)
 		&& check_textures(x->texture, x))
 	{

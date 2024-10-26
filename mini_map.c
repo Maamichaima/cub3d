@@ -24,6 +24,13 @@ void	cast_ray_mini_map(t_data *x)
 	}
 }
 
+int	is_corner(char c)
+{
+	if (!c || c == ' ' || c == '\n')
+		return (0);
+	return (1);
+}
+
 void	put_pixel_mini_map(t_data *x, double i, double j, t_coordinate start)
 {
 	double	b;
@@ -31,8 +38,7 @@ void	put_pixel_mini_map(t_data *x, double i, double j, t_coordinate start)
 
 	a = start.y / SCALE + i / MINIMAP_SCALE;
 	b = start.x / SCALE + j / MINIMAP_SCALE;
-	if (a >= 0 && a < x->height && b >= 0 && b < x->width && ((int)(start.x
-			* MINIMAP_SCALE / SCALE + j) % MINIMAP_SCALE == 0
+	if (a >= 0 && a < x->height && b >= 0 && b < x->width && is_corner(x->map[(int)a][(int)b]) && ((int)(start.x * MINIMAP_SCALE / SCALE + j) % MINIMAP_SCALE == 0
 		|| (int)(start.y * MINIMAP_SCALE / SCALE + i) % MINIMAP_SCALE == 0))
 		my_mlx_pixel_put(x, j, i, 0x000000);
 	else if (a >= 0 && a < x->height && b >= 0 && b < x->width
