@@ -57,7 +57,7 @@ OBJ_B = $(SRC_B:.c=.o)
 CC = cc
 CFLAGS =  -g -Wall -Wextra -Werror
 # Uncomment the line below to enable address sanitizer
- CFLAGS += -fsanitize=address
+#  CFLAGS += -fsanitize=address
 
 # MLX settings
 MLX_DIR = ../mlx

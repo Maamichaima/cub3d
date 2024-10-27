@@ -33,8 +33,6 @@ int	check_all(t_data *x)
 	}
 	else
 	{
-		printf("%d   %d   %d  \n", check_player(x->map), check_zero_in_map(c,
-				*x), check_textures(x->texture, x));
 		free_exit("map not valide");
 		return (0);
 	}
