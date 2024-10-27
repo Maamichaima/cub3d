@@ -34,11 +34,13 @@ int	check_next_to_zero(char **tab, size_t i, size_t j, t_data x)
 {
 	if (i <= 0 || i >= (x.height - 1) || j <= 0 || j >= (x.width - 1))
 		return (1);
-	if (tab[i][j] == 'd')
-		return (check_doors(tab, i, j));
 	if (smya(tab[i - 1][j]) || smya(tab[i][j - 1]) || smya(tab[i + 1][j])
 		|| smya(tab[i][j + 1]))
+	{
+		if (tab[i][j] == 'd')
+			return (check_doors(tab, i, j));
 		return (1);
+	}
 	return (0);
 }
 
@@ -70,7 +72,7 @@ int	check_start_map(char *ligne)
 
 	i = 0;
 	ligne = skip_white_spaces(ligne);
-	if (ligne[i] && ligne[i] == '1')
+	if (ligne[i] && (ligne[i] == '1' || ligne[i] == '0' || ligne[i] == 'd'))
 		return (0);
 	return (1);
 }

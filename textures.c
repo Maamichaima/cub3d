@@ -34,7 +34,7 @@ int	check_extention(char *str)
 	return (0);
 }
 
-int	valid_files(char *file, char *att) // close fd
+int	valid_files(char *file, char *att)
 {
 	int	fd;
 

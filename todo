@@ -1,16 +1,16 @@
 ---> tab ib map 
----> ila kanet tex.txt (khawya)
----> color for the doors
+---> ila kanet tex.txt (khawya) (done)
+---> color for the doors (done)
 ---> free_exit add 
---->      textures/wallgris3.xpm
+--->      textures/wallgris3.xpm (done)
 
 --->
 "d
 111111111111111111111
 10000000000000111
-10000000N00000011
+10000000N0  0000011
 1000000100100000011111111
-11111111111111111"
+11111111111111111" (done)
 
 -->
 

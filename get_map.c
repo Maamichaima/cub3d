@@ -26,7 +26,7 @@ t_texture	*get_path(char *line)
 	i = 0;
 	j = 0;
 	line = skip_white_spaces(line);
-	while (line && line[i] != 32)
+	while (line[i] && line[i] != 32)
 		tmp[j++] = line[i++];
 	tmp[j] = '\0';
 	info->attr = ft_strdup_libft(tmp);
