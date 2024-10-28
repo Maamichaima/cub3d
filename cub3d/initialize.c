@@ -26,33 +26,11 @@ void	inisialise_angle(t_data *x, char p)
 	x->player.dy = sin(x->player.angle);
 }
 
-void	init_image_animation(t_data *x)
-{
-	int	i;
-
-	i = 0;
-	while (i < 91)
-	{
-		x->animation[i].ptr_img = mlx_xpm_file_to_image(x->mlx_ptr,
-				x->animation[i].data, &x->animation[i].width,
-				&x->animation[i].height);
-		if (!x->animation[i].ptr_img)
-			free_exit("Image reading has failed");
-		x->animation[i].img.addr = mlx_get_data_addr(x->animation[i].ptr_img,
-				&x->animation[i].img.bits_per_pixel,
-				&x->animation[i].img.line_length, &x->animation[i].img.endian);
-		i++;
-	}
-}
-
 void	init_textures(t_data *data)
 {
 	t_texture	*t;
-	t_texture	*new;
 
 	t = data->texture;
-	new = ft_lstnew_txt("d", "../textures/door7.xpm");
-	ft_lstadd_back_txt(&data->texture, new);
 	while (t)
 	{
 		if (is_textures(t->attr))
@@ -68,19 +46,6 @@ void	init_textures(t_data *data)
 					&t->img.line_length, &t->img.endian);
 		}
 		t = t->next;
-	}
-	init_image_animation(data);
-}
-
-void	init_data_animation(t_data *x)
-{
-	int	i;
-
-	i = 0;
-	while (i < 91)
-	{
-		x->animation[i].data = get_name_animation(i);
-		i++;
 	}
 }
 
@@ -106,7 +71,4 @@ void	inisialise(t_data *x, char *av)
 	x->num_rays = WIDTH;
 	x->ray = ft_malloc(sizeof(t_ray) * WIDTH, 'a');
 	init_keys(x);
-	init_data_animation(x);
-	x->ff = 0;
-	x->sound_flag = 1;
 }

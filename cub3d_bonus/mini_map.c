@@ -45,10 +45,10 @@ void	put_pixel_mini_map(t_data *x, double i, double j, t_coordinate start)
 		my_mlx_pixel_put(x, j, i, 0x000000);
 	else if (a >= 0 && a < x->height && b >= 0 && b < x->width
 		&& x->map[(int)a][(int)b] == '1')
-		my_mlx_pixel_put(x, j, i, 0xe0d5d9);
+		my_mlx_pixel_put(x, j, i, 0x34495e);
 	else if (a >= 0 && a < x->height && b >= 0 && b < x->width
 		&& x->map[(int)a][(int)b] == '0')
-		my_mlx_pixel_put(x, j, i, 0x215dbf);
+		my_mlx_pixel_put(x, j, i, 0xd0d3d4);
 	else if (a >= 0 && a < x->height && b >= 0 && b < x->width
 		&& (x->map[(int)a][(int)b] == 'd'))
 		my_mlx_pixel_put(x, j, i, 0x0);

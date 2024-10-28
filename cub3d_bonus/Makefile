@@ -80,8 +80,6 @@ $(LIBFT):
 clean:
 	$(RM) $(OBJ) $(OBJ_B) $(GNL_OBJ)
 	make -C $(LIBFT_DIR) clean
-	make -C $(MLX_DIR) clean
-
 
 fclean: clean
 	$(RM) $(NAME) $(NAME_B)

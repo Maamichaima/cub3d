@@ -27,12 +27,6 @@ int	is_last_inter_verti(t_data *data, int index, t_coordinate next_inter,
 		wall->y = next_inter.y;
 		return (-1);
 	}
-	else if (hit_door(data, next_inter.x, next_inter.y))
-	{
-		wall->x = next_inter.x;
-		wall->y = next_inter.y;
-		return (0);
-	}
 	return (1);
 }
 
@@ -68,12 +62,7 @@ void	check_vert_hitwall(t_data *data, int index, t_coordinate inter,
 	while (next_inter.x >= 0 && next_inter.x < (data->width * SCALE)
 		&& next_inter.y >= 0 && next_inter.y < (data->height * SCALE))
 	{
-		if (is_last_inter_verti(data, index, next_inter, &wall) == 0)
-		{
-			is_door = 1;
-			break ;
-		}
-		else if (is_last_inter_verti(data, index, next_inter, &wall) == -1)
+		if (is_last_inter_verti(data, index, next_inter, &wall) == -1)
 			break ;
 		set_value(&next_inter, next_inter.x + step.x, next_inter.y + step.y);
 	}

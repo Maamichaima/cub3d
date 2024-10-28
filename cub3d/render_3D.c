@@ -32,27 +32,11 @@ void	draw_line_of_tex(t_data *data, double wall_height, double i)
 	{
 		b = (index.y - ((HEIGHT / 2) - wall_height / 2)) / scale_height;
 		if (a < t.width && a >= 0 && b < t.height && b >= 0)
-			color = darkness(my_mlx_pixel_get(t.img, a, b),
-					data->ray[(long long)index.x].distance, HEIGHT);
+			color = my_mlx_pixel_get(t.img, a, b);
 		if (index.y >= 0 && index.y < HEIGHT && index.x >= 0 && index.x < WIDTH)
 			my_mlx_pixel_put(data, index.x, index.y, color);
 		index.y++;
 	}
-}
-
-unsigned int	apply_darkness(unsigned int color, double dark_factor)
-{
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-
-	r = (color >> 16) & 0xFF;
-	g = (color >> 8) & 0xFF;
-	b = color & 0xFF;
-	r = (unsigned char)(r * (1 - dark_factor));
-	g = (unsigned char)(g * (1 - dark_factor));
-	b = (unsigned char)(b * (1 - dark_factor));
-	return ((r << 16) | (g << 8) | b);
 }
 
 void	draw_flor_ceiling(t_data *data)
@@ -73,9 +57,9 @@ void	draw_flor_ceiling(t_data *data)
 			d = distance_from_center(j);
 			factor = 1 - (d / max_distance);
 			if (j < HEIGHT / 2)
-				my_mlx_pixel_put(data, i, j, apply_darkness(data->c, factor));
+				my_mlx_pixel_put(data, i, j, data->c);
 			else if (j > HEIGHT / 2)
-				my_mlx_pixel_put(data, i, j, apply_darkness(data->f, factor));
+				my_mlx_pixel_put(data, i, j, data->f);
 			j++;
 		}
 		i++;

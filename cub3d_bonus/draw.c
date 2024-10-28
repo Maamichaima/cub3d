@@ -33,7 +33,7 @@ void	color_one_square(int start_x, int start_y, void *x)
 	j = 0;
 	s_x = start_x - MINIMAP_SCALE / 2;
 	s_y = start_y - MINIMAP_SCALE / 2;
-	color = 0xf54242;
+	color = 0xf1c40f;
 	while (i <= MINIMAP_SCALE)
 	{
 		j = 0;

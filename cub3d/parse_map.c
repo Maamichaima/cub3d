@@ -37,8 +37,6 @@ int	check_next_to_zero(char **tab, size_t i, size_t j, t_data x)
 	if (smya(tab[i - 1][j]) || smya(tab[i][j - 1]) || smya(tab[i + 1][j])
 		|| smya(tab[i][j + 1]))
 	{
-		if (tab[i][j] == 'd')
-			return (check_doors(tab, i, j));
 		return (1);
 	}
 	return (0);
@@ -56,7 +54,7 @@ int	check_zero_in_map(char **tab, t_data x)
 		j = 0;
 		while (tab[i][j])
 		{
-			if ((tab[i][j] == '0' || is_player(tab[i][j]) || is_door(tab[i][j]))
+			if ((tab[i][j] == '0' || is_player(tab[i][j]))
 				&& check_next_to_zero(tab, i, j, x))
 				return (0);
 			j++;

@@ -178,7 +178,6 @@ void					get_textures_buffer(t_data *data);
 unsigned int			my_mlx_pixel_get(t_image image, int x, int y);
 int						hit_door(t_data *x, double i, double j);
 t_texture				*ft_lstnew_txt(char *attr, char *data);
-int						is_door(char c);
 int						hit_o(t_data x, double i, double j);
 double					protect_angle(double angle);
 void					animation(t_data *data);

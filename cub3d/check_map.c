@@ -12,24 +12,24 @@
 
 #include "Cub3d.h"
 
-int	is_door(char c)
-{
-	if (c == 'd')
-		return (1);
-	return (0);
-}
+// int	is_door(char c)
+// {
+// 	if (c == 'd')
+// 		return (1);
+// 	return (0);
+// }
 
 int	smya(char c)
 {
-	if (c != '1' && c != '0' && !is_player(c) && !is_door(c))
+	if (c != '1' && c != '0' && !is_player(c))
 		return (1);
 	return (0);
 }
 
-int	check_doors(char **tab, size_t i, size_t j)
-{
-	if (!((tab[i - 1][j] == '1' && tab[i + 1][j] == '1') || (tab[i][j
-				- 1] == '1' && tab[i][j + 1] == '1')))
-		return (1);
-	return (0);
-}
+// int	check_doors(char **tab, size_t i, size_t j)
+// {
+// 	if (!((tab[i - 1][j] == '1' && tab[i + 1][j] == '1') || (tab[i][j
+// 				- 1] == '1' && tab[i][j + 1] == '1')))
+// 		return (1);
+// 	return (0);
+// }

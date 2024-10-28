@@ -28,12 +28,6 @@ int	key_on_pres(int key, t_data *x)
 		x->keys[L] = 1;
 	if (key == 53)
 		x->keys[ESC] = 1;
-	if (key == 31)
-		x->keys[O] = 1;
-	if (key == 8)
-		x->keys[C] = 1;
-	if (key == 46 && x->ff < 21)
-		x->ff = 22;
 	return (0);
 }
 

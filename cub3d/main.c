@@ -15,7 +15,7 @@
 int	is_textures(char *str)
 {
 	if (!ft_strcmp(str, "EA") || !ft_strcmp(str, "NO") || !ft_strcmp(str, "WE")
-		|| !ft_strcmp(str, "SO") || !ft_strcmp(str, "d"))
+		|| !ft_strcmp(str, "SO"))
 		return (1);
 	return (0);
 }

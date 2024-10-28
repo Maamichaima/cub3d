@@ -12,59 +12,6 @@
 
 #include "Cub3d.h"
 
-void	set_flag_close(double *closet_distance, int i, t_ray ray, int *flag)
-{
-	double	current_distance;
-
-	current_distance = ray.distance;
-	if (current_distance < *closet_distance)
-	{
-		*closet_distance = current_distance;
-		*flag = i;
-	}
-}
-
-void	set_flag_open(double *open_distance, t_data x, int i, int *flag1)
-{
-	double	distance;
-
-	distance = distance_2points(x.player.x, x.player.y, x.ray[i].x, x.ray[i].y);
-	if (distance < *open_distance)
-	{
-		*open_distance = distance;
-		*flag1 = i;
-	}
-}
-
-void	door_keys(t_data *x)
-{
-	int		i;
-	int		flag;
-	int		flag1;
-	double	closet_distance;
-	double	open_distance;
-
-	i = 0;
-	closet_distance = INT_MAX;
-	open_distance = INT_MAX;
-	flag = -1;
-	flag1 = -1;
-	while (i < x->num_rays)
-	{
-		if (x->ray[i].is_door)
-			set_flag_close(&closet_distance, i, x->ray[i], &flag);
-		else if (x->ray[i].is_open)
-			set_flag_open(&open_distance, *x, i, &flag1);
-		i++;
-	}
-	if (x->keys[O] && flag != -1 && closet_distance < 250)
-		set_o_in_map(x, flag);
-	if (x->keys[C] && flag1 != -1 && open_distance < 250)
-		set_d_in_map(x, flag1);
-	x->keys[C] = 0;
-	x->keys[O] = 0;
-}
-
 void	cast_ray(t_data *x)
 {
 	int		id_column;
@@ -86,5 +33,4 @@ void	cast_ray(t_data *x)
 		first_v_inter(i, x);
 		i++;
 	}
-	door_keys(x);
 }

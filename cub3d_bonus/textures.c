@@ -22,14 +22,14 @@ int	possible_textures(char *attr)
 
 int	check_extention(char *str)
 {
-	int	i;
+	char	*tmp;
+	int		i;
 
 	i = 0;
-	while (str[i] && str[i] != '.')
-		i++;
-	if (!str[i])
+	tmp = ft_strrchr(str, '.');
+	if (!str[i] || !tmp)
 		return (0);
-	if (ft_strcmp(str + i, ".xpm") == 0)
+	if (ft_strcmp(tmp, ".xpm") == 0)
 		return (1);
 	return (0);
 }
