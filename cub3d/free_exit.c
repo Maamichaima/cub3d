@@ -16,5 +16,6 @@ void	free_exit(char *str)
 {
 	printf("%s\n", str);
 	ft_malloc(0, 'f');
+	system("leaks cub3D");
 	exit(1);
 }

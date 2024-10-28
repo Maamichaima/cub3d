@@ -49,6 +49,16 @@ void	init_textures(t_data *data)
 	}
 }
 
+char	*get_path_file(char *av)
+{
+	char	*str;
+
+	str = ft_strrchr(av, '.');
+	if (ft_strcmp(str, ".cub") != 0)
+		free_exit("invalid file");
+	return (av);
+}
+
 void	inisialise(t_data *x, char *av)
 {
 	int	*t;
@@ -59,7 +69,7 @@ void	inisialise(t_data *x, char *av)
 	x->width = t[0];
 	x->height = t[1];
 	x->map = alloc_map(x->height);
-	x->file_map = av;
+	x->file_map = get_path_file(av);
 	fd = open(x->file_map, O_RDONLY);
 	if (fd == -1)
 	{

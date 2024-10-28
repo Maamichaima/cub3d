@@ -28,8 +28,19 @@ int	smya(char c)
 
 int	check_doors(char **tab, size_t i, size_t j)
 {
-	if (!((tab[i - 1][j] == '1' && tab[i + 1][j] == '1') || (tab[i][j
-				- 1] == '1' && tab[i][j + 1] == '1')))
-		return (1);
-	return (0);
+	if ((tab[i - 1][j] == '1' && tab[i + 1][j] == '1'))
+	{
+		if ((tab[i][j - 1] == '1' || tab[i][j - 1] == '0' || is_player(tab[i][j
+					- 1])) && (tab[i][j + 1] == '1' || tab[i][j + 1] == '0'
+				|| is_player(tab[i][j + 1])))
+			return (0);
+	}
+	else if (tab[i][j - 1] == '1' && tab[i][j + 1] == '1')
+	{
+		if ((tab[i - 1][j] == '1' || tab[i - 1][j] == '0' || is_player(tab[i
+					- 1][j])) && (tab[i + 1][j] == '1' || tab[i + 1][j] == '0'
+				|| is_player(tab[i + 1][j])))
+			return (0);
+	}
+	return (1);
 }

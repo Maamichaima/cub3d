@@ -28,6 +28,16 @@ int	ft_close(t_data *x)
 	return (0);
 }
 
+char	*get_path_file(char *av)
+{
+	char	*str;
+
+	str = ft_strrchr(av, '.');
+	if (ft_strcmp(str, ".cub") != 0)
+		free_exit("invalid file");
+	return (av);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	x;

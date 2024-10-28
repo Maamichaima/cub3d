@@ -227,5 +227,5 @@ void					free_exit(char *str);
 size_t					ft_strlen_map(const char *s);
 void					*play_sound(void *x);
 void					*play_sound_animation(void *x);
-
+char					*get_path_file(char *av);
 #endif
