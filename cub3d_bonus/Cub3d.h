@@ -15,6 +15,7 @@
 
 // # include <mlx.h> // linux
 # include "../mlx/mlx.h" // mac
+// # include <mlx.h> // mac
 // # include <X11/X.h>
 // # include <X11/keysym.h>
 # include "../libft/libft.h"
@@ -118,6 +119,7 @@ typedef struct s_data
 	unsigned int		c;
 	unsigned int		f;
 	int					sound_flag;
+	int					sound_animation;
 }						t_data;
 
 typedef struct s_garbage
@@ -224,5 +226,6 @@ void					draw_line_of_tex(t_data *data, double wall_height,
 void					free_exit(char *str);
 size_t					ft_strlen_map(const char *s);
 void					*play_sound(void *x);
+void					*play_sound_animation(void *x);
 
 #endif

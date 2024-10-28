@@ -30,6 +30,17 @@ void	put_animation(t_data *data, int i, int j, t_texture t)
 	j++;
 }
 
+void	run_sound(t_data *data)
+{
+	pthread_t	tid;
+
+	if (data->ff == 22 && data->sound_animation)
+	{
+		pthread_create(&tid, NULL, play_sound_animation, data);
+		pthread_detach(tid);
+	}
+}
+
 void	animation(t_data *data)
 {
 	t_texture	t;
@@ -42,6 +53,7 @@ void	animation(t_data *data)
 	while (i < WIDTH)
 	{
 		j = 0;
+		run_sound(data);
 		while (j < HEIGHT)
 		{
 			put_animation(data, i, j, t);

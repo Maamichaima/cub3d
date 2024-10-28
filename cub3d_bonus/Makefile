@@ -56,7 +56,7 @@ CFLAGS = -Wall -Wextra -Werror
 # MLX settings
 MLX_DIR = ../mlx
 LIBMLX = $(MLX_DIR)/libmlx.a
-MLXFLAGS = -framework AppKit -framework OpenGL
+MLXFLAGS = -framework OpenGL -framework AppKit
 
 # LIBFT settings
 LIBFT_DIR = ../libft

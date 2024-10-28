@@ -42,3 +42,14 @@ void	*play_sound(void *x)
 	data->sound_flag = 1;
 	return (NULL);
 }
+
+void	*play_sound_animation(void *x)
+{
+	t_data	*data;
+
+	data = (t_data *)x;
+	data->sound_animation = 0;
+	system("afplay ../Come-on-Let_s-go.wav");
+	data->sound_animation = 1;
+	return (NULL);
+}
